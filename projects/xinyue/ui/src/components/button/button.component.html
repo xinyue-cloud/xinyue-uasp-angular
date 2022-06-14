@@ -1,0 +1,10 @@
+<span *ngIf="badge" class="badge" [ngClass]="badgeClass">{{badge}}</span>
+
+<i *ngIf="icon && iconPos == 'left'" [class]="icon" [ngClass]="iconClass"></i>
+<ng-container *ngIf="label">
+  {{label}}
+</ng-container>
+<ng-container *ngIf="!label">
+  <ng-content></ng-content>
+</ng-container>
+<i *ngIf="icon && iconPos == 'right'" [class]="icon" [ngClass]="iconClass"></i>

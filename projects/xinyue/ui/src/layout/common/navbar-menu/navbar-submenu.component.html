@@ -1,0 +1,25 @@
+<ng-container *ngFor="let item of menus">
+
+  <ng-container *ngIf="!item.divider && !item.items">
+    <li>
+      <a href="javascript:" class="dropdown-item" (click)="navbar.menuClick(item,$event)">
+        <i *ngIf="item.icon" class="mr-1 {{item.icon}}"></i> {{item.label}}
+      </a>
+    </li>
+  </ng-container>
+
+  <ng-container *ngIf="!item.divider && item.items">
+    <li class="dropdown-submenu dropdown-hover">
+      <a href="javascript:" class="dropdown-item dropdown-toggle">
+        <i *ngIf="item.icon" class="mr-1 {{item.icon}}"></i> {{item.label}}
+      </a>
+      <ul class="dropdown-menu border-0 shadow" kNavbarSubMenu [menus]="item.items">
+      </ul>
+    </li>
+  </ng-container>
+
+  <ng-container *ngIf="item.divider">
+    <li class="dropdown-divider"></li>
+  </ng-container>
+
+</ng-container>

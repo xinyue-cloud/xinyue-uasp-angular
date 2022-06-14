@@ -1,0 +1,12 @@
+<button type="button" *ngIf="allShow || showRefresh" class="btn btn-tool" (click)="refreshClick()">
+  <i class="fas fa-sync-alt"></i>
+</button>
+<button type="button" *ngIf="allShow || showMaximize" class="btn btn-tool" (click)="maximizeClick()">
+  <i class="fas fa-expand"></i>
+</button>
+<button type="button" *ngIf="allShow || showCollapse" class="btn btn-tool" (click)="collapseClick()">
+  <i class="fas" [ngClass]="card.collapsed ? 'fa-plus' : 'fa-minus'"></i>
+</button>
+<button type="button" *ngIf="allShow || showRemove" class="btn btn-tool" (click)="removeClick()">
+  <i class="fas fa-times"></i>
+</button>

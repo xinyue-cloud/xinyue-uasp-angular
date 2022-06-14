@@ -1,0 +1,12 @@
+<div class="content-wrapper" [ngClass]="layout.contentWrapperClass">
+
+  <ng-container *ngIf="!breadcrumbTemplate">
+    <ku-breadcrumb></ku-breadcrumb>
+  </ng-container>
+  <ng-template [ngTemplateOutlet]="breadcrumbTemplate"></ng-template>
+
+  <section class="content" [ngClass]="layout.contentClass">
+    <router-outlet></router-outlet>
+  </section>
+
+</div>

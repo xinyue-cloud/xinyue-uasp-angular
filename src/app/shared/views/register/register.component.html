@@ -1,0 +1,47 @@
+<div class="mx-auto py-5 w-50">
+  <div class="d-flex flex-column align-items-center py-5">
+    <h2>注册新用户</h2>
+    <hr class="border w-75"/>
+    <div class="py-4 w-50">
+      <form [formGroup]="form1" (ngSubmit)="doSubmit()">
+        <div class="row">
+          <div class="col-4"><label class="pt-1">登录账号：</label></div>
+          <div class="col-8"><input type="text" formControlName="userName" class="form-control"/></div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-4"><label class="pt-1">显示姓名：</label></div>
+          <div class="col-8"><input type="text" formControlName="displayName" class="form-control"/></div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-4"><label class="pt-1">登录密码：</label></div>
+          <div class="col-8"><input type="password" formControlName="mobile" class="form-control"/></div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-4"><label class="pt-1">重复密码：</label></div>
+          <div class="col-8"><input type="password" formControlName="password" class="form-control"/></div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-4"><label class="pt-1">注册手机：</label></div>
+          <div class="col-8"><input type="password" formControlName="password2" class="form-control"/></div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-4"><label class="pt-1">验证码：</label></div>
+          <div class="col-8 d-flex">
+            <input type="text" formControlName="vcode" class="form-control w-50"/>
+            <button type="button" class="btn btn-default ml-1 w-50" style="height: 30px;" (click)="doSendCode()">获取验证码</button>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary w-100">提交注册</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <hr class="border w-75"/>
+    <div class="w-75 d-flex justify-content-around">
+      <a href="javascript:" class="text-white" routerLink="/login">登录页面</a>
+      <a href="javascript:" class="text-white" routerLink="/rest-pwd">重置密码</a>
+    </div>
+  </div>
+</div>

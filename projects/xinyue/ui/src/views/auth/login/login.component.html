@@ -1,0 +1,66 @@
+<div class="login-box">
+  <div class="card card-outline card-primary">
+
+    <div class="card-header text-center">
+      <a href="javascript:" class="h1" *ngIf="!logoTemplate"><b>Admin</b>LTE</a>
+      <ng-template [ngTemplateOutlet]="logoTemplate"></ng-template>
+    </div>
+
+    <div class="card-body">
+
+      <p class="login-box-msg" *ngIf="!titleTemplate">{{title}}</p>
+      <ng-template [ngTemplateOutlet]="titleTemplate"></ng-template>
+
+      <form action="#" [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit($event, loginForm.value)">
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" formControlName="username" autocomplete="username" placeholder="请输入账号/手机号">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" formControlName="password" autocomplete="current-password" placeholder="请输入的密码">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember" class="mr-1" formControlName="remember">
+              <label for="remember"> 请记住我 </label>
+            </div>
+          </div>
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid"> 登录</button>
+          </div>
+        </div>
+
+      </form>
+
+      <div class="social-auth-links text-center mt-2 mb-3" *ngIf="socialAuth">
+        <ng-container *ngIf="!socialTemplate">
+          <a href="#" class="btn btn-block btn-primary">
+            <i class="fab fa-weixin mr-2"></i> 使用微信登录
+          </a>
+          <a href="#" class="btn btn-block btn-danger">
+            <i class="fab fa-qq mr-2"></i> 使用 QQ 登录
+          </a>
+        </ng-container>
+        <ng-template [ngTemplateOutlet]="socialTemplate"></ng-template>
+      </div>
+
+      <p class="mb-1">
+        <a href="#" [routerLink]="'/forgot-password'">我忘了密码</a>
+      </p>
+      <p class="mb-0" *ngIf="allowRegister">
+        <a href="#" class="text-center" [routerLink]="'/register'">注册一个新用户</a>
+      </p>
+    </div>
+  </div>
+
+</div>

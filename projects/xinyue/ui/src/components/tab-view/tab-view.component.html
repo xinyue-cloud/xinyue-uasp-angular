@@ -1,0 +1,91 @@
+<ng-container *ngIf="!vertical">
+
+  <ng-container *ngIf="isCard">
+    <div class="card-header p-0"
+         [class.border-bottom-0]="cardOutline || tabOutline"
+         [class.pt-1]="!tabOutline"
+         [ngClass]="headerClass">
+      <ng-container *ngTemplateOutlet="tabNav"></ng-container>
+    </div>
+    <div class="card-body">
+      <ng-container *ngTemplateOutlet="tabContent"></ng-container>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!isCard">
+    <ng-container *ngTemplateOutlet="tabNav"></ng-container>
+    <ng-container *ngTemplateOutlet="tabContent"></ng-container>
+  </ng-container>
+
+  <ng-template #tabNav>
+    <ul class="nav"
+        [class.nav-tabs]="!tabPills"
+        [class.nav-pills]="tabPills"
+        [class.nav-justified]="justified"
+        [ngClass]="navClass">
+      <ng-container *ngFor="let item of items; let i = index;">
+        <li *ngIf="!item.navItemTemplate"
+            [ngClass]="item.navItemClass"
+            [ngStyle]="item.navItemStyles"
+            [class.nav-item]="!item.navLinkTemplate"
+            [class.disabled]="item.disabled">
+          <a href="javascript:" class="nav-link" *ngIf="!item.navLinkTemplate"
+             [class.active]="item.active"
+             (click)="tabItemClick($event, item, i)">
+            <span *ngIf="!item.titleTemplate">{{item.title}}</span>
+            <ng-container *ngTemplateOutlet="item.titleTemplate"></ng-container>
+            <i *ngIf="item.removable" (click)="removeItem(item)" class="fas fa-times ml-2"></i>
+          </a>
+          <ng-container *ngTemplateOutlet="item.navLinkTemplate"></ng-container>
+        </li>
+        <ng-container *ngTemplateOutlet="item.navItemTemplate"></ng-container>
+      </ng-container>
+    </ul>
+  </ng-template>
+
+</ng-container>
+
+<ng-container *ngIf="vertical">
+
+  <ng-container *ngIf="!tabRightAlign">
+    <ng-container *ngTemplateOutlet="tabArea"></ng-container>
+    <ng-container *ngTemplateOutlet="contentArea"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="tabRightAlign">
+    <ng-container *ngTemplateOutlet="contentArea"></ng-container>
+    <ng-container *ngTemplateOutlet="tabArea"></ng-container>
+  </ng-container>
+
+  <ng-template #tabArea>
+    <div [ngClass]="tabAreaClass" [ngStyle]="tabAreaStyles">
+      <div class="nav flex-column nav-tabs h-100"
+           [class.nav-tabs-right]="tabRightAlign">
+        <ng-container *ngFor="let item of items; let i = index;">
+          <a href="javascript:" class="nav-link" *ngIf="!item.navLinkTemplate"
+             [class.active]="item.active"
+             (click)="tabItemClick($event, item, i)">
+            <span *ngIf="!item.titleTemplate">{{item.title}}</span>
+            <ng-container *ngTemplateOutlet="item.titleTemplate"></ng-container>
+            <i *ngIf="item.removable" (click)="removeItem(item)" class="fas fa-times ml-2"></i>
+          </a>
+          <ng-container *ngTemplateOutlet="item.navLinkTemplate"></ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #contentArea>
+    <div [ngClass]="contentAreaClass" [ngStyle]="contentAreaStyles">
+      <ng-template [ngTemplateOutlet]="tabContent"></ng-template>
+    </div>
+  </ng-template>
+
+</ng-container>
+
+<ng-template #tabContent>
+  <ng-container *ngTemplateOutlet="contentHeaderTemplate"></ng-container>
+  <div class="tab-content" [ngClass]="contentClass">
+    <ng-content></ng-content>
+  </div>
+  <ng-container *ngTemplateOutlet="contentFooterTemplate"></ng-container>
+</ng-template>

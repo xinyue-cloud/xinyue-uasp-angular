@@ -1,0 +1,10 @@
+<button type="button" class="btn"
+        [ngClass]="buttonClass(item)"
+        [class.active]="item.id === value"
+        [class.btn-flat]="flat"
+        [class.disabled]="isDisabled"
+        [attr.disabled]="isDisabled"
+        (click)="labelClick(item, $event)"
+        *ngFor="let item of items">
+  <i [ngClass]="item.iconClass" *ngIf="item.iconClass"></i> {{item.text}}
+</button>

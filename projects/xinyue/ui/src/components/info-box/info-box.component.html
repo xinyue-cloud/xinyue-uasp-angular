@@ -1,0 +1,15 @@
+<div class="info-box {{data.bgColor}} {{shadowClass}}">
+  <span class="info-box-icon" [ngClass]="data.iconBg">
+    <i [ngClass]="data.iconCls"></i>
+  </span>
+  <div class="info-box-content">
+    <span class="info-box-text">{{data.label}}</span>
+    <span class="info-box-number">{{data.value}}</span>
+    <div class="progress" *ngIf="data.progress">
+      <div class="progress-bar" [ngStyle]="{width: data.progress + '%'}"></div>
+    </div>
+    <span class="progress-description" *ngIf="data.description">
+      {{data.description}}
+    </span>
+  </div>
+</div>

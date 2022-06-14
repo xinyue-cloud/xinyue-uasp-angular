@@ -1,0 +1,27 @@
+<a class="nav-link {{item.styleClass}}" (click)="!!itemClick($event);" *ngIf="!item.routerLink || item.items"
+   [attr.href]="item.url?item.url:'#'" [attr.target]="item.target" [ngClass]="{'active': item.active}"
+   (focusin)="onFocusin()" (focusout)="onFocusout()">
+  <i class="nav-icon {{item.icon}} {{item.iconClass}}"></i>
+  <p>
+    {{item.label}}
+    <i class="right fas fa-angle-left" *ngIf="item.items"></i>
+    <span class="badge right {{item.badgeClass}}" *ngIf="item.badge">{{item.badge}}</span>
+  </p>
+</a>
+
+<a class="nav-link {{item.styleClass}}" (click)="!!itemClick($event)"
+   *ngIf="item.routerLink && !item.items" [routerLink]="item.routerLink"
+   [attr.target]="item.target" [ngClass]="{'active': item.active}"
+   (focusin)="onFocusin()" (focusout)="onFocusout()">
+  <i class="nav-icon {{item.icon}} {{item.iconClass}}"></i>
+  <p>
+    {{item.label}}
+    <i class="right fas fa-angle-left" *ngIf="item.items"></i>
+    <span class="badge right {{item.badgeClass}}" *ngIf="item.badge">{{item.badge}}</span>
+  </p>
+</a>
+
+<ul *ngIf="item.items" class="nav nav-treeview">
+  <li kNavbarItem class="nav-item" *ngFor="let menu of item.items; let i = index;"
+      [ngClass]="{'has-treeview': menu.items,'menu-open': menu.isOpen}" [item]="menu"></li>
+</ul>

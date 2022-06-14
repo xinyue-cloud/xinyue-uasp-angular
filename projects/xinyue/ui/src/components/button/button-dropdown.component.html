@@ -1,0 +1,12 @@
+<ng-content></ng-content>
+<button type="button" class="btn btn-{{theme}} dropdown-toggle dropdown-icon"
+        [class.btn-flat]="flat"
+        (click)="onDropdownClick($event);"> {{label}} </button>
+<div class="dropdown-menu"
+     [class.show]="show"
+     [class.dropdown-menu-right]="right"
+     [ngStyle]="upStyles">
+  <a class="dropdown-item" href="javascript:" *ngFor="let menu of menus" (click)="itemClick($event, menu)">
+    <i *ngIf="menu.icon" class="mr-1" [ngClass]="menu.icon"></i> {{menu.label}}
+  </a>
+</div>

@@ -1,0 +1,39 @@
+<ng-container *ngIf="showCard">
+
+  <div class="card-header" [ngClass]="headerClass" [ngStyle]="headerStyles">
+    <ng-container *ngIf="!headerTemplate">
+      <ng-container *ngIf="!titleTemplate">
+        <h3 class="card-title" *ngIf="title">
+          <i *ngIf="!!iconClass" [ngClass]="iconClass"></i>
+          {{title}}
+        </h3>
+      </ng-container>
+      <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
+      <ng-container *ngIf="toolsTemplate">
+        <div class="card-tools">
+          <ng-container *ngTemplateOutlet="toolsTemplate"></ng-container>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+  </div>
+
+  <div class="card-body" [ngClass]="bodyClass" [ngStyle]="bodyStyles">
+    <ng-content></ng-content>
+    <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
+  </div>
+
+  <ng-container *ngIf="loading">
+    <div class="overlay" [ngClass]="{'dark' : overlayDark}">
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="!loadingTemplate"></i>
+      <ng-container *ngTemplateOutlet="loadingTemplate"></ng-container>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="footerTemplate">
+    <div class="card-footer" [ngClass]="footerClass" [ngStyle]="footerStyles">
+      <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+    </div>
+  </ng-container>
+
+</ng-container>

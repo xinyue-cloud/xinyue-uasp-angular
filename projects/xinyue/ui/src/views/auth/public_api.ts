@@ -1,0 +1,9 @@
+export { KuAuthModule }               from './auth.module';
+export { KuLoginComponent }           from './login/login.component';
+export { KuRegisterComponent }        from './register/register.component';
+export { KuForgotPasswordComponent }  from './forgot-password/forgot-password.component';
+export { KuRecoverPasswordComponent } from './recover-password/recover-password.component';
+export { KuUserProfileComponent }     from './user-profile/user-profile.component';
+export { KuErrorPageComponent }       from './error-page/error-page.component';
+export { KuLockscreenComponent }      from './lockscreen/lockscreen.component';
+export { KuNotFoundComponent }        from './not-found/not-found.component';

@@ -1,0 +1,11 @@
+<div class="progress-bar bg-{{this.type}}"
+     [class.progress-bar-striped]="striped"
+     [class.progress-bar-animated]="animate"
+     [ngStyle]="barStyles">
+  <ng-container *ngIf="label">
+    <span>{{label}}</span>
+  </ng-container>
+  <ng-container *ngIf="!label">
+    <ng-content></ng-content>
+  </ng-container>
+</div>

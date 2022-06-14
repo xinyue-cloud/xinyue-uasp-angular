@@ -28,9 +28,15 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "projects/xinyue/ui/scss/styles.scss",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/plugins/pace-progress/pace.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -99,6 +105,99 @@
               "src/styles.scss"
             ],
             "scripts": []
+          }
+        }
+      }
+    },
+    "@xinyue/core": {
+      "projectType": "library",
+      "root": "projects/xinyue/core",
+      "sourceRoot": "projects/xinyue/core/src",
+      "prefix": "ku",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/xinyue/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/xinyue/core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/xinyue/core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/xinyue/core/src/test.ts",
+            "tsConfig": "projects/xinyue/core/tsconfig.spec.json",
+            "karmaConfig": "projects/xinyue/core/karma.conf.js"
+          }
+        }
+      }
+    },
+    "@xinyue/ui": {
+      "projectType": "library",
+      "root": "projects/xinyue/ui",
+      "sourceRoot": "projects/xinyue/ui/src",
+      "prefix": "ku",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/xinyue/ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/xinyue/ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/xinyue/ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/xinyue/ui/src/test.ts",
+            "tsConfig": "projects/xinyue/ui/tsconfig.spec.json",
+            "karmaConfig": "projects/xinyue/ui/karma.conf.js"
+          }
+        }
+      }
+    },
+    "@xinyue/uasp": {
+      "projectType": "library",
+      "root": "projects/xinyue/uasp",
+      "sourceRoot": "projects/xinyue/uasp/src",
+      "prefix": "ku",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/xinyue/uasp/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/xinyue/uasp/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/xinyue/uasp/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/xinyue/uasp/src/test.ts",
+            "tsConfig": "projects/xinyue/uasp/tsconfig.spec.json",
+            "karmaConfig": "projects/xinyue/uasp/karma.conf.js"
           }
         }
       }

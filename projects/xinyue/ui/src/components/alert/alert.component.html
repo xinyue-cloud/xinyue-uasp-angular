@@ -1,0 +1,11 @@
+<ng-container *ngIf="isOpen">
+  <button *ngIf="!callout" type="button" class="close" (click)="close()">&times;</button>
+  <h5 *ngIf="!!title">
+    <i *ngIf="!callout" class="icon {{iconClass}}"></i>
+    {{title}}
+  </h5>
+  <ng-container *ngIf="!title">
+    <ng-content select="title"></ng-content>
+  </ng-container>
+  <ng-content></ng-content>
+</ng-container>

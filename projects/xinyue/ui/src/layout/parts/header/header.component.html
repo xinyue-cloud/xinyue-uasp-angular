@@ -1,0 +1,36 @@
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand "
+     [ngClass]="layout.darkMode?'navbar-dark':'navbar-white navbar-light'"
+     [class.border-bottom-0]="layout.headerNoBorder">
+
+  <!-- Left navbar links -->
+  <ul class="navbar-nav">
+
+    <li class="nav-item" *ngIf="!custom">
+      <a class="nav-link" href="javascript:" role="button" (click)="onSidebarToggle()">
+        <i class="fas fa-bars"></i></a>
+    </li>
+    <ng-template [ngTemplateOutlet]="leftTemplate"></ng-template>
+
+  </ul>
+
+  <!-- Right navbar links -->
+  <ul class="navbar-nav ml-auto">
+
+    <ng-template [ngTemplateOutlet]="rightTemplate"></ng-template>
+    <ng-container *ngIf="!custom">
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:" kuFullscreen (openEvent)="isFullscreen=true" (closeEvent)="isFullscreen=false">
+          <i class="fas" [ngClass]="isFullscreen?'fa-compress-arrows-alt':'fa-expand-arrows-alt'"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" href="javascript:" (click)="onControlToggle()">
+          <i class="fas fa-th-large"></i>
+        </a>
+      </li>
+    </ng-container>
+
+  </ul>
+</nav>
+<!-- /.navbar -->

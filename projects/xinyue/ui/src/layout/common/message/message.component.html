@@ -1,0 +1,32 @@
+<!-- Messages Dropdown Menu -->
+<li class="nav-item dropdown">
+  <a class="nav-link" href="javascript:" (click)="onToggle($event)">
+    <i class="far fa-comments"></i>
+    <span class="badge badge-danger navbar-badge">{{unReads}}</span>
+  </a>
+  <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" [class.show]="show">
+    <div style="max-height: 300px;">
+
+      <ng-container *ngFor="let item of items">
+        <a href="javascript:" class="dropdown-item">
+          <!-- Message Start -->
+          <div class="media">
+            <img [src]="item.avatar" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+            <div class="media-body">
+              <h3 class="dropdown-item-title">
+                {{item.title}}
+                <span class="float-right text-sm" [ngClass]="item.starColor"><i class="fas fa-star"></i></span>
+              </h3>
+              <p class="text-sm" [title]="item.description">{{item.description | clip:10 }}</p>
+              <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{item.time}}</p>
+            </div>
+          </div>
+          <!-- Message End -->
+        </a>
+        <div class="dropdown-divider"></div>
+      </ng-container>
+
+    </div>
+    <a href="javascript:" class="dropdown-item dropdown-footer">查看所有消息</a>
+  </div>
+</li>

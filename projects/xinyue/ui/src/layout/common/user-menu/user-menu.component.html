@@ -1,0 +1,36 @@
+<li #user class="nav-item dropdown user-menu">
+  <a href="javascript:" class="nav-link dropdown-toggle" (click)="toggle()">
+    <img src="../../../../../../assets/img/user2-160x160.jpg" class="user-image img-circle elevation-2" alt="User Image">
+    <span class="d-none d-md-inline">系统管理员</span>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" [class.show]="show">
+    <!-- User image -->
+    <li class="user-header bg-primary">
+      <img src="../../../../../../assets/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+      <p>
+        系统管理员 - 开发者
+        <small>2012年11月至今</small>
+      </p>
+    </li>
+    <!-- Menu Body -->
+    <li class="user-body">
+      <div class="row">
+        <div class="col-4 text-center">
+          <a href="javascript:">粉丝</a>
+        </div>
+        <div class="col-4 text-center">
+          <a href="javascript:">销售额</a>
+        </div>
+        <div class="col-4 text-center">
+          <a href="javascript:">朋友</a>
+        </div>
+      </div>
+      <!-- /.row -->
+    </li>
+    <!-- Menu Footer-->
+    <li class="user-footer">
+      <a href="javascript:" class="btn btn-default btn-flat">个人中心</a>
+      <a href="javascript:" class="btn btn-default btn-flat float-right" (click)="logout()">退出系统</a>
+    </li>
+  </ul>
+</li>

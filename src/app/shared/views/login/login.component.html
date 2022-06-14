@@ -1,0 +1,43 @@
+<div class="mx-auto py-5 w-50">
+  <form [formGroup]="form1" (submit)="onSubmit()">
+    <div class="d-flex flex-column align-items-center py-5">
+      <h2>登录控制台</h2>
+      <hr class="border w-75"/>
+      <div class="py-4 w-50">
+        <div class="row">
+          <div class="col-4"><label class="pt-1">登录账号：</label></div>
+          <div class="col-8"><input type="text" class="form-control" formControlName="username"
+                                    autocomplete="username"/>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-4"><label class="pt-1">用户密码：</label></div>
+          <div class="col-8"><input type="password" class="form-control" formControlName="password"
+                                    autocomplete="current-password"/></div>
+        </div>
+        <div class="row mt-3 d-none">
+          <div class="col-4"><label class="pt-1">验证码：</label></div>
+          <div class="col-8"><input type="text" class="form-control"/></div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-4"></div>
+          <div class="col-8">
+            <label><input type="checkbox" formControlName="remember"> 记住我（下次直接登录）</label>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary w-100" [disabled]="submitting">
+              {{submitting ? '正在登录...' : '登录系统'}}
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr class="border w-75"/>
+      <div class="w-75 d-flex justify-content-around">
+        <a href="javascript:" class="text-white" routerLink="/rest-pwd">重置密码</a>
+        <a href="javascript:" class="text-white" routerLink="/register">注册用户</a>
+      </div>
+    </div>
+  </form>
+</div>

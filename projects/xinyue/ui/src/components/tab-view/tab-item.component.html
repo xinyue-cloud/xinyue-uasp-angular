@@ -1,0 +1,15 @@
+<ng-container *ngIf="loading">
+  <div class="overlay-wrapper">
+    <div class="overlay" [class.dark]="overlayDark">
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+      <div class="text-bold pt-2">{{loadingText}}</div>
+    </div>
+    <ng-template *ngTemplateOutlet="content"></ng-template>
+  </div>
+</ng-container>
+<ng-container *ngIf="!loading">
+  <ng-template *ngTemplateOutlet="content"></ng-template>
+</ng-container>
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>

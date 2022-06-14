@@ -2,6 +2,17 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@xinyue/core": [
+        "dist/xinyue/core"
+      ],
+      "@xinyue/ui": [
+        "dist/xinyue/ui"
+      ],
+      "@xinyue/uasp": [
+        "dist/xinyue/uasp"
+      ]
+    },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

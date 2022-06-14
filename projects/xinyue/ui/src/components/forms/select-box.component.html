@@ -1,0 +1,16 @@
+<div class="{{styleClass}}" [class.form-check-inline]="inline">
+  <ng-container *ngFor="let item of items">
+    <div class="form-check"
+         [class.disabled]="isDisabled || item.disabled">
+      <label class="form-check-label">
+        <input class="form-check-input ml-2" [attr.name]="name"
+               [attr.type]="multiple?'checkbox':'radio'"
+               [attr.disabled]="item.disabled"
+               [checked]="hasChecked(item)"
+               [value]="item.id"
+               (change)="checkChange(item, $event)">
+        {{item.text}}
+      </label>
+    </div>
+  </ng-container>
+</div>

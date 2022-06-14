@@ -1,0 +1,30 @@
+<div class="wrapper" [ngClass]="layout.wrapperClass">
+
+  <ku-layout-header>
+    <ng-template kTemplate="left">
+      <ng-container *ngFor="let item of navigation.header">
+        <ku-navbar-menu [item]="item"></ku-navbar-menu>
+      </ng-container>
+    </ng-template>
+    <ng-template kTemplate="right">
+      <ku-user-menu></ku-user-menu>
+    </ng-template>
+  </ku-layout-header>
+
+  <ku-layout-sidebar [brand]="brand" [menus]="navigation.sidebar"></ku-layout-sidebar>
+
+  <ng-container *ngIf="layout.mode ==='classic'">
+    <ku-layout-classic></ku-layout-classic>
+  </ng-container>
+
+  <ng-container *ngIf="layout.mode ==='iframe'">
+    <ku-layout-iframe></ku-layout-iframe>
+  </ng-container>
+
+  <ku-layout-footer [copyright]="copyright"></ku-layout-footer>
+
+  <ku-layout-control></ku-layout-control>
+
+  <div id="sidebar-overlay" (click)="onSidebarCollapse()"></div>
+
+</div>

@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  tipOptions: {
+    maxOpened        : 3,
+    autoDismiss      : true,
+    positionClass    : "toast-top-center",
+    preventDuplicates: true,
+    closeButton      : true,
+  },
 };
 
 /*

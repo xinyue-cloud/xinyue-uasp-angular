@@ -1,0 +1,25 @@
+<!-- small box -->
+<div class="small-box" [ngClass]="data.colorCls">
+  <div class="overlay" [ngClass]="{'dark': dark}" *ngIf="loading">
+    <i class="fas fa-3x fa-sync-alt"></i>
+  </div>
+  <div class="inner">
+    <h3>{{data.value}}</h3>
+    <p>{{data.label}}</p>
+  </div>
+  <div class="icon">
+    <i class="ion" [ngClass]="data.iconCls"></i>
+  </div>
+  <ng-container *ngIf="!data.hideMore">
+    <ng-container *ngIf="data.moreUrl">
+      <a class="small-box-footer" [href]="data.moreUrl">
+        {{data.moreLabel ? data.moreLabel : '查看更多'}} <i class="fas fa-arrow-circle-right"></i>
+      </a>
+    </ng-container>
+    <ng-container *ngIf="!data.moreUrl">
+      <a href="javascript:" class="small-box-footer" [routerLink]="data.moreRoute">
+        {{data.moreLabel ? data.moreLabel : '查看更多'}} <i class="fas fa-arrow-circle-right"></i>
+      </a>
+    </ng-container>
+  </ng-container>
+</div>
