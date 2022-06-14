@@ -12,7 +12,7 @@ import {
 } from "@xinyue/core";
 
 import { MENUS_DATA } from "./menu-data";
-import { USER_INFO }  from "./user-data";
+import { USER_INFO }  from "./user-info";
 
 @Injectable({
   providedIn: "root",
@@ -20,7 +20,7 @@ import { USER_INFO }  from "./user-data";
 export class AccountMockApi {
 
   private readonly _menuBag = MENUS_DATA;
-  private readonly _user = USER_INFO;
+  private readonly _userInfo = USER_INFO;
 
   constructor(
     private mockApiService: KuMockApiService,
@@ -41,7 +41,7 @@ export class AccountMockApi {
       .onReply((request) => {
         return {
           status: 200,
-          body  : HttpResult.okBody(cloneDeep(this._user)),
+          body  : HttpResult.okBody(cloneDeep(this._userInfo)),
         };
       });
   }
