@@ -1,1 +1,1 @@
-export * from './shared/uasp.module';
+export * from './shared';

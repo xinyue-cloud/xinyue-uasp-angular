@@ -3,6 +3,8 @@ import { CommonModule }        from '@angular/common';
 import { RouterModule }        from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { KuHttpModule, KuPipesModule } from '@xinyue/core';
+
 import { KuAdminLayoutComponent }     from './layouts/admin-layout/admin-layout.component';
 import { KuPassportLayoutComponent }  from './layouts/passport-layout/passport-layout.component';
 import { KuLoginComponent }           from './views/passport/login/login.component';
@@ -42,8 +44,8 @@ import { KuUserProfileComponent }     from './views/auth/user-profile/user-profi
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    KuApisModule,
-    KuLayoutModule,
+    KuPipesModule,
+    KuHttpModule,
   ],
 })
 export class UaspModule {
