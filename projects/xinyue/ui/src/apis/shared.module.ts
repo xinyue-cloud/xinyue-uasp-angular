@@ -14,5 +14,5 @@ import { KuContentTemplate } from './content.template';
     KuContentTemplate,
   ],
 })
-export class KuSharedModule {
+export class KuApisModule {
 }

@@ -7,7 +7,8 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "skipTests": true
         }
       },
       "root": "",
@@ -111,6 +112,12 @@
     },
     "@xinyue/core": {
       "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        }
+      },
       "root": "projects/xinyue/core",
       "sourceRoot": "projects/xinyue/core/src",
       "prefix": "ku",
@@ -142,6 +149,12 @@
     },
     "@xinyue/ui": {
       "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        }
+      },
       "root": "projects/xinyue/ui",
       "sourceRoot": "projects/xinyue/ui/src",
       "prefix": "ku",
@@ -173,6 +186,12 @@
     },
     "@xinyue/uasp": {
       "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        }
+      },
       "root": "projects/xinyue/uasp",
       "sourceRoot": "projects/xinyue/uasp/src",
       "prefix": "ku",

@@ -9,7 +9,6 @@ import { PrimeNGConfig } from 'primeng/api';
 
 import { KU_HOLD_TRANSITION } from '@xinyue/ui';
 import { KuConfigService }    from '@xinyue/core';
-import { PrimengZh }          from './shared/locale/primeng-zh';
 
 @Component({
   selector   : 'msp-root',
@@ -41,7 +40,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     setTheme('bs4');
-    this.primeNGConfig.setTranslation(PrimengZh);
+    //this.primeNGConfig.setTranslation(PrimengZh);
     //this.translateService.setDefaultLang('en');
   }
 

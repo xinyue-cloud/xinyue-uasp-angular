@@ -1,10 +1,3 @@
-// commons
-
-export { KuMessageComponent }                              from './common/message/message.component';
-export { KuNavbarMenuComponent, KuNavbarSubmenuComponent } from './common/navbar-menu/navbar-menu.component';
-export { KuNotificationComponent }                         from './common/notification/notification.component';
-export { KuUserMenuComponent }                             from './common/user-menu/user-menu.component';
-
 // parts
 
 export { KuBreadcrumbService }                        from './parts/breadcrumb/breadcrumb.service';

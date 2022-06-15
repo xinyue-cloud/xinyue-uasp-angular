@@ -1,8 +1,8 @@
 import { CommonModule }         from '@angular/common';
 import { NgModule }             from '@angular/core';
-import { KuSharedModule }       from '../../apis';
 import { KuCardToolsComponent } from './card-tools.component';
-import { KuCardComponent }      from './card.component';
+import { KuCardComponent } from './card.component';
+import { KuApisModule }    from '../../apis';
 
 @NgModule({
   declarations: [
@@ -11,7 +11,7 @@ import { KuCardComponent }      from './card.component';
   ],
   imports     : [
     CommonModule,
-    KuSharedModule,
+    KuApisModule,
   ],
   exports     : [
     KuCardComponent,

@@ -1,26 +1,26 @@
-import { Component, ElementRef, Input, OnInit, Renderer2 } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
-import { KuMenuItem } from "../../models";
+import { KuMenuItem } from '../../models';
 
-import { KuButtonThemes } from "./button.types";
+import { KuButtonThemes } from './button.types';
 
 @Component({
-  selector   : "div[kBtnDropdown]",
-  templateUrl: "./button-dropdown.component.html",
+  selector   : 'div[kBtnDropdown]',
+  templateUrl: './button-dropdown.component.html',
   host       : {
-    "[class.btn-group]"          : "!pos",
-    "[class.input-group-prepend]": "pos === \"prepend\"",
-    "[class.input-group-append]" : "pos === \"append\"",
-    "[class.show]"               : "show",
+    '[class.btn-group]'          : '!pos',
+    '[class.input-group-prepend]': 'pos === "prepend"',
+    '[class.input-group-append]' : 'pos === "append"',
+    '[class.show]'               : 'show',
   },
 })
 export class KuButtonDropdownComponent implements OnInit {
 
   @Input() label!: string;
-  @Input() theme: KuButtonThemes = "default";
+  @Input() theme: KuButtonThemes = 'default';
   @Input() menus!: KuMenuItem[];
   @Input() autoClose = true;
-  @Input() pos!: "prepend" | "append" | string;
+  @Input() pos!: 'prepend' | 'append' | string;
 
   @Input() set right(value: any) {
     this._right = true;
@@ -39,7 +39,7 @@ export class KuButtonDropdownComponent implements OnInit {
   }
 
   @Input() set flat(value: any) {
-    this._flat = !!value || value === "";
+    this._flat = !!value || value === '';
   }
 
   get flat(): any {
@@ -80,7 +80,7 @@ export class KuButtonDropdownComponent implements OnInit {
 
   onShow(): void {
     if (this.autoClose) {
-      this._listenFn = this.renderer.listen("document", "click", (event: any) => {
+      this._listenFn = this.renderer.listen('document', 'click', (event: any) => {
         if (!this.el.nativeElement.contains(event.target)) {
           if (this.show) {
             this.show = false;
@@ -100,9 +100,9 @@ export class KuButtonDropdownComponent implements OnInit {
     const styles = {};
     if (this._up) {
       // @ts-ignore
-      styles["top"] = "auto";
+      styles['top'] = 'auto';
       // @ts-ignore
-      styles["transform"] = "translateY(-105%)";
+      styles['transform'] = 'translateY(-105%)';
     }
     return styles;
   }

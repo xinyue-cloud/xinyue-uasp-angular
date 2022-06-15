@@ -1,2 +1,2 @@
 export { KuContentTemplate } from './content.template';
-export { KuSharedModule }    from './shared.module';
+export { KuApisModule }      from './shared.module';
