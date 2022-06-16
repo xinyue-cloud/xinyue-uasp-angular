@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     children : [
       { path: 'login', component: KuLoginComponent },
       { path: 'register', component: KuRegisterComponent },
-      { path: 'rest-pwd', component: KuForgotPasswordComponent },
+      { path: 'forgot-password', component: KuForgotPasswordComponent },
     ],
   },
   {

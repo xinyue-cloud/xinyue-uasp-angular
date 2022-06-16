@@ -56,5 +56,5 @@ import { KuLayoutModule } from './layout';
     KuRegisterComponent,
   ],
 })
-export class UaspModule {
+export class UaspSharedModule {
 }

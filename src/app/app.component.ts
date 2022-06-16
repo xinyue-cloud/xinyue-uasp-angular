@@ -11,7 +11,7 @@ import { KuConfigService }               from '@xinyue/core';
 import { KU_HOLD_TRANSITION, PrimengZh } from '@xinyue/uasp';
 
 @Component({
-  selector   : 'msp-root',
+  selector   : 'uasp-root',
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit, AfterViewInit {

@@ -16,8 +16,8 @@ import {
   KuTipService,
   KuAlertService,
   KuConfigService,
-}                     from '@xinyue/core';
-import { UaspModule } from '@xinyue/uasp';
+}                           from '@xinyue/core';
+import { UaspSharedModule } from '@xinyue/uasp';
 
 import { ToastrModule } from 'ngx-toastr';
 
@@ -46,7 +46,7 @@ import { SwalAlertService } from './shared/services/swal-alert.service';
     ToastrModule.forRoot(environment.tipOptions),
     KuHttpModule,
     KuPipesModule,
-    UaspModule,
+    UaspSharedModule,
   ],
   providers   : [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
