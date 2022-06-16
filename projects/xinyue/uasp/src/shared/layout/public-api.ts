@@ -1,3 +1,8 @@
+// layouts
+
+export { KuAdminLayoutComponent }    from './views/admin-layout/admin-layout.component';
+export { KuPassportLayoutComponent } from './views/passport-layout/passport-layout.component';
+
 // parts
 
 export { KuBreadcrumbService }                        from './parts/breadcrumb/breadcrumb.service';
@@ -9,12 +14,6 @@ export { KuCopyright }                                from './parts/footer/copyr
 export { KuHeaderComponent }                          from './parts/header/header.component';
 export { KuBrand }                                    from './parts/sidebar/brand.types';
 export { KuSidebarComponent, KuSidebarItemComponent } from './parts/sidebar/sidebar.component';
-
-// layouts
-
-export { KuLayouts }          from './layouts/layout.types';
-export { KuClassicComponent } from './layouts/classic/classic.component';
-export { KuIframeComponent }  from './layouts/iframe/iframe.component';
 
 // services
 
@@ -31,7 +30,3 @@ export {
   KU_HOLD_TRANSITION,
 }                           from './services/layout.service';
 export { KuSidebarService } from './services/sidebar.service';
-
-// root
-
-export { KuLayoutModule } from './layout.module';

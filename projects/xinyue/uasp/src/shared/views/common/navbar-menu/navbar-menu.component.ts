@@ -1,7 +1,6 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { Router }                                          from '@angular/router';
-
-import { KuMenuItem } from '../../../model/menu-item';
+import { KuMenuItem }                                      from '@xinyue/ui';
 
 @Component({
   selector   : 'ku-navbar-menu',

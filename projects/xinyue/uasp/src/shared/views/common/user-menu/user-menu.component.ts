@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 
 import { KuAlertService, KuLoggerService } from '@xinyue/core';
-import { KuAuthService }                   from '../../../services/auth.service';
+import { KuAuthService }                   from '../../../services';
 
 @Component({
   selector   : 'ku-user-menu',

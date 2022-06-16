@@ -1,1 +1,1 @@
-export { KuMenuItem }    from "./menu-item";
+export { KuMenuItem } from './menu-item';

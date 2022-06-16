@@ -5,7 +5,7 @@ import {
   KuConfigService,
   KuUtilService,
 }                        from '@xinyue/core';
-import { KuAuthService } from '../services/auth.service';
+import { KuAuthService } from '../services';
 
 @Injectable({
   providedIn: 'root',

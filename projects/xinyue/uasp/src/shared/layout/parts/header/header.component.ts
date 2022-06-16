@@ -5,7 +5,7 @@ import { KuLayoutService }   from '../../services/layout.service';
 import { KuSidebarService }  from '../../services/sidebar.service';
 
 @Component({
-  selector   : 'ku-layout-header',
+  selector   : 'k-layout-header',
   templateUrl: './header.component.html',
 })
 export class KuHeaderComponent implements OnInit, AfterContentInit {

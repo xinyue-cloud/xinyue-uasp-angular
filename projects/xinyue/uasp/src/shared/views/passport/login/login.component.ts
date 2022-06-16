@@ -26,9 +26,9 @@ import {
 }                            from '@xinyue/core';
 import { KuContentTemplate } from '@xinyue/ui';
 
-import { KuLoginForm }      from '../../../model/login-form';
-import { KuPassportClient } from '../../../clients/passport.client';
-import { KuAuthService }    from '../../../services/auth.service';
+import { KuLoginForm }      from '../../../model';
+import { KuPassportClient } from '../../../clients';
+import { KuAuthService }    from '../../../services';
 
 const CLASS_LOGIN_PAGE = ['login-page', 'pace-primary'];
 

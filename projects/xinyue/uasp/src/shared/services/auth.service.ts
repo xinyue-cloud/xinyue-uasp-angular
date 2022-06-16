@@ -9,8 +9,8 @@ import {
   TOKEN_STORAGE_NAME,
 }                           from '@xinyue/core';
 
-import { KuLoginUser }      from '../model/login-user';
-import { KuPassportClient } from '../clients/passport.client';
+import { KuLoginUser }      from '../model';
+import { KuPassportClient } from '../clients';
 
 @Injectable({
   providedIn: 'root',

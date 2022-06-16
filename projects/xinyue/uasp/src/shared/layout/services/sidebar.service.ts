@@ -1,8 +1,8 @@
 import { DOCUMENT }           from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 
+import { KuTokenStorage }  from '@xinyue/core';
 import { KuLayoutService } from './layout.service';
-import { KuTokenStorage }  from "@xinyue/core";
 
 const DATA_KEY = 'lte.pushmenu';
 const EVENT_KEY = `.${DATA_KEY}`;

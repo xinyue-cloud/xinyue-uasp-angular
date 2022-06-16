@@ -13,13 +13,18 @@
 
   <ku-layout-sidebar [brand]="brand" [menus]="navigation.sidebar"></ku-layout-sidebar>
 
-  <ng-container *ngIf="layout.mode ==='classic'">
-    <ku-layout-classic></ku-layout-classic>
-  </ng-container>
+  <div class="content-wrapper" [ngClass]="layout.contentWrapperClass">
 
-  <ng-container *ngIf="layout.mode ==='iframe'">
-    <ku-layout-iframe></ku-layout-iframe>
-  </ng-container>
+    <ng-container *ngIf="!breadcrumbTemplate">
+      <ku-breadcrumb></ku-breadcrumb>
+    </ng-container>
+    <ng-template [ngTemplateOutlet]="breadcrumbTemplate"></ng-template>
+
+    <section class="content" [ngClass]="layout.contentClass">
+      <router-outlet></router-outlet>
+    </section>
+
+  </div>
 
   <ku-layout-footer [copyright]="copyright"></ku-layout-footer>
 

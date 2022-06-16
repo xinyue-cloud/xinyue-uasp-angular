@@ -5,10 +5,10 @@ import {
   GET, POST,
   KuHttpService,
   HttpResult,
-} from '@xinyue/core';
+}                     from '@xinyue/core';
+import { KuMenuItem } from '@xinyue/ui';
 
-import { KuLoginUser } from '../model/login-user';
-import { KuMenuItem }  from '../model/menu-item';
+import { KuLoginUser } from '../model';
 
 export const URL_ACCOUNT_PROFILE = '/account/profile';
 export const URL_ACCOUNT_MENUS = '/account/menus';

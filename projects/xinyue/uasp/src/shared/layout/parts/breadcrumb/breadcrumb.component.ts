@@ -1,13 +1,13 @@
-import { AfterContentInit, Component, ContentChildren, OnDestroy, OnInit, QueryList, TemplateRef } from '@angular/core';
-import { Subscription }                                                                            from 'rxjs';
+import { AfterContentInit, Component, ContentChildren, OnDestroy, OnInit, QueryList, TemplateRef } from "@angular/core";
+import { Subscription }                                                                            from "rxjs";
 
-import { KuContentTemplate }   from '../../../apis';
-import { KuBreadcrumbService } from './breadcrumb.service';
-import { KtBreadcrumbItem }    from './breadcrumb.types';
+import { KuContentTemplate }   from "../../../apis";
+import { KuBreadcrumbService } from "./breadcrumb.service";
+import { KtBreadcrumbItem }    from "./breadcrumb.types";
 
 @Component({
-  selector   : 'ku-breadcrumb',
-  templateUrl: './breadcrumb.component.html',
+  selector   : "k-breadcrumb",
+  templateUrl: "./breadcrumb.component.html",
 })
 export class KuBreadcrumbComponent implements OnInit, AfterContentInit, OnDestroy {
 
@@ -47,7 +47,7 @@ export class KuBreadcrumbComponent implements OnInit, AfterContentInit, OnDestro
   ngAfterContentInit(): void {
     this.templates.forEach((item: KuContentTemplate) => {
       switch (item.getType()) {
-        case 'home':
+        case "home":
           this.homeTemplate = item.template;
           break;
       }

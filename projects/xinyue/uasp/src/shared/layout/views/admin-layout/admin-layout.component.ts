@@ -1,15 +1,24 @@
-import { DOCUMENT }                                                          from '@angular/common';
-import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute }                                                    from '@angular/router';
+import { DOCUMENT }       from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  ContentChildren,
+  HostListener,
+  Inject,
+  OnDestroy,
+  OnInit,
+  QueryList, TemplateRef,
+}                         from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { KuLoggerService } from '@xinyue/core';
 import {
   KuBrand,
   KuCopyright,
   KuLayoutService,
-  KuMenuItem,
   KuSidebarService,
-}                          from '@xinyue/ui';
+  KuMenuItem, KuContentTemplate,
+} from '@xinyue/ui';
 
 const CLASS_LAYOUT = [
   'sidebar-mini',
@@ -26,7 +35,7 @@ const CLASS_LAYOUT = [
 export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
   navigation!: {
-    sidebar: KuMenuItem[];
+    sidebar: any;
     header: KuMenuItem[];
   };
   copyright: KuCopyright = {
@@ -44,6 +53,10 @@ export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit 
   };
 
   body: HTMLElement;
+
+  @ContentChildren(KuContentTemplate)
+  templates!: QueryList<any>;
+  breadcrumbTemplate!: TemplateRef<any>;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,

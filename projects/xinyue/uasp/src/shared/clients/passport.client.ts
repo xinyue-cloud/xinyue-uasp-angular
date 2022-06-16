@@ -7,9 +7,7 @@ import {
   HttpResult,
 } from '@xinyue/core';
 
-import { KuSmsCodeForm } from '../model/sms-code-form';
-import { KuRestPwdForm } from '../model/rest-pwd-form';
-import { KuLoginForm }   from '../model/login-form';
+import { KuSmsCodeForm, KuRestPwdForm, KuLoginForm } from '../model';
 
 export const URL_PASSPORT_SIGNIN = '/passport/sign-in';
 export const URL_PASSPORT_REFRESH = '/passport/refresh';

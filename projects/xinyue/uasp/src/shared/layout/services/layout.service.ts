@@ -1,8 +1,6 @@
 import { DOCUMENT }           from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 
-import { KuLayouts } from '../layouts/layout.types';
-
 export const KU_LAYOUT_FOOTER_FIXED = 'layout-footer-fixed';
 export const KU_LAYOUT_NAVBAR_FIXED = 'layout-navbar-fixed';
 export const KU_CONTROL_SIDEBAR_SLIDE_OPEN = 'control-sidebar-slide-open';
@@ -81,8 +79,6 @@ export class KuLayoutService {
   get bodyTextSm(): boolean {
     return this.hasBodyClass(KU_TEXT_SM);
   }
-
-  mode: KuLayouts = 'classic';
 
   headerNoBorder!: boolean;
   sidebarNoExpand!: boolean;

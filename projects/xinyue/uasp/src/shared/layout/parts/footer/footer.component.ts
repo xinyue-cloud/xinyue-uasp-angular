@@ -4,7 +4,7 @@ import { KuContentTemplate } from '../../../apis';
 import { KuCopyright }       from './copyright.types';
 
 @Component({
-  selector   : 'ku-layout-footer',
+  selector   : 'k-layout-footer',
   templateUrl: './footer.component.html',
 })
 export class KuFooterComponent implements OnInit, AfterContentInit {
