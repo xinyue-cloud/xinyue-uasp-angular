@@ -1,11 +1,11 @@
 import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
 
-import { KuContentTemplate } from '../../../apis';
+import { KuContentTemplate } from '@xinyue/ui';
 import { KuLayoutService }   from '../../services/layout.service';
 import { KuSidebarService }  from '../../services/sidebar.service';
 
 @Component({
-  selector   : 'k-layout-header',
+  selector   : 'ku-layout-header',
   templateUrl: './header.component.html',
 })
 export class KuHeaderComponent implements OnInit, AfterContentInit {

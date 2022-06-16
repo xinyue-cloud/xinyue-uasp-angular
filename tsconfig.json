@@ -6,6 +6,10 @@
       "@xinyue/core": [
         "dist/xinyue/core"
       ],
+      "@xinyue/msp": [
+        "dist/xinyue/msp/xinyue-msp",
+        "dist/xinyue/msp"
+      ],
       "@xinyue/ui": [
         "dist/xinyue/ui"
       ],

@@ -1,14 +1,14 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from "@angular/core";
-import { ActivatedRoute, Router }                                                              from "@angular/router";
+import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { ActivatedRoute, Router }                                                              from '@angular/router';
 
-import { KuContentTemplate } from "../../../apis";
-import { KuMenuItem }        from "../../../models";
-import { KuBrand }           from "./brand.types";
-import { KuLayoutService }   from "../../services/layout.service";
+import { KuContentTemplate, KuMenuItem } from '@xinyue/ui';
+
+import { KuBrand }         from './brand.types';
+import { KuLayoutService } from '../../services/layout.service';
 
 @Component({
-  selector   : "k-layout-sidebar",
-  templateUrl: "./sidebar.component.html",
+  selector   : 'ku-layout-sidebar',
+  templateUrl: './sidebar.component.html',
 })
 export class KuSidebarComponent implements OnInit, AfterContentInit {
 
@@ -43,7 +43,7 @@ export class KuSidebarComponent implements OnInit, AfterContentInit {
     private route: ActivatedRoute,
   ) {
     route.url.subscribe(url => {
-      console.info("KtSidebarComponent -> this.route -> url", url);
+      console.info('KtSidebarComponent -> this.route -> url', url);
     });
   }
 
@@ -54,7 +54,7 @@ export class KuSidebarComponent implements OnInit, AfterContentInit {
   ngAfterContentInit(): void {
     this.templates.forEach((item: KuContentTemplate) => {
       switch (item.getType()) {
-        case "brand":
+        case 'brand':
           this.brandTemplate = item.template;
           break;
       }
@@ -112,8 +112,8 @@ export class KuSidebarComponent implements OnInit, AfterContentInit {
 
 
 @Component({
-  selector   : "[kNavbarItem]",
-  templateUrl: "./sidebar-item.component.html",
+  selector   : '[kNavbarItem]',
+  templateUrl: './sidebar-item.component.html',
 })
 export class KuSidebarItemComponent implements OnInit {
 

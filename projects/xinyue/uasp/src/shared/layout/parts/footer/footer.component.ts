@@ -1,10 +1,10 @@
 import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
 
-import { KuContentTemplate } from '../../../apis';
+import { KuContentTemplate } from '@xinyue/ui';
 import { KuCopyright }       from './copyright.types';
 
 @Component({
-  selector   : 'k-layout-footer',
+  selector   : 'ku-layout-footer',
   templateUrl: './footer.component.html',
 })
 export class KuFooterComponent implements OnInit, AfterContentInit {
