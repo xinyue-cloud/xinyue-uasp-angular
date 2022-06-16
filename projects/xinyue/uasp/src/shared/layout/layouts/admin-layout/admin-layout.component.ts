@@ -14,10 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 import { KuLoggerService }               from '@xinyue/core';
 import { KuMenuItem, KuContentTemplate } from '@xinyue/ui';
 
-import { KuCopyright }      from '../../parts/footer/copyright.types';
-import { KuBrand }          from '../../parts/sidebar/brand.types';
-import { KuSidebarService } from '../../services/sidebar.service';
-import { KuLayoutService }  from '../../services/layout.service';
+import { KuCopyright, KuBrand }              from '../../parts';
+import { KuSidebarService, KuLayoutService } from '../../services';
 
 const CLASS_LAYOUT = [
   'sidebar-mini',

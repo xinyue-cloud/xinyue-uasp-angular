@@ -3,20 +3,25 @@ import { NgModule }                         from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule }                     from '@angular/router';
 
-import { KuPipesModule }                                                    from '@xinyue/core';
-import { KuApisModule, KuFullscreenModule }                                 from '@xinyue/ui';
+import { KuPipesModule }                    from '@xinyue/core';
+import { KuApisModule, KuFullscreenModule } from '@xinyue/ui';
+
+import {
+  KuMessageComponent,
+  KuNotificationComponent,
+  KuUserMenuComponent,
+}                                                            from './common';
 import {
   KuBreadcrumbComponent,
   KuControlComponent,
-  KuFooterComponent, KuHeaderComponent,
+  KuFooterComponent,
+  KuHeaderComponent,
   KuNavbarMenuComponent,
   KuNavbarSubmenuComponent,
   KuSidebarComponent,
   KuSidebarItemComponent,
-}                                                                           from './parts';
-import { KuAdminLayoutComponent, KuPassportLayoutComponent }                from './layouts';
-import { KuMessageComponent, KuNotificationComponent, KuUserMenuComponent } from './common';
-
+}                                                            from './parts';
+import { KuAdminLayoutComponent, KuPassportLayoutComponent } from './layouts';
 
 @NgModule({
   declarations: [
