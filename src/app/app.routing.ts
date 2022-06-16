@@ -1,42 +1,40 @@
 import { NgModule }                                from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-import { InitialDataResolver }  from './app.resolver';
-import { BlankComponent }       from './shared/views/blank/blank.component';
-import { LoginComponent }       from './shared/views/login/login.component';
-import { WelcomeComponent }     from './shared/views/welcome/welcome.component';
-import { AdminLayoutComponent } from './shared/layouts/admin-layout/admin-layout.component';
-import { GuideLayoutComponent } from './shared/layouts/guide-layout/guide-layout.component';
-import { RegisterComponent }    from './shared/views/register/register.component';
-import { RestPwdComponent }     from './shared/views/rest-pwd/rest-pwd.component';
+import { InitialDataResolver } from './app.resolver';
 
 import {
   KuAuthGuard,
+  KuAdminLayoutComponent,
+  KuPassportLayoutComponent,
+  KuForgotPasswordComponent,
+  KuLoginComponent,
+  KuRegisterComponent,
   KuErrorPageComponent,
   KuLockscreenComponent,
   KuNotFoundComponent,
   KuUserProfileComponent,
-} from '@xinyue/ui';
+} from '@xinyue/uasp';
+
+import { BlankComponent } from './views/blank/blank.component';
 
 const appRoutes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'welcome' },
-  { path: 'work-center', pathMatch: 'full', redirectTo: 'msp/work-center' },
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
   {
     path     : '',
-    component: GuideLayoutComponent,
+    component: KuPassportLayoutComponent,
     children : [
-      { path: 'welcome', component: WelcomeComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'rest-pwd', component: RestPwdComponent },
+      { path: 'login', component: KuLoginComponent },
+      { path: 'register', component: KuRegisterComponent },
+      { path: 'rest-pwd', component: KuForgotPasswordComponent },
     ],
   },
   {
     path       : '',
-    component  : AdminLayoutComponent,
+    component  : KuAdminLayoutComponent,
     canActivate: [KuAuthGuard],
     resolve    : {
-      dataset: InitialDataResolver,
+      //dataset: InitialDataResolver,
     },
     children   : [
       { path: 'blank', component: BlankComponent },

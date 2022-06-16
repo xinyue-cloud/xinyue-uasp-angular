@@ -32,7 +32,7 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/ngx-toastr/toastr.css",
-              "projects/xinyue/ui/scss/styles.scss",
+              "projects/xinyue/ui/scss/styles.css",
               "src/styles.scss"
             ],
             "scripts": [

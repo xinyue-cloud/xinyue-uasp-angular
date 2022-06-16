@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { forkJoin, Observable } from 'rxjs';
 import { map }                  from 'rxjs/operators';
 import { InitialData }          from './app.types';
-import { KuAccountClient }      from '@xinyue/ui';
+import { KuAccountClient }      from '@xinyue/uasp';
 
 @Injectable({
   providedIn: 'root',

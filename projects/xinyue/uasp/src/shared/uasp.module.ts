@@ -17,7 +17,8 @@ import {
   KuLoginComponent,
   KuRecoverPasswordComponent,
   KuRegisterComponent,
-} from './views';
+}                         from './views';
+import { KuLayoutModule } from './layout';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {
     KuPipesModule,
     KuHttpModule,
     KuApisModule,
+    KuLayoutModule,
   ],
   exports     : [
     // auth

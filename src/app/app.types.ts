@@ -1,4 +1,5 @@
-import { KuLoginUser, KuMenuItem, KuMessage, KuNotification } from "@xinyue/ui";
+import { KuMenuItem }                            from '@xinyue/ui';
+import { KuLoginUser, KuMessage, KuNotification } from '@xinyue/uasp';
 
 export interface InitialData {
   messages: KuMessage[];
