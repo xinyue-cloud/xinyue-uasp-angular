@@ -21,13 +21,13 @@ export class KuMockApiHandler {
   get response(): Observable<KuMockApiResponse> {
 
     if (this.replyCount > 0 && this.replyCount <= this.replied) {
-      return throwError('已达到执行限制！');
+      return throwError(() => new Error('已达到执行限制！'));
     }
     if (!this.reply) {
-      return throwError('响应回调函数不存在！');
+      return throwError(() => new Error('响应回调函数不存在！'));
     }
     if (!this.request) {
-      return throwError('请求不存在！');
+      return throwError(() => new Error('请求不存在！'));
     }
     this.replied++;
 

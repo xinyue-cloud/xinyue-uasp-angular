@@ -15,7 +15,7 @@ import {
   KuPipesModule,
   KuTipService,
   KuAlertService,
-  KuConfigService,
+  KuConfigService, KuMockApiModule,
 }                           from '@xinyue/core';
 import { UaspSharedModule } from '@xinyue/uasp';
 
@@ -28,6 +28,7 @@ import { BlankComponent }   from './views/blank/blank.component';
 import { UrlConfigService } from './shared/services/config.service';
 import { ToastrTipService } from './shared/services/toastr-tip.service';
 import { SwalAlertService } from './shared/services/swal-alert.service';
+import { mockApiServices }  from './mock';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,9 @@ import { SwalAlertService } from './shared/services/swal-alert.service';
     AppRoutingModule,
     ToastrModule.forRoot(environment.tipOptions),
     KuHttpModule,
+    KuMockApiModule.forRoot(mockApiServices, {
+      closed: false,
+    }),
     KuPipesModule,
     UaspSharedModule,
   ],

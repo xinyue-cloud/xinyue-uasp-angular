@@ -6,7 +6,7 @@ import { KuLoggerService } from '@xinyue/core';
 const CLASS_REGISTER_PAGE = ['register-page', 'pace-primary'];
 
 @Component({
-  selector   : 'k-register',
+  selector   : 'ku-register',
   templateUrl: './register.component.html',
 })
 export class KuRegisterComponent implements OnInit, AfterViewInit, OnDestroy {

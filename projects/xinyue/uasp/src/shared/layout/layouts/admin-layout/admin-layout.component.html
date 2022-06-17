@@ -6,9 +6,7 @@
         <ku-navbar-menu [item]="item"></ku-navbar-menu>
       </ng-container>
     </ng-template>
-    <ng-template kTemplate="right">
-      <ku-user-menu></ku-user-menu>
-    </ng-template>
+    <ng-template [ngTemplateOutlet]="headerTemplate"></ng-template>
   </ku-layout-header>
 
   <ku-layout-sidebar [brand]="brand" [menus]="navigation.sidebar"></ku-layout-sidebar>

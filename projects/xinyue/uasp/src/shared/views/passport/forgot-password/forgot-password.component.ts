@@ -5,7 +5,7 @@ import { KuLoggerService }                                     from '@xinyue/cor
 const CLASS_LOGIN_PAGE = ['login-page', 'pace-primary'];
 
 @Component({
-  selector   : 'k-forgot-password',
+  selector   : 'ku-forgot-password',
   templateUrl: './forgot-password.component.html',
 })
 export class KuForgotPasswordComponent implements OnInit, OnDestroy, AfterViewInit {

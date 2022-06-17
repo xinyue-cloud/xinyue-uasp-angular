@@ -6,7 +6,7 @@ import { KuLoggerService } from '@xinyue/core';
 const CLASS_LOGIN_PAGE = ['login-page', 'pace-primary'];
 
 @Component({
-  selector   : 'k-recover-password',
+  selector   : 'ku-recover-password',
   templateUrl: './recover-password.component.html',
 })
 export class KuRecoverPasswordComponent implements OnInit, OnDestroy, AfterViewInit {

@@ -37,7 +37,11 @@
             ],
             "scripts": [
               "src/assets/plugins/pace-progress/pace.min.js"
-            ]
+            ],
+            "allowedCommonJsDependencies": [
+              "crypto-js"
+            ],
+            "sourceMap": true
           },
           "configurations": {
             "production": {

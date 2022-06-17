@@ -33,7 +33,7 @@ import { KuAuthService }    from '../../../services';
 const CLASS_LOGIN_PAGE = ['login-page', 'pace-primary'];
 
 @Component({
-  selector   : 'k-login',
+  selector   : 'ku-login',
   templateUrl: './login.component.html',
 })
 export class KuLoginComponent implements OnInit, OnDestroy, AfterContentInit {

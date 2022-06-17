@@ -1,5 +1,6 @@
 import { DOCUMENT }       from '@angular/common';
 import {
+  AfterContentInit,
   AfterViewInit,
   Component,
   ContentChildren,
@@ -29,7 +30,7 @@ const CLASS_LAYOUT = [
   selector   : 'ku-admin-layout',
   templateUrl: './admin-layout.component.html',
 })
-export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
+export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit, AfterContentInit {
 
   navigation!: {
     sidebar: any;
@@ -54,6 +55,7 @@ export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit 
   @ContentChildren(KuContentTemplate)
   templates!: QueryList<any>;
   breadcrumbTemplate!: TemplateRef<any>;
+  headerTemplate!: TemplateRef<any>;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -85,6 +87,19 @@ export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit 
 
   ngAfterViewInit(): void {
     this.sidebar.remember();
+  }
+
+  ngAfterContentInit(): void {
+    this.templates.forEach((item: KuContentTemplate) => {
+      switch (item.getType()) {
+        case 'breadcrumb':
+          this.breadcrumbTemplate = item.template;
+          break;
+        case 'header':
+          this.headerTemplate = item.template;
+          break;
+      }
+    });
   }
 
   ngOnDestroy(): void {

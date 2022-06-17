@@ -34,7 +34,7 @@ const appRoutes: Routes = [
     component  : KuAdminLayoutComponent,
     canActivate: [KuAuthGuard],
     resolve    : {
-      //dataset: InitialDataResolver,
+      dataset: InitialDataResolver,
     },
     children   : [
       { path: 'blank', component: BlankComponent },

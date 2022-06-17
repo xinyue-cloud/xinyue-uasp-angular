@@ -20,7 +20,7 @@ export class KuMockApiInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
 
-    // 如果未启用，直接给下一处理器
+    // 如果未启用，直接给下一个处理器
     if (this.closed) {
       return next.handle(request);
     }

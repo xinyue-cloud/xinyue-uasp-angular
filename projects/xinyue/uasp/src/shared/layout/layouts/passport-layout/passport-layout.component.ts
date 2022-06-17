@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { KuLayoutService }   from '../../services';
 
 @Component({
   selector   : 'ku-passport-layout',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KuPassportLayoutComponent implements OnInit {
 
-  constructor() {
+  constructor(
+    public layout: KuLayoutService,
+  ) {
   }
 
   ngOnInit(): void {
+    this.layout.bodyTextSm = true;
   }
 
 }

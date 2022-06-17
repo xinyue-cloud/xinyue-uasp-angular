@@ -1,8 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
 
-import { KuContentTemplate } from '@xinyue/ui';
-import { KuLayoutService }   from '../../services/layout.service';
-import { KuSidebarService }  from '../../services/sidebar.service';
+import { KuContentTemplate }                 from '@xinyue/ui';
+import { KuLayoutService, KuSidebarService } from '../../services';
 
 @Component({
   selector   : 'ku-layout-header',
@@ -12,7 +11,8 @@ export class KuHeaderComponent implements OnInit, AfterContentInit {
 
   @Input() custom = false;
 
-  @ContentChildren(KuContentTemplate) templates!: QueryList<any>;
+  @ContentChildren(KuContentTemplate)
+  templates!: QueryList<any>;
   leftTemplate!: TemplateRef<any>;
   rightTemplate!: TemplateRef<any>;
   isFullscreen = false;
