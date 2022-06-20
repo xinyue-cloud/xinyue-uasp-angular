@@ -1,0 +1,91 @@
+<!-- 常用查询 -->
+<div class="my-1 form-inline">
+  <input type="text" class="form-control mr-1" placeholder="搜索：编码/名称"
+         [(ngModel)]="searchText" (change)="reloadData()"/>
+  <k-select-box multiple [inline]="true" styleClass="border rounded pl-1 pr-2 py-1 mr-1"
+                [items]="statusItems" [(ngModel)]="statusList" (change)="reloadData()"></k-select-box>
+  <button type="button" class="btn btn-default" (click)="reloadData()">
+    <i class="fas fa-search"></i> 查询
+  </button>
+  <button type="button" class="btn btn-default ml-1" (click)="doCreate()">
+    <i class="fas fa-plus"></i> 新增
+  </button>
+  <div class="ml-auto">
+  </div>
+
+</div>
+
+<!-- 结果列表 -->
+<p-table [value]="tableOption.dataSource" [lazy]="true" (onLazyLoad)="tableOption.onLazyLoad($event)"
+         [loading]="tableOption.loading" responsiveLayout="scroll"
+         [paginator]="true" [(rows)]="tableOption.limit" [totalRecords]="tableOption.totalRecords"
+         [rowsPerPageOptions]="[10,15,20,25,50]"
+         styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped fit-width">
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="text-center" style="width: 35px;">#</th>
+      <th class="text-center" style="width: 120px;">操作</th>
+      <th pSortableColumn="applicId"> 应用ID
+        <p-sortIcon field="applicId"></p-sortIcon>
+      </th>
+      <th pSortableColumn="code"> 应用编码
+        <p-sortIcon field="code"></p-sortIcon>
+      </th>
+      <th pSortableColumn="name"> 应用名称
+        <p-sortIcon field="status"></p-sortIcon>
+      </th>
+      <th pSortableColumn="secret">应用密钥
+      </th>
+      <th>应用描述</th>
+      <th class="text-center" pSortableColumn="createdTime" style="width: 150px;"> 创建时间
+        <p-sortIcon field="createdTime"></p-sortIcon>
+      </th>
+      <th class="text-center" style="width: 100px;">状态</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-row let-index="rowIndex">
+    <tr>
+      <td class="text-center th font-weight-bold">{{index + 1}}</td>
+      <td class="text-center">
+        <div class="btn-group">
+          <button type="button" class="btn btn-xs btn-default" (click)="doView(row)"> 详情</button>
+          <button type="button" class="btn btn-xs btn-default" (click)="doDelete(row)"> 删除</button>
+          <button type="button" class="btn btn-xs btn-default" [disabled]="!applyIsEnabled(row)"
+                  (click)="doApply(row)"> 申请生效
+          </button>
+        </div>
+      </td>
+      <td [title]="row.applicId">{{row.applicId}}</td>
+      <td [title]="row.code">{{row.code}}</td>
+      <td [title]="row.name">{{row.name}}</td>
+      <td [title]="row.secret">{{row.secret}}</td>
+      <td [title]="row.description">{{row.description}}</td>
+      <td class="text-center" [title]="row.createdTime">{{row.createdTime}}</td>
+      <td class="text-center" [title]="row.statusName">
+                <span class="badge" [ngClass]="{
+                  'bg-dark': row.status === 'NEW',
+                  'bg-purple': row.status === 'AUDIT',
+                  'bg-danger': row.status === 'REJECT',
+                  'bg-success': row.status === 'VALID',
+                  'bg-gradient-gray': row.status === 'INVALID'
+                }">{{row.statusName}}</span>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="paginatorright">
+    <button type="button" class="btn btn-default ml-1">
+      <i class="fas fa-sort"></i> 重置排序
+    </button>
+    <div class="btn-group ml-1">
+      <button type="button" class="btn btn-default">
+        <i class="fas fa-file-excel"></i> Excel
+      </button>
+      <button type="button" class="btn btn-default">
+        <i class="fas fa-file-word"></i> Word
+      </button>
+      <button type="button" class="btn btn-default">
+        <i class="fas fa-file-pdf"></i> PDF
+      </button>
+    </div>
+  </ng-template>
+</p-table>

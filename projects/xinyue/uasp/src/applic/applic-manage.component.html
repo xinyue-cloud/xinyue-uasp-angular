@@ -1,0 +1,38 @@
+<div class="card card-gray card-outline card-tabs mb-2">
+  <div class="card-header p-0 pt-1 border-bottom-0">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="javascript:" [ngClass]="{'active': mainTabIndex === 0}"
+           (click)="tabClick(0)">
+          <i class="fas fa-list"></i> 应用列表
+        </a>
+      </li>
+      <li class="nav-item" *ngFor="let tab of tabList; let i = index;">
+        <a class="nav-link" href="javascript:" [ngClass]="{'active': mainTabIndex === i+1}"
+           (click)="tabClick(i+1)" title="{{tab.title}}">
+          {{tab.title}}
+          <i class="fas fa-times ml-1" (click)="tabClose(i+1)"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body p-1">
+    <div class="tab-content">
+      <div class="tab-pane fade" [ngClass]="{'active show': mainTabIndex === 0}">
+        <!-- 列表视图 -->
+        <uasp-applic-list></uasp-applic-list>
+      </div>
+      <div class="tab-pane fade" [ngClass]="{'show active': mainTabIndex === i+1}"
+           *ngFor="let tab of tabList; let i = index;">
+        <!-- 新增视图 -->
+        <ng-container *ngIf="tab.isNew">
+          <uasp-applic-new></uasp-applic-new>
+        </ng-container>
+        <!-- 详情视图 -->
+        <ng-container *ngIf="!tab.isNew">
+          <uasp-applic-detail [businessKey]="tab.businessKey"></uasp-applic-detail>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

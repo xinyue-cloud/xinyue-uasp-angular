@@ -12,10 +12,9 @@ export enum MediaType {
 }
 
 /** 用于支持Http请求的服务基类。 */
-@Injectable()
 export abstract class KuHttpService {
 
-  protected constructor(
+  public constructor(
     public config: KuConfigService,
     public http: HttpClient,
     public logger: KuLoggerService,
