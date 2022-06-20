@@ -12,7 +12,7 @@ export class ApplicManageComponent implements OnInit {
 
   // tabs
   mainTabIndex = 0;
-  tabList: {
+  mainTabs: {
     title: string,
     isNew: boolean,
     businessKey?: string
@@ -40,16 +40,16 @@ export class ApplicManageComponent implements OnInit {
   }
 
   tabClose(index: number): void {
-    this.tabList.splice(index - 1, 1);
+    this.mainTabs.splice(index - 1, 1);
     this.mainTabIndex = 0;
   }
 
   create(): void {
-    let rows = this.tabList.filter(x => x.isNew);
+    let rows = this.mainTabs.filter(x => x.isNew);
     if (rows.length > 0) {
-      this.mainTabIndex = this.tabList.indexOf(rows[0]) + 1;
+      this.mainTabIndex = this.mainTabs.indexOf(rows[0]) + 1;
     } else {
-      this.tabList.push({
+      this.mainTabs.push({
         title: '创建新应用',
         isNew: true,
       });

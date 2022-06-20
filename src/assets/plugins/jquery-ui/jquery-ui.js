@@ -4562,7 +4562,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 		this._addClass( this.headers, "ui-accordion-header ui-accordion-header-collapsed",
 			"ui-state-default" );
 
-		this.tabs = this.headers.next().filter( ":not(.ui-accordion-content-active)" ).hide();
+		this.mainTabs = this.headers.next().filter( ":not(.ui-accordion-content-active)" ).hide();
 		this._addClass( this.panels, "ui-accordion-content", "ui-helper-reset ui-widget-content" );
 
 		// Avoid memory leaks (#10056)
@@ -17696,7 +17696,7 @@ $.widget( "ui.tabs", {
 				}
 			} );
 
-		this.tabs = this.tablist.find( "> li:has(a[href])" )
+		this.mainTabs = this.tablist.find( "> li:has(a[href])" )
 			.attr( {
 				role: "tab",
 				tabIndex: -1
@@ -17712,7 +17712,7 @@ $.widget( "ui.tabs", {
 			} );
 		this._addClass( this.anchors, "ui-tabs-anchor" );
 
-		this.tabs = $();
+		this.mainTabs = $();
 
 		this.anchors.each( function( i, anchor ) {
 			var selector, panel, panelId,
@@ -17742,7 +17742,7 @@ $.widget( "ui.tabs", {
 			}
 
 			if ( panel.length ) {
-				that.tabs = that.panels.add( panel );
+				that.mainTabs = that.panels.add( panel );
 			}
 			if ( originalAriaControls ) {
 				tab.data( "ui-tabs-aria-controls", originalAriaControls );
