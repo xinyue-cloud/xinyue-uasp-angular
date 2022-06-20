@@ -7,8 +7,8 @@ export class UrlConfigService extends KuConfigService {
   private readonly $config: KuConfig = {
     apiUrl: 'http://localhost:8086/api',
     routes: {
-      login: '/login',
-      home : '/blank',
+      login: '/passport/login',
+      home : '/admin/blank',
     },
   };
 

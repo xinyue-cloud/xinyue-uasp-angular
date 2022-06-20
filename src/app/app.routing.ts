@@ -19,9 +19,9 @@ import {
 import { BlankComponent } from './views/blank/blank.component';
 
 const appRoutes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: '', pathMatch: 'full', redirectTo: 'passport/login' },
   {
-    path     : '',
+    path     : 'passport',
     component: KuPassportLayoutComponent,
     children : [
       { path: 'login', component: KuLoginComponent },
@@ -30,7 +30,7 @@ const appRoutes: Routes = [
     ],
   },
   {
-    path       : '',
+    path       : 'admin',
     component  : KuAdminLayoutComponent,
     canActivate: [KuAuthGuard],
     resolve    : {
