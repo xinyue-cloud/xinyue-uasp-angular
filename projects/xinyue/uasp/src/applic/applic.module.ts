@@ -1,18 +1,17 @@
-import { NgModule }     from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { NgModule }                         from '@angular/core';
+import { CommonModule }                     from '@angular/common';
+import { RouterModule }                     from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TableModule } from 'primeng/table';
 
-import { routes }        from './applic.routing';
-import { ApplicClient }  from './services/applic.client';
-import { ApplicService } from './services/applic.service';
+import { ROUTES }                      from './applic.routing';
+import { ApplicClient, ApplicService } from './services';
 
 import { ApplicManageComponent } from './applic-manage.component';
 import { ApplicDetailComponent } from './views/applic-detail.component';
 import { ApplicListComponent }   from './views/applic-list.component';
 import { ApplicNewComponent }    from './views/applic-new.component';
-
 
 @NgModule({
   declarations: [
@@ -23,7 +22,9 @@ import { ApplicNewComponent }    from './views/applic-new.component';
   ],
   imports     : [
     CommonModule,
-    RouterModule.forChild(routes),
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(ROUTES),
     TableModule,
   ],
   providers   : [
@@ -32,5 +33,5 @@ import { ApplicNewComponent }    from './views/applic-new.component';
   ],
 })
 
-export class ApplicModule {
+export class UaspApplicModule {
 }

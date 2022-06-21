@@ -1,4 +1,4 @@
-export interface KuPageClause {
+export interface PageClause {
   page?: number;
   limit?: number;
   orderby?: string;

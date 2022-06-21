@@ -1,6 +1,6 @@
-import { KuPageClause } from '@xinyue/core';
+import { PageClause } from '@xinyue/core';
 
-export interface ApplicQuery extends KuPageClause {
+export interface ApplicQuery extends PageClause {
   searchText?: string;
   status?: string;
 }

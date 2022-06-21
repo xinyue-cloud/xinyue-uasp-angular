@@ -52,7 +52,6 @@ export class KuMockApiService {
           return value.startsWith(':') ? [value.substring(1), urlParts[index]] : undefined;
         })));
       }
-
     });
 
     return matchingHandler;

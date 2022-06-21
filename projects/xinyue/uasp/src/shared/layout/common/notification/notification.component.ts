@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
-import { KuNotification } from '../../../model';
+import { KuNotification } from '../../../models';
 
 @Component({
   selector   : 'app-notification',

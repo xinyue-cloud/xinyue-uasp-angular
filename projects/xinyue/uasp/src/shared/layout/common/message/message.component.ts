@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
-import { KuMessage } from '../../../model';
+import { KuMessage } from '../../../models';
 
 @Component({
   selector   : 'ku-layout-message',

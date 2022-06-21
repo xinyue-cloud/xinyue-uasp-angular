@@ -1,4 +1,4 @@
-export interface KuOptionItem {
+export interface OptionItem {
   id: string;
   text?: string;
   selected?: boolean;
@@ -6,9 +6,9 @@ export interface KuOptionItem {
   styleClass?: any;
 }
 
-export interface KuOptionGroup {
+export interface OptionGroup {
   text: string;
-  items: KuOptionItem[];
+  items: OptionItem[];
   data?: any;
   styleClass?: any;
 }

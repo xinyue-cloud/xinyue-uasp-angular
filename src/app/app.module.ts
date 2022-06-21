@@ -21,9 +21,9 @@ import { UaspSharedModule } from '@xinyue/uasp';
 
 import { ToastrModule } from 'ngx-toastr';
 
+import { environment }      from '../environments/environment.prod';
 import { AppComponent }     from './app.component';
 import { AppRoutingModule } from './app.routing';
-import { environment }      from '../environments/environment.prod';
 import { BlankComponent }   from './views/blank/blank.component';
 import { UrlConfigService } from './shared/services/config.service';
 import { ToastrTipService } from './shared/services/toastr-tip.service';

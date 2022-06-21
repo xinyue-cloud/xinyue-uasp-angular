@@ -1,4 +1,4 @@
-export interface KuSelectItem {
+export interface SelectItem {
   id: string;
   text?: string;
   checked?: boolean;

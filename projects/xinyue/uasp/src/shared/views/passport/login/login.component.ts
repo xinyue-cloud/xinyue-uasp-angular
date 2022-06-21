@@ -26,7 +26,7 @@ import {
 }                            from '@xinyue/core';
 import { KuContentTemplate } from '@xinyue/ui';
 
-import { KuLoginForm }      from '../../../model';
+import { KuLoginForm }      from '../../../models';
 import { KuPassportClient } from '../../../clients';
 import { KuAuthService }    from '../../../services';
 

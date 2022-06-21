@@ -16,7 +16,8 @@ import {
   KuUserProfileComponent,
 } from '@xinyue/uasp';
 
-import { BlankComponent } from './views/blank/blank.component';
+import { BlankComponent }   from './views/blank/blank.component';
+import { UaspApplicModule } from '../../projects/xinyue/uasp/src/applic';
 
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'passport/login' },
@@ -30,13 +31,14 @@ const appRoutes: Routes = [
     ],
   },
   {
-    path       : 'admin',
+    path       : 'uasp',
     component  : KuAdminLayoutComponent,
     canActivate: [KuAuthGuard],
     resolve    : {
       dataset: InitialDataResolver,
     },
     children   : [
+      { path: 'applic', loadChildren: () => UaspApplicModule },
       { path: 'blank', component: BlankComponent },
       { path: 'not-found', component: KuNotFoundComponent },
       { path: 'error-page', component: KuErrorPageComponent },

@@ -8,7 +8,7 @@ import {
 }                     from '@xinyue/core';
 import { KuMenuItem } from '@xinyue/ui';
 
-import { KuLoginUser } from '../model';
+import { KuLoginUser } from '../models';
 
 export const URL_ACCOUNT_PROFILE = '/account/profile';
 export const URL_ACCOUNT_MENUS = '/account/menus';

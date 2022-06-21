@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import {
-  Body, GET, HttpResult, KuHttpService, PageList, Param, POST, Query,
+  Body, GET, HttpResult, KuHttpService, PageClause, PageList, Param, POST, Query,
 } from '@xinyue/core';
 
-import { ApplicQuery } from '../models/applic-query';
-import { ApplicVo }    from '../models/applic-vo';
-import { ApplicBody }  from '../models/applic-body';
+import { ApplicQuery, ApplicVo, ApplicBody } from '../models';
 
 export const URL_APPLIC_PAGE = '/applic/page';
 export const URL_APPLIC_GET = '/applic/get';
@@ -18,16 +16,17 @@ export const URL_APPLIC_DELETE = '/applic/delete';
 @Injectable()
 export class ApplicClient extends KuHttpService {
 
-  @GET(URL_APPLIC_PAGE)
-  getPage(
-    @Query request: ApplicQuery,
+  @POST(URL_APPLIC_PAGE)
+  queryPage(
+    @Query pageClause: PageClause,
+    @Body request: ApplicQuery,
   ): Observable<HttpResult<PageList<ApplicVo>>> | null {
     return null;
   }
 
-  @GET(URL_APPLIC_GET)
-  getById(
-    @Param('id') id: string,
+  @POST(URL_APPLIC_GET)
+  selectById(
+    @Body id: string,
   ): Observable<HttpResult<ApplicVo>> | null {
     return null;
   }

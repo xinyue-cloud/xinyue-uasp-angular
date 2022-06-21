@@ -2,7 +2,8 @@ import { Component, OnInit }            from '@angular/core';
 import { KuAlertService, KuTipService } from '@xinyue/core';
 
 import { KuBreadcrumbService } from '../shared';
-import { ApplicService }       from './services/applic.service';
+import { ApplicService }       from './services';
+import { ApplicVo }            from './models';
 
 @Component({
   selector   : 'uasp-applic-manage',
@@ -27,7 +28,7 @@ export class ApplicManageComponent implements OnInit {
     breadcrumb.setItems({
       title: '应用目录',
       items: [
-        { label: '应用目录', routerLink: ['msp/apps'] },
+        { label: '应用目录', routerLink: ['uasp/applic'] },
       ],
     });
   }
@@ -54,5 +55,9 @@ export class ApplicManageComponent implements OnInit {
         isNew: true,
       });
     }
+  }
+
+  view(row: ApplicVo): void {
+    console.info('ROW: ', row);
   }
 }

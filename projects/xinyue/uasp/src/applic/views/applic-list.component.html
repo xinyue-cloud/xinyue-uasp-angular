@@ -1,32 +1,33 @@
 <!-- 常用查询 -->
 <div class="my-1 form-inline">
-  <input type="text" class="form-control mr-1" placeholder="搜索：编码/名称"
+  <input type="text" class="form-control form-control-sm mr-1" placeholder="搜索：编号/名称"
          [(ngModel)]="searchText" (change)="reloadData()"/>
-  <k-select-box multiple [inline]="true" styleClass="border rounded pl-1 pr-2 py-1 mr-1"
-                [items]="statusItems" [(ngModel)]="statusList" (change)="reloadData()"></k-select-box>
-  <button type="button" class="btn btn-default" (click)="reloadData()">
+  <select class="form-control form-control-sm mr-1" [ngModel]="statusValue">
+    <option value="">--状态--</option>
+    <option *ngFor="let item of statusItems" [value]="item.id">{{item.text}}</option>
+  </select>
+  <button type="button" class="btn btn-sm btn-default" (click)="reloadData()">
     <i class="fas fa-search"></i> 查询
   </button>
-  <button type="button" class="btn btn-default ml-1" (click)="doCreate()">
+  <button type="button" class="btn btn-sm btn-default ml-1" (click)="doCreate()">
     <i class="fas fa-plus"></i> 新增
   </button>
   <div class="ml-auto">
   </div>
-
 </div>
 
 <!-- 结果列表 -->
-<p-table [value]="tableOption.dataSource" [lazy]="true" (onLazyLoad)="tableOption.onLazyLoad($event)"
-         [loading]="tableOption.loading" responsiveLayout="scroll"
-         [paginator]="true" [(rows)]="tableOption.limit" [totalRecords]="tableOption.totalRecords"
+<p-table [value]="option.dataSource" [lazy]="true" (onLazyLoad)="option.onLazyLoad($event)"
+         [loading]="option.loading" responsiveLayout="scroll"
+         [paginator]="true" [(rows)]="option.limit" [totalRecords]="option.totalRecords"
          [rowsPerPageOptions]="[10,15,20,25,50]"
          styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped fit-width">
   <ng-template pTemplate="header">
     <tr>
       <th class="text-center" style="width: 35px;">#</th>
       <th class="text-center" style="width: 120px;">操作</th>
-      <th pSortableColumn="applicId"> 应用ID
-        <p-sortIcon field="applicId"></p-sortIcon>
+      <th pSortableColumn="appId"> 应用ID
+        <p-sortIcon field="appId"></p-sortIcon>
       </th>
       <th pSortableColumn="code"> 应用编码
         <p-sortIcon field="code"></p-sortIcon>
@@ -37,8 +38,8 @@
       <th pSortableColumn="secret">应用密钥
       </th>
       <th>应用描述</th>
-      <th class="text-center" pSortableColumn="createdTime" style="width: 150px;"> 创建时间
-        <p-sortIcon field="createdTime"></p-sortIcon>
+      <th class="text-center" pSortableColumn="createTime" style="width: 150px;"> 创建时间
+        <p-sortIcon field="createTime"></p-sortIcon>
       </th>
       <th class="text-center" style="width: 100px;">状态</th>
     </tr>
@@ -49,18 +50,14 @@
       <td class="text-center">
         <div class="btn-group">
           <button type="button" class="btn btn-xs btn-default" (click)="doView(row)"> 详情</button>
-          <button type="button" class="btn btn-xs btn-default" (click)="doDelete(row)"> 删除</button>
-          <button type="button" class="btn btn-xs btn-default" [disabled]="!applyIsEnabled(row)"
-                  (click)="doApply(row)"> 申请生效
-          </button>
         </div>
       </td>
-      <td [title]="row.applicId">{{row.applicId}}</td>
+      <td [title]="row.appId">{{row.appId}}</td>
       <td [title]="row.code">{{row.code}}</td>
       <td [title]="row.name">{{row.name}}</td>
       <td [title]="row.secret">{{row.secret}}</td>
       <td [title]="row.description">{{row.description}}</td>
-      <td class="text-center" [title]="row.createdTime">{{row.createdTime}}</td>
+      <td class="text-center" [title]="row.createTime">{{row.createTime}}</td>
       <td class="text-center" [title]="row.statusName">
                 <span class="badge" [ngClass]="{
                   'bg-dark': row.status === 'NEW',
@@ -73,17 +70,17 @@
     </tr>
   </ng-template>
   <ng-template pTemplate="paginatorright">
-    <button type="button" class="btn btn-default ml-1">
+    <button type="button" class="btn btn-sm btn-default ml-1">
       <i class="fas fa-sort"></i> 重置排序
     </button>
     <div class="btn-group ml-1">
-      <button type="button" class="btn btn-default">
+      <button type="button" class="btn btn-sm btn-default">
         <i class="fas fa-file-excel"></i> Excel
       </button>
-      <button type="button" class="btn btn-default">
+      <button type="button" class="btn btn-sm btn-default">
         <i class="fas fa-file-word"></i> Word
       </button>
-      <button type="button" class="btn btn-default">
+      <button type="button" class="btn btn-sm btn-default">
         <i class="fas fa-file-pdf"></i> PDF
       </button>
     </div>

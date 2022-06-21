@@ -12,6 +12,7 @@ export enum MediaType {
 }
 
 /** 用于支持Http请求的服务基类。 */
+@Injectable()
 export abstract class KuHttpService {
 
   public constructor(

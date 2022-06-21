@@ -1,4 +1,4 @@
-import { KuLoginUser } from '../../model';
+import { KuLoginUser } from '../../models';
 
 export const USER_INFO: KuLoginUser = {
   userId     : '1',

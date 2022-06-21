@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { KuSelectItem }                            from '@xinyue/core';
+import { SelectItem }                              from '@xinyue/core';
 
 const SELECT_BOX_CONTROL_VALUE_ACCESSOR: Provider = {
   provide    : NG_VALUE_ACCESSOR,
@@ -28,7 +28,7 @@ const SELECT_BOX_CONTROL_VALUE_ACCESSOR: Provider = {
 })
 export class KuSelectBoxComponent implements OnInit, ControlValueAccessor {
 
-  @Input() items: KuSelectItem[] = [];
+  @Input() items: SelectItem[] = [];
   @Input() isDisabled = false;
   @Input() name?: string;
   @Input() styleClass?: string;

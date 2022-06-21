@@ -20,7 +20,7 @@
     <div class="tab-content">
       <div class="tab-pane fade" [ngClass]="{'active show': mainTabIndex === 0}">
         <!-- 列表视图 -->
-        <uasp-applic-list></uasp-applic-list>
+        <uasp-applic-list (onCreate)="create()" (onView)="view($event)"></uasp-applic-list>
       </div>
       <div class="tab-pane fade" [ngClass]="{'show active': mainTabIndex === i+1}"
            *ngFor="let tab of mainTabs; let i = index;">
@@ -30,7 +30,7 @@
         </ng-container>
         <!-- 详情视图 -->
         <ng-container *ngIf="!tab.isNew">
-          <uasp-applic-detail [businessKey]="tab.businessKey"></uasp-applic-detail>
+          <uasp-applic-detail [businessKey]="tab.businessKey!"></uasp-applic-detail>
         </ng-container>
       </div>
     </div>

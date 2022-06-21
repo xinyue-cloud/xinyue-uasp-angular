@@ -8,7 +8,7 @@ export class UrlConfigService extends KuConfigService {
     apiUrl: 'http://localhost:8086/api',
     routes: {
       login: '/passport/login',
-      home : '/admin/blank',
+      home : '/uasp/blank',
     },
   };
 

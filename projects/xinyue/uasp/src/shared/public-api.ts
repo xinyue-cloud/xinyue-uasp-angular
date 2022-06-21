@@ -2,7 +2,7 @@ export * from './clients';
 export * from './guard';
 export * from './layout';
 export * from './mock';
-export * from './model';
+export * from './models';
 //export * from './selectors';
 export * from './services';
 export * from './utils';

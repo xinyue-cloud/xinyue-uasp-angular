@@ -1,12 +1,12 @@
-import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
-import { Inject, Injectable }                                                         from "@angular/core";
+import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import { Inject, Injectable }                                                         from '@angular/core';
 
-import { Observable, of, throwError } from "rxjs";
-import { delay, switchMap }           from "rxjs/operators";
+import { Observable, of, throwError } from 'rxjs';
+import { delay, switchMap }           from 'rxjs/operators';
 
-import { KU_MOCK_API_DEFAULT_DELAY, MOCK_API_CLOSED } from "./mock-api.constants";
-import { KuMockApiService }                           from "./mock-api.service";
-import { KuMockApiResponse }                          from "./mock-api.types";
+import { KU_MOCK_API_DEFAULT_DELAY, MOCK_API_CLOSED } from './mock-api.constants';
+import { KuMockApiService }                           from './mock-api.service';
+import { KuMockApiResponse }                          from './mock-api.types';
 
 @Injectable()
 export class KuMockApiInterceptor implements HttpInterceptor {
@@ -41,22 +41,22 @@ export class KuMockApiInterceptor implements HttpInterceptor {
       delay(handler.delay ?? this.defaultDelay ?? 0),
       switchMap((response: KuMockApiResponse) => {
         if (!response) {
-          return throwError(new HttpErrorResponse({
-            error     : "NOT FOUND",
+          return throwError(() => new HttpErrorResponse({
+            error     : 'NOT FOUND',
             status    : 404,
-            statusText: "NOT FOUND",
+            statusText: 'NOT FOUND',
           }));
         } else if (response.status >= 200 && response.status < 300) {
           return of(new HttpResponse({
             body      : response.body,
             status    : response.status,
-            statusText: "OK",
+            statusText: 'OK',
           }));
         }
-        return throwError(new HttpErrorResponse({
+        return throwError(() => new HttpErrorResponse({
           error     : response.body.message,
           status    : response.status,
-          statusText: "ERROR",
+          statusText: 'ERROR',
         }));
       }));
   }
