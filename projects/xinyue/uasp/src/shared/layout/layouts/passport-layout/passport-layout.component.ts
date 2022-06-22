@@ -13,7 +13,7 @@ export class KuPassportLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.layout.bodyTextSm = true;
+    //this.layout.bodyTextSm = true;
   }
 
 }

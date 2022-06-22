@@ -1,6 +1,6 @@
-export class TableOption {
+export class TableOption<T> {
 
-  dataSource = [];
+  dataSource: T[] = [];
   totalRecords = 0;
   loading = false;
   page = 0;

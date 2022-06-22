@@ -42,8 +42,16 @@ export class ApplicMockApi {
           rows   : Number(request.params.get('limit') ?? 15),
           orderby: request.params.get('orderby'),
         };
+        let _body = request.body;
+        let _data = this.clone_data.filter(x => {
+          let result = true;
+          if (!!_body.status) {
+            result = x.status === _body.status
+          }
+          return result;
+        });
         let _start = _params.page * _params.rows;
-        let _rows = this.clone_data.slice(_start, _start + _params.rows);
+        let _rows = _data.slice(_start, _start + _params.rows);
         return {
           status: 200,
           body  : HttpResult.okBody({

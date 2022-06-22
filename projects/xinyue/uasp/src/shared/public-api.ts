@@ -3,6 +3,7 @@ export * from './guard';
 export * from './layout';
 export * from './mock';
 export * from './models';
+export * from './types';
 //export * from './selectors';
 export * from './services';
 export * from './utils';

@@ -1,4 +1,5 @@
 <div class="card card-gray card-outline card-tabs mb-2">
+
   <div class="card-header p-0 pt-1 border-bottom-0">
     <ul class="nav nav-tabs">
       <li class="nav-item">
@@ -16,6 +17,7 @@
       </li>
     </ul>
   </div>
+
   <div class="card-body p-1">
     <div class="tab-content">
       <div class="tab-pane fade" [ngClass]="{'active show': mainTabIndex === 0}">
@@ -30,9 +32,10 @@
         </ng-container>
         <!-- 详情视图 -->
         <ng-container *ngIf="!tab.isNew">
-          <uasp-applic-detail [businessKey]="tab.businessKey!"></uasp-applic-detail>
+          <uasp-applic-tabs [businessKey]="tab.businessKey!"></uasp-applic-tabs>
         </ng-container>
       </div>
     </div>
   </div>
+
 </div>

@@ -1,11 +1,11 @@
 <!-- 常用查询 -->
 <div class="my-1 form-inline">
-  <input type="text" class="form-control form-control-sm mr-1" placeholder="搜索：编号/名称"
-         [(ngModel)]="searchText" (change)="reloadData()"/>
-  <select class="form-control form-control-sm mr-1" [ngModel]="statusValue">
+  <select class="form-control form-control-sm mr-1" [(ngModel)]="query.statusValue" (change)="reloadData()">
     <option value="">--状态--</option>
     <option *ngFor="let item of statusItems" [value]="item.id">{{item.text}}</option>
   </select>
+  <input type="text" class="form-control form-control-sm mr-1" placeholder="搜索：编号/名称"
+         [(ngModel)]="query.searchText" (change)="reloadData()"/>
   <button type="button" class="btn btn-sm btn-default" (click)="reloadData()">
     <i class="fas fa-search"></i> 查询
   </button>
@@ -22,28 +22,26 @@
          [paginator]="true" [(rows)]="option.limit" [totalRecords]="option.totalRecords"
          [rowsPerPageOptions]="[10,15,20,25,50]"
          styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped fit-width">
+
   <ng-template pTemplate="header">
     <tr>
       <th class="text-center" style="width: 35px;">#</th>
       <th class="text-center" style="width: 120px;">操作</th>
-      <th pSortableColumn="appId"> 应用ID
-        <p-sortIcon field="appId"></p-sortIcon>
-      </th>
-      <th pSortableColumn="code"> 应用编码
+      <th pSortableColumn="code"> 代码
         <p-sortIcon field="code"></p-sortIcon>
       </th>
-      <th pSortableColumn="name"> 应用名称
+      <th pSortableColumn="name"> 名称
         <p-sortIcon field="status"></p-sortIcon>
       </th>
-      <th pSortableColumn="secret">应用密钥
-      </th>
-      <th>应用描述</th>
-      <th class="text-center" pSortableColumn="createTime" style="width: 150px;"> 创建时间
-        <p-sortIcon field="createTime"></p-sortIcon>
-      </th>
+      <th class="text-center" style="width: 100px;">等级</th>
+      <th class="text-center" style="width: 100px;">类型</th>
+      <th>入口</th>
+      <th class="text-center" style="width: 100px;">排序码</th>
       <th class="text-center" style="width: 100px;">状态</th>
+      <th>备注</th>
     </tr>
   </ng-template>
+
   <ng-template pTemplate="body" let-row let-index="rowIndex">
     <tr>
       <td class="text-center th font-weight-bold">{{index + 1}}</td>
@@ -52,23 +50,22 @@
           <button type="button" class="btn btn-xs btn-default" (click)="doView(row)"> 详情</button>
         </div>
       </td>
-      <td [title]="row.appId">{{row.appId}}</td>
       <td [title]="row.code">{{row.code}}</td>
       <td [title]="row.name">{{row.name}}</td>
-      <td [title]="row.secret">{{row.secret}}</td>
-      <td [title]="row.description">{{row.description}}</td>
-      <td class="text-center" [title]="row.createTime">{{row.createTime}}</td>
+      <td class="text-center" [title]="row.level">{{row.level}} 级</td>
+      <td class="text-center" [title]="row.typeName">{{row.typeName}}</td>
+      <td [title]="row.url">{{row.url}}</td>
+      <td class="text-center" [title]="row.sort">{{row.sort}}</td>
       <td class="text-center" [title]="row.statusName">
-                <span class="badge" [ngClass]="{
-                  'bg-dark': row.status === 'NEW',
-                  'bg-purple': row.status === 'AUDIT',
-                  'bg-danger': row.status === 'REJECT',
-                  'bg-success': row.status === 'VALID',
-                  'bg-gradient-gray': row.status === 'INVALID'
-                }">{{row.statusName}}</span>
+        <span class="badge" [ngClass]="{
+          'bg-dark': row.status === 'I',
+          'bg-success': row.status === 'V'
+        }">{{row.statusName}}</span>
       </td>
+      <td [title]="row.remark">{{row.remark}}</td>
     </tr>
   </ng-template>
+
   <ng-template pTemplate="paginatorright">
     <button type="button" class="btn btn-sm btn-default ml-1">
       <i class="fas fa-sort"></i> 重置排序
@@ -85,4 +82,8 @@
       </button>
     </div>
   </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+  </ng-template>
+
 </p-table>

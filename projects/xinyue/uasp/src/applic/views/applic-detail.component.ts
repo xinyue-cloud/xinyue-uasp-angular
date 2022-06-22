@@ -6,7 +6,6 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ApplicDetailComponent implements OnInit {
 
-  active = 0;
   @Input() businessKey!: string;
 
   constructor() {
@@ -15,7 +14,4 @@ export class ApplicDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onTabClick(active: number) {
-    this.active = active;
-  }
 }

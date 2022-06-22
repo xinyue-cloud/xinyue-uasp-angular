@@ -198,7 +198,7 @@
       },
       "root": "projects/xinyue/uasp",
       "sourceRoot": "projects/xinyue/uasp/src",
-      "prefix": "ku",
+      "prefix": "uasp",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",

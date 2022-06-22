@@ -20,7 +20,7 @@ export class KuLoggerInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       finalize(() => {
         const elapsed = Date.now() - started;
-        const msg = `${request.method} "${request.urlWithParams}" ${elapsed} ms.`;
+        const msg = `${request.method} "${request.urlWithParams}" ${elapsed} ms. body= ` + JSON.stringify(request.body);
         this.logger.debug(msg);
       }),
     );

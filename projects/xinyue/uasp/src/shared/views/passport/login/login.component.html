@@ -2,7 +2,7 @@
   <div class="card card-outline card-primary">
 
     <div class="card-header text-center">
-      <a href="javascript:" class="h1" *ngIf="!logoTemplate"><b>Admin</b>LTE</a>
+      <a href="javascript:" class="h3" *ngIf="!logoTemplate">应用支撑开发平台</a>
       <ng-template [ngTemplateOutlet]="logoTemplate"></ng-template>
     </div>
 
@@ -55,10 +55,10 @@
       </div>
 
       <p class="mb-1">
-        <a href="#" [routerLink]="'/forgot-password'">我忘了密码</a>
+        <a href="#" [routerLink]="'/passport/forgot-password'">我忘了密码</a>
       </p>
       <p class="mb-0" *ngIf="allowRegister">
-        <a href="#" class="text-center" [routerLink]="'/register'">注册一个新用户</a>
+        <a href="#" class="text-center" [routerLink]="'/passport/register'">注册一个新用户</a>
       </p>
     </div>
   </div>

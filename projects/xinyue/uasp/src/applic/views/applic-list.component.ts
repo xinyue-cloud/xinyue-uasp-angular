@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { SelectItem }                              from '@xinyue/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { SelectItem }                                                                from '@xinyue/core';
 
 import { TableOption }                 from '../../shared';
 import { ApplicVo }                    from '../models';
@@ -9,21 +9,24 @@ import { ApplicClient, ApplicService } from '../services';
   selector   : 'uasp-applic-list',
   templateUrl: './applic-list.component.html',
 })
-export class ApplicListComponent implements OnInit {
+export class ApplicListComponent implements OnInit, AfterViewInit {
 
   // query
   statusItems: SelectItem[];
-  searchText = '';
-  statusValue = '';
+  query = {
+    searchText : '',
+    statusValue: '',
+  }
 
   // table
-  option = new TableOption();
+  option = new TableOption<ApplicVo>();
 
   // event
   @Output() onCreate: EventEmitter<any> = new EventEmitter();
   @Output() onView: EventEmitter<ApplicVo> = new EventEmitter();
 
   constructor(
+    private cdf: ChangeDetectorRef,
     private applicClient: ApplicClient,
     private applicService: ApplicService,
   ) {
@@ -36,14 +39,21 @@ export class ApplicListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit(): void {
+    this.cdf.detectChanges();
+  }
+
   reloadData(): void {
+
+    console.log(this.query);
+
     this.applicClient.queryPage({
       page   : this.option.page,
       limit  : this.option.limit,
       orderby: this.option.orderby,
     }, {
-      searchText: this.searchText,
-      status    : this.statusValue,
+      searchText: this.query.searchText,
+      status    : this.query.statusValue,
     })?.subscribe(httpResult => {
       this.option.dataSource = httpResult.data.rows;
       this.option.totalRecords = httpResult.data.totals;
@@ -55,6 +65,6 @@ export class ApplicListComponent implements OnInit {
   }
 
   doView(row: ApplicVo) {
-    this.onCreate.emit(row);
+    this.onView.emit(row);
   }
 }
