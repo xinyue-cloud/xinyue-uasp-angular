@@ -1,7 +1,7 @@
 export interface KuConfig {
-  apiUrl: string,
+  apiUrl: string;
   routes: {
-    login: string,
-    home: string
-  },
+    login: string;
+    home: string;
+  }
 }

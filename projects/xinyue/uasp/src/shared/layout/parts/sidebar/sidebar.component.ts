@@ -4,7 +4,7 @@ import { ActivatedRoute, Router }                                               
 import { KuContentTemplate, KuMenuItem } from '@xinyue/ui';
 
 import { KuBrand }         from './brand.types';
-import { KuLayoutService } from '../../services/layout.service';
+import { KuLayoutService } from '../../services';
 
 @Component({
   selector   : 'ku-layout-sidebar',

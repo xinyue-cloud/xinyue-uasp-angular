@@ -47774,4 +47774,34 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   justify-content: left;
 }
 
+.nav-tabs.flex-column .nav-link {
+  white-space: nowrap;
+}
+
+table.editor tr th {
+  background-color: #efefef80;
+  text-align: right;
+}
+table.editor tr th span {
+  color: red;
+}
+table.editor tr th label {
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+table.viewer tr th {
+  background-color: #efefef80;
+  text-align: right;
+}
+table.viewer tr th label {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.info-bar {
+  border-left: 3px #646464 solid;
+  background: #efefef;
+}
+
 /*# sourceMappingURL=styles.css.map */

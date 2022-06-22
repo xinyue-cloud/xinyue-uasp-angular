@@ -1,24 +1,30 @@
-<div class="content-header pb-0" *ngIf="!hide">
-  <div class="d-flex justify-content-between align-items-center">
-    <div class="align-items-baseline d-flex mr-auto">
-      <h5 class="m-0 font-weight-bold">
-        <i *ngIf="!!iconClass" [ngClass]="iconClass"></i> {{title}}
-      </h5>
-      <span *ngIf="!!subTitle" class="ml-2 {{subClass}}">{{subTitle}}</span>
-    </div>
-    <ol class="breadcrumb float-sm-right" *ngIf="!!items && items.length > 0">
-      <li class="breadcrumb-item">
-        <ng-container *ngIf="!homeTemplate">
-          <a routerLink=""><i class="mdi mdi-home"></i> 首页</a>
-        </ng-container>
-        <ng-template [ngTemplateOutlet]="homeTemplate"></ng-template>
-      </li>
-      <ng-template ngFor let-item let-last="last" [ngForOf]="items">
-        <li class="breadcrumb-item" [ngClass]="{active: !last}">
-          <a [routerLink]="item.routerLink" *ngIf="item.routerLink">{{item.label}}</a>
-          <ng-container *ngIf="!item.routerLink">{{item.label}}</ng-container>
-        </li>
-      </ng-template>
-    </ol>
-  </div>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h5 class="m-0 font-weight-bold">
+          <i *ngIf="!!iconClass" [ngClass]="iconClass"></i> {{title}}
+        </h5>
+        <span *ngIf="!!subTitle" class="ml-2 {{subClass}}">{{subTitle}}</span>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item">
+            <ng-container *ngIf="!homeTemplate">
+              <a routerLink=""><i class="mdi mdi-home"></i> 首页</a>
+            </ng-container>
+            <ng-template [ngTemplateOutlet]="homeTemplate"></ng-template>
+          </li>
+          <ng-template ngFor let-item let-last="last" [ngForOf]="items">
+            <li class="breadcrumb-item" [ngClass]="{active: !last}">
+              <a [routerLink]="item.routerLink" *ngIf="item.routerLink">{{item.label}}</a>
+              <ng-container *ngIf="!item.routerLink">{{item.label}}</ng-container>
+            </li>
+          </ng-template>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
 </div>
+<!-- /.content-header -->

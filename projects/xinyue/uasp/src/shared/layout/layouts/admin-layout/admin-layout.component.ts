@@ -12,8 +12,8 @@ import {
 }                         from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { KuLoggerService }               from '@xinyue/core';
-import { KuMenuItem, KuContentTemplate } from '@xinyue/ui';
+import { KuConfigService, KuLoggerService } from '@xinyue/core';
+import { KuMenuItem, KuContentTemplate }    from '@xinyue/ui';
 
 import { KuCopyright, KuBrand }              from '../../parts';
 import { KuSidebarService, KuLayoutService } from '../../services';
@@ -39,7 +39,7 @@ export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit,
   copyright: KuCopyright = {
     year    : '2021',
     homeUrl : 'https://www.xinyue.cloud',
-    homeText: 'XinYue 微应用支撑平台',
+    homeText: 'XinYue UASP',
     version : '1.0.0',
   };
   brand: KuBrand = {
@@ -47,7 +47,7 @@ export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit,
     logoStyles: undefined,
     logoUrl   : 'assets/img/AdminLTELogo.png',
     logoAlt   : 'AdminLTE Logo',
-    brandText : '微应用支撑平台',
+    brandText : '应用开发支撑平台',
   };
 
   body: HTMLElement;
@@ -62,12 +62,23 @@ export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit,
     private activatedRoute: ActivatedRoute,
     private logger: KuLoggerService,
     private sidebar: KuSidebarService,
+    private config: KuConfigService,
     public layout: KuLayoutService,
   ) {
     this.body = document.body;
     activatedRoute.data.subscribe(data => {
       this.navigation = data['dataset'].navigation;
     });
+
+    let copyright = config.get('copyright');
+    if (!!copyright) {
+      this.copyright = copyright;
+    }
+
+    let brand = config.get('brand');
+    if (!!brand) {
+      this.brand = brand;
+    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -91,6 +102,7 @@ export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit,
 
   ngAfterContentInit(): void {
     this.templates.forEach((item: KuContentTemplate) => {
+      console.info('KuAdminLayoutComponent -> ngAfterContentInit -> item: ', item);
       switch (item.getType()) {
         case 'breadcrumb':
           this.breadcrumbTemplate = item.template;

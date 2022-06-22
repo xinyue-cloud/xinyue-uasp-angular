@@ -1,15 +1,20 @@
 import { ApplicTypes } from './applic-types';
-import { DataStatus }  from '../../shared';
+import { DataStatus }  from '@xinyue/uasp';
 
-export interface ApplicBody {
+export interface ApplicVo {
   appId: string;
   code: string;
   name: string;
   level: number;
   type: ApplicTypes;
+  typeName: string;
   url: string;
   sort: number;
   needRelease: boolean;
+  creatorId: string;
+  creatorName: string;
+  createTime: Date;
   status: DataStatus;
-  remark: string;
+  statusName: string;
+  remark?: string;
 }

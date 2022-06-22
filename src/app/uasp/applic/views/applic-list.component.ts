@@ -1,15 +1,16 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { SelectItem }                                                                from '@xinyue/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { SelectItem }                                                 from '@xinyue/core';
 
-import { TableOption }                 from '../../shared';
+import { DATA_STATUS, TableOption }    from '@xinyue/uasp';
 import { ApplicVo }                    from '../models';
 import { ApplicClient, ApplicService } from '../services';
+import { cloneDeep }                   from 'lodash-es';
 
 @Component({
   selector   : 'uasp-applic-list',
   templateUrl: './applic-list.component.html',
 })
-export class ApplicListComponent implements OnInit, AfterViewInit {
+export class ApplicListComponent implements OnInit {
 
   // query
   statusItems: SelectItem[];
@@ -30,17 +31,13 @@ export class ApplicListComponent implements OnInit, AfterViewInit {
     private applicClient: ApplicClient,
     private applicService: ApplicService,
   ) {
-    this.statusItems = applicService.statusItems;
+    this.statusItems = cloneDeep(DATA_STATUS);
     this.option.onReloadData = () => {
       this.reloadData();
     };
   }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    this.cdf.detectChanges();
   }
 
   reloadData(): void {

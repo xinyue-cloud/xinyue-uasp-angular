@@ -1,4 +1,5 @@
-import { AccountMockApi, ApplicMockApi, PassportMockApi } from '@xinyue/uasp';
+import { AccountMockApi, PassportMockApi } from '@xinyue/uasp';
+import { ApplicMockApi }                   from '../uasp/applic';
 
 export const mockApiServices = [
   PassportMockApi,

@@ -1,30 +1,13 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT }                           from '@angular/common';
 import {
-  AfterContentInit,
-  Component,
-  ContentChildren,
+  AfterContentInit, ContentChildren, OnDestroy, OnInit, QueryList, TemplateRef,
+  Component, Inject, Input, Output,
   EventEmitter,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  QueryList,
-  TemplateRef,
-}                   from '@angular/core';
+}                                             from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-}                            from '@angular/forms';
-import {
-  KuConfigService,
-  KuTipService,
-  KuUtilService,
-  HttpResult,
-}                            from '@xinyue/core';
-import { KuContentTemplate } from '@xinyue/ui';
+import { KuConfigService, KuTipService, KuUtilService, HttpResult } from '@xinyue/core';
+import { KuContentTemplate }                                        from '@xinyue/ui';
 
 import { KuLoginForm }      from '../../../models';
 import { KuPassportClient } from '../../../clients';

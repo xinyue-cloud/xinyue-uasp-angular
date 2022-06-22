@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-
+import { Injectable }                   from '@angular/core';
 import { HttpResult, KuMockApiService } from '@xinyue/core';
 
 import {
@@ -67,7 +66,7 @@ export class ApplicMockApi {
     this.mockApiService
       .onPost(URL_APPLIC_GET)
       .onReply((request) => {
-        let _id = request.params.get('id');
+        let _id = request.body.id;
         let _list = this.clone_data.filter(x => x.appId === _id);
         return {
           status: 200,

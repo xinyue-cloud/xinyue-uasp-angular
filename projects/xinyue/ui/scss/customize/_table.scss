@@ -1,0 +1,27 @@
+table.editor {
+  tr th {
+    background-color: #efefef80;
+    text-align: right;
+
+    span {
+      color: red;
+    }
+
+    label {
+      margin-top: 4px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+table.viewer {
+  tr th {
+    background-color: #efefef80;
+    text-align: right;
+
+    label {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+}

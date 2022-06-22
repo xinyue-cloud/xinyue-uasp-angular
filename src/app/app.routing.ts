@@ -17,7 +17,7 @@ import {
 } from '@xinyue/uasp';
 
 import { BlankComponent }   from './views/blank/blank.component';
-import { UaspApplicModule } from '../../projects/xinyue/uasp/src/applic';
+import { UaspApplicModule } from './uasp/applic';
 
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'passport/login' },

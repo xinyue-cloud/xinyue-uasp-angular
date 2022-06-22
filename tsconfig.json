@@ -3,19 +3,13 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@xinyue/*": [
-        "dist/xinyue/*"
-      ],
       "@xinyue/core": [
-        "dist/xinyue/core/xinyue-core",
         "dist/xinyue/core"
       ],
       "@xinyue/ui": [
-        "dist/xinyue/ui/xinyue-ui",
         "dist/xinyue/ui"
       ],
       "@xinyue/uasp": [
-        "dist/xinyue/uasp/xinyue-uasp",
         "dist/xinyue/uasp"
       ]
     },

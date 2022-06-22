@@ -9,7 +9,7 @@ import { ROUTES }                      from './applic.routing';
 import { ApplicClient, ApplicService } from './services';
 
 import { ApplicManageComponent } from './applic-manage.component';
-import { ApplicDetailComponent } from './views/applic-detail.component';
+import { ApplicEditComponent }   from './views/applic-edit.component';
 import { ApplicListComponent }   from './views/applic-list.component';
 import { ApplicNewComponent }    from './views/applic-new.component';
 import { ApplicTabsComponent }   from './views/applic-tabs.component';
@@ -17,7 +17,7 @@ import { ApplicTabsComponent }   from './views/applic-tabs.component';
 @NgModule({
   declarations: [
     ApplicManageComponent,
-    ApplicDetailComponent,
+    ApplicEditComponent,
     ApplicListComponent,
     ApplicNewComponent,
     ApplicTabsComponent,

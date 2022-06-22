@@ -1,5 +1,5 @@
 import { ApplicTypes, ApplicVo } from '../models';
-import { DataStatus }            from '../../shared';
+import { DataStatus }            from '@xinyue/uasp';
 
 export const APPLIC_DATA: ApplicVo[] = [{
   appId      : 'APP_0001',
@@ -16,4 +16,5 @@ export const APPLIC_DATA: ApplicVo[] = [{
   createTime : new Date(),
   status     : DataStatus.Valid,
   statusName : '有效',
+  remark     : '',
 }];

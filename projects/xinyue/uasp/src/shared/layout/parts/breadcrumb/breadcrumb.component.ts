@@ -26,6 +26,7 @@ export class KuBreadcrumbComponent implements OnInit, AfterContentInit, OnDestro
     private breadcrumbService: KuBreadcrumbService,
   ) {
     this.subscription = breadcrumbService.subscribe(response => {
+      console.info('KuBreadcrumbComponent -> subscribe: ', response);
       this.hide = !!response.hide;
       this.iconClass = response.iconClass;
       this.title = response.title;

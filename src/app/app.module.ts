@@ -25,7 +25,7 @@ import { environment }      from '../environments/environment.prod';
 import { AppComponent }     from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { BlankComponent }   from './views/blank/blank.component';
-import { UrlConfigService } from './shared/services/config.service';
+import { AppConfigService } from './shared/services/app-config.service';
 import { ToastrTipService } from './shared/services/toastr-tip.service';
 import { SwalAlertService } from './shared/services/swal-alert.service';
 import { mockApiServices }  from './mock';
@@ -59,7 +59,7 @@ import { mockApiServices }  from './mock';
     { provide: KuLoggerService, useClass: KuConsoleLoggerService },
     { provide: KuTipService, useClass: ToastrTipService },
     { provide: KuAlertService, useClass: SwalAlertService },
-    { provide: KuConfigService, useClass: UrlConfigService },
+    { provide: KuConfigService, useClass: AppConfigService },
   ],
   bootstrap   : [AppComponent],
   exports     : [],

@@ -1,0 +1,89 @@
+<div class="pl-2">
+
+  <div class="info-bar">
+    <h5 class="p-1">基本资料</h5>
+  </div>
+
+  <form [formGroup]="form1" (ngSubmit)="onSubmit()">
+
+    <h4 *ngIf="loading" class="text-blue">
+      <i class="fas fa-spinner fa-spin"></i> 正在请求数据……
+    </h4>
+    <table class="table table-bordered table-sm editor" *ngIf="!loading">
+      <tr>
+        <th style="width: 125px;"><span>*</span><label>系统代码：</label></th>
+        <td>
+          <input type="text" formControlName="code" class="form-control form-control-sm"/>
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 125px;"><span>*</span><label>系统名称：</label></th>
+        <td>
+          <input type="text" formControlName="name" class="form-control form-control-sm"/>
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 125px;"><span>*</span><label>系统级别：</label></th>
+        <td>
+          <select class="form-control form-control-sm" formControlName="level">
+            <option value="">--系统级别--</option>
+            <option value="1">1级系统</option>
+            <option value="2">2级系统</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 125px;"><span>*</span><label>系统类型：</label></th>
+        <td>
+          <select formControlName="type" class="form-control form-control-sm">
+            <option value="">--系统类型-</option>
+            <option *ngFor="let item of applicTypes" [value]="item.id">{{item.text}}</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th><span>*</span><label>入口地址：</label></th>
+        <td>
+          <input type="text" formControlName="url" class="form-control form-control-sm"/>
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 125px;"><span>*</span><label>启用状态：</label></th>
+        <td>
+          <select class="form-control form-control-sm" formControlName="status">
+            <option value="">--启用状态--</option>
+            <option value="V">启用</option>
+            <option value="I">禁用</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 125px;"><label>发布管理：</label></th>
+        <td>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" formControlName="needRelease">
+            <label class="form-check-label">需要发布管理</label>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th><label>系统备注：</label></th>
+        <td>
+          <textarea rows="3" formControlName="remark" class="form-control"></textarea>
+        </td>
+      </tr>
+    </table>
+    <div>
+      <button type="submit" class="btn btn-primary" [disabled]="submitting">
+        {{!!submitting ? "正在提交..." : "保存"}}
+      </button>
+      <button type="button" class="btn btn-primary" [disabled]="submitting" (click)="onSubmit(true)">
+        {{!!submitting ? "正在提交..." : "保存并关闭"}}
+      </button>
+      <button type="button" class="btn btn-default ml-1" (click)="onRest()" [disabled]="submitting">
+        重置
+      </button>
+    </div>
+  </form>
+
+</div>

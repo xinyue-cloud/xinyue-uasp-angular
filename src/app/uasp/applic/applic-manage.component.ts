@@ -1,9 +1,10 @@
 import { Component, OnInit }            from '@angular/core';
 import { KuAlertService, KuTipService } from '@xinyue/core';
 
-import { ApplicService }                from './services';
-import { ApplicVo }                     from './models';
-import { KuBreadcrumbService, MainTab } from '../shared';
+import { KuBreadcrumbService, MainTab } from '@xinyue/uasp';
+
+import { ApplicService } from './services';
+import { ApplicVo }      from './models';
 
 @Component({
   selector   : 'uasp-applic-manage',
@@ -21,6 +22,7 @@ export class ApplicManageComponent implements OnInit {
     private alertService: KuAlertService,
     private applicService: ApplicService,
   ) {
+    console.info('ApplicManageComponent -> constructor');
     breadcrumb.setItems({
       title: '应用目录',
       items: [
