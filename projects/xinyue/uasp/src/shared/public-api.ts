@@ -1,4 +1,5 @@
 export * from './clients';
+export * from './components';
 export * from './guard';
 export * from './layout';
 export * from './mock';

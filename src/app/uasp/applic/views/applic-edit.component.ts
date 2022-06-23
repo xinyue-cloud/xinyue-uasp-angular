@@ -6,6 +6,7 @@ import { KuTipService, SelectItem } from '@xinyue/core';
 
 import { APPLIC_TYPES, ApplicVo } from '../models';
 import { ApplicClient }           from '../services';
+import { EventService }           from '../../../shared/services/event.service';
 
 @Component({
   selector   : 'uasp-applic-edit',
@@ -26,6 +27,7 @@ export class ApplicEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private client: ApplicClient,
     private tip: KuTipService,
+    private eventService: EventService,
   ) {
     this.applicTypes = cloneDeep(APPLIC_TYPES);
     this.form1 = this.formBuilder.group({
@@ -68,6 +70,15 @@ export class ApplicEditComponent implements OnInit {
           if (result.success) {
             this.rawData = result.data;
             this.tip.success('应用保存成功。', '成功');
+            if (closed) {
+              this.eventService.emit({
+                type   : 'APPLIC_CLOSE',
+                payload: {
+                  businessKey: this.businessKey,
+                  title      : this.form1.value.name,
+                },
+              })
+            }
           } else {
             this.tip.error(result.message ?? '保存失败。');
           }

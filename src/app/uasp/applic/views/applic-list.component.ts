@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SelectItem }                                                 from '@xinyue/core';
 
-import { DATA_STATUS, TableOption }    from '@xinyue/uasp';
-import { ApplicVo }                    from '../models';
-import { ApplicClient, ApplicService } from '../services';
-import { cloneDeep }                   from 'lodash-es';
+import { DATA_STATUS, MainTab, TableOption } from '@xinyue/uasp';
+import { ApplicClient, ApplicService }       from '../services';
+import { cloneDeep }                         from 'lodash-es';
+import { ApplicVo }                          from '../models';
 
 @Component({
   selector   : 'uasp-applic-list',
@@ -20,11 +20,11 @@ export class ApplicListComponent implements OnInit {
   }
 
   // table
-  option = new TableOption<ApplicVo>();
+  option = new TableOption<any>();
 
   // event
   @Output() onCreate: EventEmitter<any> = new EventEmitter();
-  @Output() onView: EventEmitter<ApplicVo> = new EventEmitter();
+  @Output() onView: EventEmitter<MainTab> = new EventEmitter();
 
   constructor(
     private cdf: ChangeDetectorRef,
@@ -41,8 +41,6 @@ export class ApplicListComponent implements OnInit {
   }
 
   reloadData(): void {
-
-    console.log(this.query);
 
     this.applicClient.queryPage({
       page   : this.option.page,
@@ -62,6 +60,9 @@ export class ApplicListComponent implements OnInit {
   }
 
   doView(row: ApplicVo) {
-    this.onView.emit(row);
+    this.onView.emit({
+      title      : row.name,
+      businessKey: row.appId,
+    });
   }
 }

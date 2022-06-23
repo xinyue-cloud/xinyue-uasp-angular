@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector   : 'uasp-applic-tabs',
@@ -8,6 +8,9 @@ export class ApplicTabsComponent implements OnInit {
 
   active = 0;
   @Input() businessKey!: string;
+
+  // event
+  @Output() onCloseMe: EventEmitter<any> = new EventEmitter();
 
   constructor() {
   }

@@ -1,10 +1,7 @@
 import { Component, OnInit }            from '@angular/core';
-import { KuAlertService, KuTipService } from '@xinyue/core';
-
 import { KuBreadcrumbService, MainTab } from '@xinyue/uasp';
 
-import { ApplicService } from './services';
-import { ApplicVo }      from './models';
+import { EventService } from '../../shared/services/event.service';
 
 @Component({
   selector   : 'uasp-applic-manage',
@@ -18,9 +15,7 @@ export class ApplicManageComponent implements OnInit {
 
   constructor(
     private breadcrumb: KuBreadcrumbService,
-    private tipService: KuTipService,
-    private alertService: KuAlertService,
-    private applicService: ApplicService,
+    private eventService: EventService,
   ) {
     console.info('ApplicManageComponent -> constructor');
     breadcrumb.setItems({
@@ -29,6 +24,13 @@ export class ApplicManageComponent implements OnInit {
         { label: '应用目录', routerLink: ['uasp/applic'] },
       ],
     });
+    eventService.subscribe(args => {
+      if (args.type === 'APPLIC_CLOSE') {
+        this.onTabClose(args.payload);
+      } else if (args.type === 'APPLIC_OPEN') {
+        this.onAnewOpen(args.payload);
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -43,7 +45,19 @@ export class ApplicManageComponent implements OnInit {
     this.mainTabIndex = 0;
   }
 
-  create(): void {
+  onAnewOpen(tab: MainTab): void {
+    this.onTabClose(tab);
+    this.onView(tab);
+  }
+
+  onTabClose(tab: MainTab): void {
+    let rows = this.mainTabs.filter(x => x.businessKey === tab.businessKey);
+    if (rows.length > 0) {
+      this.tabClose(this.mainTabs.indexOf(rows[0]) + 1);
+    }
+  }
+
+  onCreate(): void {
     let rows = this.mainTabs.filter(x => x.isNew);
     if (rows.length > 0) {
       this.mainTabIndex = this.mainTabs.indexOf(rows[0]) + 1;
@@ -54,14 +68,13 @@ export class ApplicManageComponent implements OnInit {
     }
   }
 
-  view(model: ApplicVo): void {
-    let rows = this.mainTabs.filter(x => x.businessKey === model.appId);
+  onView(tab: MainTab): void {
+    let rows = this.mainTabs.filter(x => x.businessKey === tab.businessKey);
     if (rows.length > 0) {
       this.mainTabIndex = this.mainTabs.indexOf(rows[0]) + 1;
     } else {
-      let row = { title: model.name, businessKey: model.appId };
-      this.mainTabs.push(row);
-      this.mainTabIndex = this.mainTabs.indexOf(row) + 1;
+      this.mainTabs.push(tab);
+      this.mainTabIndex = this.mainTabs.indexOf(tab) + 1;
     }
   }
 }
