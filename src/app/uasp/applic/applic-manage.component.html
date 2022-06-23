@@ -4,15 +4,15 @@
     <ul class="nav nav-tabs">
       <li class="nav-item">
         <a class="nav-link font-weight-bold" href="javascript:" [ngClass]="{'active': mainTabIndex === 0}"
-           (click)="tabClick(0)">
+           (click)="mainTabClick(0)">
           <i class="fas fa-list"></i> 应用列表
         </a>
       </li>
       <li class="nav-item" *ngFor="let tab of mainTabs; let i = index;">
         <a class="nav-link" href="javascript:" [ngClass]="{'active': mainTabIndex === i+1}"
-           (click)="tabClick(i+1)" title="{{tab.title}}">
+           (click)="mainTabClick(i+1)" title="{{tab.title}}">
           {{tab.title}}
-          <i class="fas fa-times ml-1" (click)="tabClose(i+1)"></i>
+          <i class="fas fa-times ml-1" (click)="tabCloseIndex(i+1)"></i>
         </a>
       </li>
     </ul>
@@ -26,14 +26,32 @@
       </div>
       <div class="tab-pane fade" [ngClass]="{'show active': mainTabIndex === i+1}"
            *ngFor="let tab of mainTabs; let i = index;">
-        <!-- 新增视图 -->
-        <ng-container *ngIf="tab.isNew">
-          <uasp-applic-new></uasp-applic-new>
-        </ng-container>
-        <!-- 详情视图 -->
-        <ng-container *ngIf="!tab.isNew">
-          <uasp-applic-tabs [businessKey]="tab.businessKey!"></uasp-applic-tabs>
-        </ng-container>
+
+        <div class="d-flex w-100">
+          <div>
+            <div class="nav flex-column nav-tabs h-100">
+              <a class="nav-link" [ngClass]="{'active': detailTabIndex === 0}" href="javascript:" (click)="detailTabClick(0)">
+                详情
+              </a>
+              <a class="nav-link" *ngIf="!tab.isNew" [ngClass]="{'active': detailTabIndex === 1}" href="javascript:" (click)="detailTabClick(1)">
+                租用
+              </a>
+              <a class="nav-link" *ngIf="!tab.isNew" [ngClass]="{'active': detailTabIndex === 2}" href="javascript:" (click)="detailTabClick(2)">
+                删除
+              </a>
+            </div>
+          </div>
+          <div class="w-100">
+            <div class="tab-content">
+              <div class="tab-pane fade" [ngClass]="{'show active': detailTabIndex === 0}">
+                <uasp-applic-edit [entry]="tab"></uasp-applic-edit>
+              </div>
+              <div class="tab-pane fade" *ngIf="!tab.isNew" [ngClass]="{'show active': detailTabIndex === 1}"></div>
+              <div class="tab-pane fade" *ngIf="!tab.isNew" [ngClass]="{'show active': detailTabIndex === 2}"></div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

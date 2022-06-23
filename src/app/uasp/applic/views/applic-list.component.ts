@@ -1,10 +1,16 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { SelectItem }                                                 from '@xinyue/core';
+import { KuEventService, SelectItem }                                 from '@xinyue/core';
 
 import { DATA_STATUS, MainTab, TableOption } from '@xinyue/uasp';
 import { ApplicClient, ApplicService }       from '../services';
 import { cloneDeep }                         from 'lodash-es';
 import { ApplicVo }                          from '../models';
+import {
+  EVENT_APPLIC_CLICK_QUERY,
+  EVENT_APPLIC_CLOSE_ACTIVE,
+  EVENT_APPLIC_NEW_ANEW_OPEN,
+  EVENT_APPLIC_NEW_CLOSE,
+}                                            from '../events';
 
 @Component({
   selector   : 'uasp-applic-list',
@@ -30,11 +36,17 @@ export class ApplicListComponent implements OnInit {
     private cdf: ChangeDetectorRef,
     private applicClient: ApplicClient,
     private applicService: ApplicService,
+    private eventService: KuEventService,
   ) {
     this.statusItems = cloneDeep(DATA_STATUS);
     this.option.onReloadData = () => {
       this.reloadData();
     };
+    eventService.subscribe(args => {
+      if (args.type === EVENT_APPLIC_CLICK_QUERY) {
+        this.reloadData();
+      }
+    });
   }
 
   ngOnInit(): void {

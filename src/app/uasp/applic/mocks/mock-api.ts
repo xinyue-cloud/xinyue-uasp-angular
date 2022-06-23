@@ -9,6 +9,8 @@ import {
   URL_APPLIC_UPDATE,
 }                      from '../services';
 import { APPLIC_DATA } from './applic-data';
+import { nanoid }      from 'nanoid';
+import { cloneDeep }   from 'lodash-es';
 
 @Injectable({
   providedIn: 'root',
@@ -80,9 +82,13 @@ export class ApplicMockApi {
     this.mockApiService
       .onPost(URL_APPLIC_CREATE)
       .onReply((request) => {
+
+        let _body = cloneDeep(request.body);
+        _body.appId = nanoid();
+        this.clone_data.push(_body);
         return {
           status: 200,
-          body  : HttpResult.okBody(request.body),
+          body  : HttpResult.okBody(_body),
         };
       });
   }

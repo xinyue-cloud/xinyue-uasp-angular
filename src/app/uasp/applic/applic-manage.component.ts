@@ -1,7 +1,12 @@
 import { Component, OnInit }            from '@angular/core';
 import { KuBreadcrumbService, MainTab } from '@xinyue/uasp';
+import { KuEventService }               from '@xinyue/core';
 
-import { EventService } from '../../shared/services/event.service';
+import {
+  EVENT_APPLIC_CLOSE_ACTIVE,
+  EVENT_APPLIC_NEW_ANEW_OPEN,
+  EVENT_APPLIC_NEW_CLOSE,
+} from './events';
 
 @Component({
   selector   : 'uasp-applic-manage',
@@ -13,9 +18,12 @@ export class ApplicManageComponent implements OnInit {
   mainTabIndex = 0;
   mainTabs: MainTab[] = [];
 
+  // detail
+  detailTabIndex = 0;
+
   constructor(
     private breadcrumb: KuBreadcrumbService,
-    private eventService: EventService,
+    private eventService: KuEventService,
   ) {
     console.info('ApplicManageComponent -> constructor');
     breadcrumb.setItems({
@@ -25,36 +33,38 @@ export class ApplicManageComponent implements OnInit {
       ],
     });
     eventService.subscribe(args => {
-      if (args.type === 'APPLIC_CLOSE') {
-        this.onTabClose(args.payload);
-      } else if (args.type === 'APPLIC_OPEN') {
-        this.onAnewOpen(args.payload);
+      if (args.type === EVENT_APPLIC_CLOSE_ACTIVE) {
+        this.tabCloseIndex(this.mainTabIndex);
+      } else if (args.type === EVENT_APPLIC_NEW_ANEW_OPEN) {
+        this.mainTabCloseNew();
+        this.onView(args.payload);
+      } else if (args.type === EVENT_APPLIC_NEW_CLOSE) {
+        this.mainTabCloseNew();
       }
-    })
+    });
   }
 
   ngOnInit(): void {
   }
 
-  tabClick(index: number): void {
+  mainTabClick(index: number): void {
     this.mainTabIndex = index;
   }
 
-  tabClose(index: number): void {
+  tabCloseIndex(index: number): void {
     this.mainTabs.splice(index - 1, 1);
     this.mainTabIndex = 0;
   }
 
-  onAnewOpen(tab: MainTab): void {
-    this.onTabClose(tab);
-    this.onView(tab);
+  mainTabCloseNew(): void {
+    let rows = this.mainTabs.filter(x => x.isNew);
+    if (rows.length > 0) {
+      this.tabCloseIndex(this.mainTabs.indexOf(rows[0]) + 1);
+    }
   }
 
-  onTabClose(tab: MainTab): void {
-    let rows = this.mainTabs.filter(x => x.businessKey === tab.businessKey);
-    if (rows.length > 0) {
-      this.tabClose(this.mainTabs.indexOf(rows[0]) + 1);
-    }
+  detailTabClick(index: number) {
+    this.detailTabIndex = index;
   }
 
   onCreate(): void {

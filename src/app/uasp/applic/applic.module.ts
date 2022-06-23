@@ -12,7 +12,6 @@ import { ApplicManageComponent }       from './applic-manage.component';
 import { ApplicEditComponent }         from './views/applic-edit.component';
 import { ApplicListComponent }         from './views/applic-list.component';
 import { ApplicNewComponent }          from './views/applic-new.component';
-import { ApplicTabsComponent }         from './views/applic-tabs.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import { ApplicTabsComponent }         from './views/applic-tabs.component';
     ApplicEditComponent,
     ApplicListComponent,
     ApplicNewComponent,
-    ApplicTabsComponent,
   ],
   imports     : [
     CommonModule,

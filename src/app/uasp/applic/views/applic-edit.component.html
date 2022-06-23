@@ -4,7 +4,7 @@
     基本资料
   </div>
 
-  <form [formGroup]="form1" (ngSubmit)="onSubmit(false)">
+  <form [formGroup]="form1">
 
     <h4 *ngIf="loading" class="text-blue">
       <i class="fas fa-spinner fa-spin"></i> 正在请求数据……
@@ -42,9 +42,15 @@
         </td>
       </tr>
       <tr>
-        <th><span>*</span><label>入口地址：</label></th>
+        <th><label>入口地址：</label></th>
         <td>
           <input type="text" formControlName="url" class="form-control form-control-sm"/>
+        </td>
+      </tr>
+      <tr>
+        <th><span>*</span><label>排序码：</label></th>
+        <td>
+          <input type="number" formControlName="sort" class="form-control form-control-sm"/>
         </td>
       </tr>
       <tr>
@@ -74,10 +80,10 @@
       </tr>
     </table>
     <div>
-      <button type="submit" class="btn btn-primary" [disabled]="submitting">
+      <button type="submit" class="btn btn-primary" [disabled]="submitting" (click)="onSubmit(false)">
         {{!!submitting ? "正在提交..." : "保存"}}
       </button>
-      <button type="button" class="btn btn-default ml-1" [disabled]="submitting" (click)="onSubmit(true)">
+      <button type="submit" class="btn btn-default ml-1" [disabled]="submitting" (click)="onSubmit(true)">
         {{!!submitting ? "正在提交..." : "保存并关闭"}}
       </button>
       <button type="button" class="btn btn-default ml-1" (click)="onRest()" [disabled]="submitting">
