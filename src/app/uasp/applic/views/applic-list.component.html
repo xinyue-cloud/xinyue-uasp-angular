@@ -1,15 +1,15 @@
 <!-- 常用查询 -->
-<div class="my-1 form-inline">
-  <select class="form-control form-control-sm mr-1" [(ngModel)]="query.statusValue" (change)="reloadData()">
+<div class="mb-1 form-inline">
+  <select class="form-control form-control-sm mr-1" [(ngModel)]="query.statusValue" (change)="onReload()">
     <option value="">--状态--</option>
     <option *ngFor="let item of statusItems" [value]="item.id">{{item.text}}</option>
   </select>
   <input type="text" class="form-control form-control-sm mr-1" placeholder="搜索：编号/名称"
-         [(ngModel)]="query.searchText" (change)="reloadData()"/>
-  <button type="button" class="btn btn-sm btn-default" (click)="reloadData()">
+         [(ngModel)]="query.searchText" (change)="onReload()"/>
+  <button type="button" class="btn btn-sm btn-default" (click)="onReload()">
     <i class="fas fa-search"></i> 查询
   </button>
-  <button type="button" class="btn btn-sm btn-default ml-1" (click)="doCreate()">
+  <button type="button" class="btn btn-sm btn-default ml-1" (click)="onCreate()">
     <i class="fas fa-plus"></i> 新增
   </button>
   <div class="ml-auto">
@@ -47,7 +47,7 @@
       <td class="text-center th font-weight-bold">{{index + 1}}</td>
       <td class="text-center">
         <div class="btn-group">
-          <button type="button" class="btn btn-xs btn-default" (click)="doView(row)"> 详情</button>
+          <button type="button" class="btn btn-xs btn-default" (click)="onView(row)"> 详情</button>
         </div>
       </td>
       <td [title]="row.code">{{row.code}}</td>

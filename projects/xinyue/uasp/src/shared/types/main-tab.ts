@@ -3,4 +3,5 @@ export interface MainTab {
   isNew?: boolean;
   type?: string;
   businessKey?: string;
+  modified?: boolean;
 }

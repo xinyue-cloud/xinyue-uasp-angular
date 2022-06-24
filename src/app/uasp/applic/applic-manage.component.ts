@@ -3,10 +3,11 @@ import { KuBreadcrumbService, MainTab } from '@xinyue/uasp';
 import { KuEventService }               from '@xinyue/core';
 
 import {
-  EVENT_APPLIC_CLOSE_ACTIVE,
-  EVENT_APPLIC_NEW_ANEW_OPEN,
-  EVENT_APPLIC_NEW_CLOSE,
-} from './events';
+  APPLIC_MAIN_TAB_CREATE, APPLIC_MAIN_TAB_VIEW,
+  APPLIC_MAIN_TAB_CLOSE_ACTIVE,
+  APPLIC_MAIN_TAB_NEW_MODIFY,
+  APPLIC_MAIN_TAB_NEW_CLOSE, APPLIC_MAIN_TAB_MODIFY,
+} from './event.types';
 
 @Component({
   selector   : 'uasp-applic-manage',
@@ -33,13 +34,18 @@ export class ApplicManageComponent implements OnInit {
       ],
     });
     eventService.subscribe(args => {
-      if (args.type === EVENT_APPLIC_CLOSE_ACTIVE) {
-        this.tabCloseIndex(this.mainTabIndex);
-      } else if (args.type === EVENT_APPLIC_NEW_ANEW_OPEN) {
-        this.mainTabCloseNew();
+      if (args.type === APPLIC_MAIN_TAB_CLOSE_ACTIVE) {
+        this.onMainTabClose(this.mainTabIndex);
+      } else if (args.type === APPLIC_MAIN_TAB_MODIFY) {
+        this.onMainTabModify(args.payload);
+      } else if (args.type === APPLIC_MAIN_TAB_NEW_MODIFY) {
+        this.onMainTabNewModify(args.payload);
+      } else if (args.type === APPLIC_MAIN_TAB_NEW_CLOSE) {
+        this.onMainTabCloseNew();
+      } else if (args.type === APPLIC_MAIN_TAB_CREATE) {
+        this.onCreate();
+      } else if (args.type === APPLIC_MAIN_TAB_VIEW) {
         this.onView(args.payload);
-      } else if (args.type === EVENT_APPLIC_NEW_CLOSE) {
-        this.mainTabCloseNew();
       }
     });
   }
@@ -47,23 +53,39 @@ export class ApplicManageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  mainTabClick(index: number): void {
+  onMainTabClick(index: number): void {
     this.mainTabIndex = index;
   }
 
-  tabCloseIndex(index: number): void {
+  onMainTabClose(index: number): void {
     this.mainTabs.splice(index - 1, 1);
     this.mainTabIndex = 0;
   }
 
-  mainTabCloseNew(): void {
+  onMainTabCloseNew(): void {
     let rows = this.mainTabs.filter(x => x.isNew);
     if (rows.length > 0) {
-      this.tabCloseIndex(this.mainTabs.indexOf(rows[0]) + 1);
+      this.onMainTabClose(this.mainTabs.indexOf(rows[0]) + 1);
     }
   }
 
-  detailTabClick(index: number) {
+  onMainTabNewModify(tab: MainTab): void {
+    let rows = this.mainTabs.filter(x => x.isNew);
+    if (rows.length > 0) {
+      rows[0].isNew = false;
+      rows[0].businessKey = tab.businessKey;
+      rows[0].title = tab.title;
+    }
+  }
+
+  onMainTabModify(tab: MainTab): void {
+    let rows = this.mainTabs.filter(x => x.businessKey === tab.businessKey);
+    if (rows.length > 0) {
+      rows[0].title = tab.title;
+    }
+  }
+
+  onDetailTabClick(index: number) {
     this.detailTabIndex = index;
   }
 

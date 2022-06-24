@@ -1,6 +1,6 @@
 import { Injectable }                   from '@angular/core';
 import { HttpResult, KuMockApiService } from '@xinyue/core';
-
+import Big from 'big.js';
 import {
   URL_APPLIC_CREATE,
   URL_APPLIC_DELETE,
@@ -8,9 +8,10 @@ import {
   URL_APPLIC_PAGE,
   URL_APPLIC_UPDATE,
 }                      from '../services';
-import { APPLIC_DATA } from './applic-data';
+import { APPLIC_DATA } from './mock-data';
 import { nanoid }      from 'nanoid';
-import { cloneDeep }   from 'lodash-es';
+import { cloneDeep }    from 'lodash-es';
+import { APPLIC_TYPES } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -82,9 +83,9 @@ export class ApplicMockApi {
     this.mockApiService
       .onPost(URL_APPLIC_CREATE)
       .onReply((request) => {
-
         let _body = cloneDeep(request.body);
         _body.appId = nanoid();
+        _body.statusName = APPLIC_TYPES.filter((x: any) => x.id === _body.status)[0].text;
         this.clone_data.push(_body);
         return {
           status: 200,
@@ -101,14 +102,16 @@ export class ApplicMockApi {
         let _id = request.params.get('id');
         let _list = this.clone_data.filter(x => x.appId === _id);
         if (_list.length > 0) {
-          _list[0].code = request.body.code;
-          _list[0].name = request.body.name;
-          _list[0].remark = request.body.remark;
-          _list[0].type = request.body.type;
-          _list[0].url = request.body.url;
-          _list[0].sort = request.body.sort;
-          _list[0].needRelease = request.body.needRelease;
-          _list[0].status = request.body.status;
+          let _body = request.body;
+          _list[0].code = _body.code;
+          _list[0].name = _body.name;
+          _list[0].remark = _body.remark;
+          _list[0].type = _body.type;
+          _list[0].url = _body.url;
+          _list[0].sort = _body.sort;
+          _list[0].needRelease = _body.needRelease;
+          _list[0].status = _body.status;
+          _list[0].statusName = APPLIC_TYPES.filter((x: any) => x.id === _body.status)[0].text;
         }
         return {
           status: 200,

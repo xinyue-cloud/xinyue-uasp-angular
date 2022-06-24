@@ -20,7 +20,7 @@ import { BlankComponent }   from './views/blank/blank.component';
 import { UaspApplicModule } from './uasp/applic';
 
 const appRoutes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'passport/login' },
+  { path: '', pathMatch: 'full', redirectTo: 'blank' },
   {
     path     : 'passport',
     component: KuPassportLayoutComponent,
@@ -31,14 +31,18 @@ const appRoutes: Routes = [
     ],
   },
   {
-    path       : 'uasp',
+    path       : '',
     component  : KuAdminLayoutComponent,
     canActivate: [KuAuthGuard],
     resolve    : {
       dataset: InitialDataResolver,
     },
     children   : [
-      { path: 'applic', loadChildren: () => UaspApplicModule },
+      {
+        path: 'uasp', children: [
+          { path: 'applic', loadChildren: () => UaspApplicModule },
+        ],
+      },
       { path: 'blank', component: BlankComponent },
       { path: 'not-found', component: KuNotFoundComponent },
       { path: 'error-page', component: KuErrorPageComponent },

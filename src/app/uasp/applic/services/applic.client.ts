@@ -25,7 +25,7 @@ export class ApplicClient extends KuHttpService {
   }
 
   @POST(URL_APPLIC_GET)
-  selectById(
+  getById(
     @Body id: { id: string },
   ): Observable<HttpResult<ApplicVo>> | null {
     return null;

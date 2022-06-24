@@ -29,11 +29,13 @@ import { AppConfigService } from './shared/services/app-config.service';
 import { ToastrTipService } from './shared/services/toastr-tip.service';
 import { SwalAlertService } from './shared/services/swal-alert.service';
 import { mockApiServices }  from './mock';
+import { ChooseTenantComponent } from './uasp/chooser/choose-tenant/choose-tenant.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BlankComponent,
+    ChooseTenantComponent,
   ],
   imports     : [
     CommonModule,

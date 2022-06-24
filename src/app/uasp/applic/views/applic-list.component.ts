@@ -1,16 +1,15 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { KuEventService, SelectItem }                                 from '@xinyue/core';
 
-import { DATA_STATUS, MainTab, TableOption } from '@xinyue/uasp';
-import { ApplicClient, ApplicService }       from '../services';
-import { cloneDeep }                         from 'lodash-es';
-import { ApplicVo }                          from '../models';
+import { DATA_STATUS, TableOption }    from '@xinyue/uasp';
+import { ApplicClient, ApplicService } from '../services';
+import { cloneDeep }                   from 'lodash-es';
+import { ApplicVo } from '../models';
 import {
-  EVENT_APPLIC_CLICK_QUERY,
-  EVENT_APPLIC_CLOSE_ACTIVE,
-  EVENT_APPLIC_NEW_ANEW_OPEN,
-  EVENT_APPLIC_NEW_CLOSE,
-}                                            from '../events';
+  APPLIC_MAIN_TAB_CREATE,
+  APPLIC_LIST_QUERY,
+  APPLIC_MAIN_TAB_VIEW,
+}                   from '../event.types';
 
 @Component({
   selector   : 'uasp-applic-list',
@@ -28,10 +27,6 @@ export class ApplicListComponent implements OnInit {
   // table
   option = new TableOption<any>();
 
-  // event
-  @Output() onCreate: EventEmitter<any> = new EventEmitter();
-  @Output() onView: EventEmitter<MainTab> = new EventEmitter();
-
   constructor(
     private cdf: ChangeDetectorRef,
     private applicClient: ApplicClient,
@@ -40,11 +35,11 @@ export class ApplicListComponent implements OnInit {
   ) {
     this.statusItems = cloneDeep(DATA_STATUS);
     this.option.onReloadData = () => {
-      this.reloadData();
+      this.onReload();
     };
     eventService.subscribe(args => {
-      if (args.type === EVENT_APPLIC_CLICK_QUERY) {
-        this.reloadData();
+      if (args.type === APPLIC_LIST_QUERY) {
+        this.onReload();
       }
     });
   }
@@ -52,7 +47,7 @@ export class ApplicListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  reloadData(): void {
+  onReload(): void {
 
     this.applicClient.queryPage({
       page   : this.option.page,
@@ -67,14 +62,19 @@ export class ApplicListComponent implements OnInit {
     });
   }
 
-  doCreate() {
-    this.onCreate.emit();
+  onCreate() {
+    this.eventService.emit({
+      type: APPLIC_MAIN_TAB_CREATE,
+    });
   }
 
-  doView(row: ApplicVo) {
-    this.onView.emit({
-      title      : row.name,
-      businessKey: row.appId,
+  onView(row: ApplicVo) {
+    this.eventService.emit({
+      type   : APPLIC_MAIN_TAB_VIEW,
+      payload: {
+        title      : row.name,
+        businessKey: row.appId,
+      },
     });
   }
 }

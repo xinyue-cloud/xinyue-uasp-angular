@@ -47822,4 +47822,12 @@ form .ng-dirtyinput.ng-invalid {
   background: #efefef;
 }
 
+.toast-top-center {
+  top: 15px;
+}
+
+.toast-progress {
+  opacity: 0.2;
+}
+
 /*# sourceMappingURL=styles.css.map */

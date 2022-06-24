@@ -5,7 +5,6 @@ export enum ApplicTypes {
   WX = 'WX',
   APP = 'APP',
 }
-
 export const APPLIC_TYPES: SelectItem[] = [
   { id: 'PC', text: 'Web应用' },
   { id: 'WX', text: '微信应用' },

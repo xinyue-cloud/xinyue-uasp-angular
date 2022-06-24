@@ -7,7 +7,7 @@ export interface ApplicVo {
   name: string;
   level: number;
   type: ApplicTypes;
-  typeName: string;
+  typeName?: string;
   url: string;
   sort: number;
   needRelease: boolean;
@@ -15,6 +15,6 @@ export interface ApplicVo {
   creatorName: string;
   createTime: Date;
   status: DataStatus;
-  statusName: string;
+  statusName?: string;
   remark?: string;
 }
