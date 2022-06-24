@@ -1,4 +1,4 @@
-import { ApplicTypes } from './applic-types';
+import { ApplicTypes } from './enum.types';
 import { DataStatus }  from '@xinyue/uasp';
 
 export interface ApplicVo {
@@ -17,4 +17,14 @@ export interface ApplicVo {
   status: DataStatus;
   statusName?: string;
   remark?: string;
+}
+
+export interface ApplicTenantVo {
+  tenantAppId: string;
+  appId: string;
+  tenantId: string;
+  tenantName: string;
+  createTime: Date;
+  status: DataStatus;
+  statusName?: string;
 }

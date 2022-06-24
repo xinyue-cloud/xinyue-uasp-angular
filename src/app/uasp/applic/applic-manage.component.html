@@ -12,7 +12,7 @@
         <a class="align-items-center d-flex nav-link" href="javascript:" [ngClass]="{'active': mainTabIndex === i+1}"
            (click)="onMainTabClick(i+1)" title="{{tab.title}}">
           <span *ngIf="!!tab.modified" class="font-weight-bold text-black-50">*</span>
-          <span [ngClass]="{'main-tab-title': mainTabs.length>=5}" [title]="tab.title">{{tab.title}}</span>
+          <span [ngClass]="{'ku-main-tab-title': mainTabs.length>=5}" [title]="tab.title">{{tab.title}}</span>
           <i class="fas fa-times ml-1" (click)="onMainTabClose(i+1)"></i>
         </a>
       </li>
@@ -29,7 +29,7 @@
            *ngFor="let tab of mainTabs; let i = index;">
 
         <div class="d-flex w-100">
-          <div style="background: linear-gradient(270deg, #e3e3e350, transparent);">
+          <div class="ku-nav-header">
             <div class="nav flex-column nav-tabs h-100 pl-1 pt-1">
               <a class="nav-link" [ngClass]="{'active': detailTabIndex === 0}" href="javascript:"
                  (click)="onDetailTabClick(0)">

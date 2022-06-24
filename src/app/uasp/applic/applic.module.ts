@@ -12,8 +12,8 @@ import { ApplicManageComponent }       from './applic-manage.component';
 import { ApplicEditComponent }         from './views/applic-edit.component';
 import { ApplicListComponent }         from './views/applic-list.component';
 import { ApplicNewComponent }          from './views/applic-new.component';
-import { TenantListComponent } from './views/tenant-list.component';
-import { CompanyListComponent } from './views/company-list.component';
+import { TenantListComponent }         from './views/tenant-list.component';
+import { CompanyListComponent }        from './views/company-list.component';
 
 @NgModule({
   declarations: [

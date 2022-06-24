@@ -8,7 +8,7 @@ import {
   URL_APPLIC_PAGE,
   URL_APPLIC_UPDATE,
 }                      from '../services';
-import { APPLIC_DATA } from './mock-data';
+import { APPLIC_DATA } from './applic-data';
 import { nanoid }      from 'nanoid';
 import { cloneDeep }    from 'lodash-es';
 import { APPLIC_TYPES } from '../models';

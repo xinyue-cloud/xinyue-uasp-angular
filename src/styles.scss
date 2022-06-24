@@ -1,6 +1,10 @@
-.main-tab-title {
+.ku-main-tab-title {
   max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap
+}
+
+.ku-nav-header {
+  background: linear-gradient(270deg, #e3e3e350, transparent);
 }
