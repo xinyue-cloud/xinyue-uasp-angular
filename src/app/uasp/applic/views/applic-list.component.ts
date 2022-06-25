@@ -4,12 +4,12 @@ import { KuEventService, SelectItem }                                 from '@xin
 import { DATA_STATUS, TableOption }    from '@xinyue/uasp';
 import { ApplicClient, ApplicService } from '../services';
 import { cloneDeep }                   from 'lodash-es';
-import { ApplicVo } from '../models';
+import { ApplicVo }                    from '../models';
 import {
   APPLIC_MAIN_TAB_CREATE,
   APPLIC_LIST_QUERY,
   APPLIC_MAIN_TAB_VIEW,
-}                   from '../event.types';
+}                                      from '../event.types';
 
 @Component({
   selector   : 'uasp-applic-list',
@@ -25,7 +25,7 @@ export class ApplicListComponent implements OnInit {
   }
 
   // table
-  option = new TableOption<any>();
+  option = new TableOption<ApplicVo>();
 
   constructor(
     private cdf: ChangeDetectorRef,

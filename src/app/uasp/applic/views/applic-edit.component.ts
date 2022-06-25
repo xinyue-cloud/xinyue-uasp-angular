@@ -6,13 +6,13 @@ import { KuTipService, SelectItem, KuEventService } from '@xinyue/core';
 import { MainTab }                                  from '@xinyue/uasp';
 
 import { APPLIC_TYPES, ApplicVo } from '../models';
-import { ApplicClient } from '../services';
+import { ApplicClient }           from '../services';
 import {
   APPLIC_LIST_QUERY,
   APPLIC_MAIN_TAB_CLOSE_ACTIVE, APPLIC_MAIN_TAB_MODIFY,
   APPLIC_MAIN_TAB_NEW_MODIFY,
   APPLIC_MAIN_TAB_NEW_CLOSE,
-}                       from '../event.types';
+}                                 from '../event.types';
 
 @Component({
   selector   : 'uasp-applic-edit',

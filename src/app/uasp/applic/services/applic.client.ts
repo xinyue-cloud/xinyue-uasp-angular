@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import {
   Body, Param, POST, Query,
   HttpResult, KuHttpService, PageClause, PageList,
-} from '@xinyue/core';
+}                 from '@xinyue/core';
+import { IdBody } from '@xinyue/uasp';
 
 import {
   ApplicQuery, ApplicVo, ApplicBody,
@@ -17,9 +18,9 @@ export const URL_APPLIC_CREATE = '/applic/create';
 export const URL_APPLIC_UPDATE = '/applic/update';
 export const URL_APPLIC_DELETE = '/applic/delete';
 
+export const URL_APPLIC_TENANT_CHOOSE = '/applic/tenant/page';
 export const URL_APPLIC_TENANT_PAGE = '/applic/tenant/page';
 export const URL_APPLIC_TENANT_CREATE = '/applic/tenant/create';
-export const URL_APPLIC_TENANT_UPDATE = '/applic/tenant/update';
 export const URL_APPLIC_TENANT_DELETE = '/applic/tenant/delete';
 
 @Injectable()
@@ -30,14 +31,14 @@ export class ApplicClient extends KuHttpService {
   @POST(URL_APPLIC_PAGE)
   queryPage(
     @Query pageClause: PageClause,
-    @Body request: ApplicQuery,
+    @Body body: ApplicQuery,
   ): Observable<HttpResult<PageList<ApplicVo>>> | null {
     return null;
   }
 
   @POST(URL_APPLIC_GET)
   getById(
-    @Body id: { id: string },
+    @Body body: IdBody,
   ): Observable<HttpResult<ApplicVo>> | null {
     return null;
   }
@@ -51,7 +52,6 @@ export class ApplicClient extends KuHttpService {
 
   @POST(URL_APPLIC_UPDATE)
   update(
-    @Param('id') id: string,
     @Body body: ApplicBody,
   ): Observable<HttpResult<ApplicVo>> | null {
     return null;
@@ -59,7 +59,7 @@ export class ApplicClient extends KuHttpService {
 
   @POST(URL_APPLIC_DELETE)
   deleteById(
-    @Param('id') id: string,
+    @Body body: IdBody,
   ): Observable<HttpResult<ApplicVo>> | null {
     return null;
   }
@@ -69,7 +69,7 @@ export class ApplicClient extends KuHttpService {
   @POST(URL_APPLIC_TENANT_PAGE)
   queryTenantPage(
     @Query pageClause: PageClause,
-    @Body request: ApplicTenantQuery,
+    @Body body: ApplicTenantQuery,
   ): Observable<HttpResult<PageList<ApplicTenantVo>>> | null {
     return null;
   }
@@ -81,17 +81,9 @@ export class ApplicClient extends KuHttpService {
     return null;
   }
 
-  @POST(URL_APPLIC_TENANT_UPDATE)
-  updateTenant(
-    @Param('id') id: string,
-    @Body body: ApplicTenantBody,
-  ): Observable<HttpResult<ApplicTenantVo>> | null {
-    return null;
-  }
-
   @POST(URL_APPLIC_TENANT_DELETE)
   deleteTenantById(
-    @Param('id') id: string,
+    @Body body: IdBody,
   ): Observable<HttpResult<ApplicTenantVo>> | null {
     return null;
   }

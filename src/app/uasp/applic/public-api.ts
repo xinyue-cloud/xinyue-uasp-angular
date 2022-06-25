@@ -1,6 +1,3 @@
-
-export * from './mocks/mock-api';
-
 export * from './models';
 export * from './services';
 

@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { DATA_STATUS, MainTab, TableOption }           from '@xinyue/uasp';
-import { KuEventService, SelectItem }                  from '@xinyue/core';
-import { cloneDeep }                                   from 'lodash-es';
+import { MainTab, TableOption }                        from '@xinyue/uasp';
+import { KuAlertService, KuEventService, SelectItem }  from '@xinyue/core';
 
 import { ApplicClient, ApplicService } from '../services';
 import { APPLIC_MAIN_TAB_CREATE }      from '../event.types';
+import { ApplicTenantVo }              from '../models'
+import { SweetAlertResult }            from 'sweetalert2'
 
 @Component({
   selector   : 'uasp-tenant-list',
@@ -25,13 +26,14 @@ export class TenantListComponent implements OnInit {
   }
 
   // table
-  option = new TableOption<any>();
+  option = new TableOption<ApplicTenantVo>();
 
   constructor(
     private cdf: ChangeDetectorRef,
     private applicClient: ApplicClient,
     private applicService: ApplicService,
     private eventService: KuEventService,
+    private alertService: KuAlertService,
   ) {
     this.option.onReloadData = () => {
       this.onReload();
@@ -42,8 +44,7 @@ export class TenantListComponent implements OnInit {
   }
 
   onReload(): void {
-
-    this.applicClient.queryPage({
+    this.applicClient.queryTenantPage({
       page   : this.option.page,
       limit  : this.option.limit,
       orderby: this.option.orderby,
@@ -60,5 +61,16 @@ export class TenantListComponent implements OnInit {
     this.eventService.emit({
       type: APPLIC_MAIN_TAB_CREATE,
     });
+  }
+
+  onRemove(row: ApplicTenantVo) {
+    this.alertService
+      .confirm("确认要移除此租户吗？", "确认")
+      .then((result: SweetAlertResult) => {
+        console.info("Confirm -> result: ", result);
+        if (result.isConfirmed) {
+
+        }
+      });
   }
 }

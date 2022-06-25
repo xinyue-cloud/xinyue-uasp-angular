@@ -1,2 +1,2 @@
-export * from './main-tab';
-export * from './app-config';
+export { KuAppConfig } from './app-config';
+export { MainTab }     from './main-tab';

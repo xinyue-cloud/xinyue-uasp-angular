@@ -7,13 +7,16 @@
         "dist/xinyue/*"
       ],
       "@xinyue/core": [
-        "dist/xinyue/core"
+        "dist/xinyue/core",
+        "dist/xinyue/xinyue/core"
       ],
       "@xinyue/ui": [
-        "dist/xinyue/ui"
+        "dist/xinyue/ui",
+        "dist/xinyue/xinyue/ui"
       ],
       "@xinyue/uasp": [
-        "dist/xinyue/uasp"
+        "dist/xinyue/uasp",
+        "dist/xinyue/xinyue/uasp"
       ]
     },
     "baseUrl": "./",

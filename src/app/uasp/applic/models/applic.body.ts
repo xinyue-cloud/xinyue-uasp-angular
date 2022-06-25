@@ -1,5 +1,5 @@
-import { ApplicTypes } from './enum.types';
-import { DataStatus }  from '@xinyue/uasp';
+import { ApplicTypes } from './applic-types.enum'
+import { DataStatus }  from '@xinyue/uasp'
 
 export interface ApplicBody {
   appId: string;
@@ -12,11 +12,4 @@ export interface ApplicBody {
   needRelease: boolean;
   status: DataStatus;
   remark: string;
-}
-
-export interface ApplicTenantBody {
-  tenantAppId: string;
-  appId: string;
-  tenantId: string;
-  status: DataStatus;
 }

@@ -27,18 +27,15 @@
     <tr>
       <th class="text-center" style="width: 35px;">#</th>
       <th class="text-center" style="width: 120px;">操作</th>
-      <th pSortableColumn="code"> 代码
-        <p-sortIcon field="code"></p-sortIcon>
+      <th pSortableColumn="tenantName"> 租户名称
+        <p-sortIcon field="tenantName"></p-sortIcon>
       </th>
-      <th pSortableColumn="name"> 名称
-        <p-sortIcon field="status"></p-sortIcon>
+      <th pSortableColumn="createTime" style="width: 120px;"> 开通时间
+        <p-sortIcon field="createTime"></p-sortIcon>
       </th>
-      <th class="text-center" style="width: 100px;">等级</th>
-      <th class="text-center" style="width: 100px;">类型</th>
-      <th>入口</th>
-      <th class="text-center" style="width: 100px;">排序码</th>
-      <th class="text-center" style="width: 100px;">状态</th>
-      <th>备注</th>
+      <th class="text-center" style="width: 120px;">到期时间</th>
+      <th class="text-center" style="width: 100px;">启用状态</th>
+      <th>开通人</th>
     </tr>
   </ng-template>
 
@@ -47,40 +44,20 @@
       <td class="text-center th font-weight-bold">{{index + 1}}</td>
       <td class="text-center">
         <div class="btn-group">
-          <button type="button" class="btn btn-xs btn-default" (click)="onView(row)"> 详情</button>
+          <button type="button" class="btn btn-xs btn-default" (click)="onRemove(row)">移除</button>
         </div>
       </td>
-      <td [title]="row.code">{{row.code}}</td>
-      <td [title]="row.name">{{row.name}}</td>
-      <td class="text-center" [title]="row.level">{{row.level}} 级</td>
-      <td class="text-center" [title]="row.typeName">{{row.typeName}}</td>
-      <td [title]="row.url">{{row.url}}</td>
-      <td class="text-center" [title]="row.sort">{{row.sort}}</td>
+      <td [title]="row.tenantName">{{row.tenantName}}</td>
+      <td [title]="row.expireTime">{{row.createTime | date:'yyyy-MM-dd'}}</td>
+      <td [title]="row.expireTime">{{row.expireTime | date:'yyyy-MM-dd'}}</td>
       <td class="text-center" [title]="row.statusName">
         <span class="badge" [ngClass]="{
           'bg-dark': row.status === 'I',
           'bg-success': row.status === 'V'
         }">{{row.statusName}}</span>
       </td>
-      <td [title]="row.remark">{{row.remark}}</td>
+      <td [title]="row.creatorName">{{row.creatorName}}</td>
     </tr>
-  </ng-template>
-
-  <ng-template pTemplate="paginatorright">
-    <button type="button" class="btn btn-sm btn-default ml-1">
-      <i class="fas fa-sort"></i> 重置排序
-    </button>
-    <div class="btn-group ml-1">
-      <button type="button" class="btn btn-sm btn-default">
-        <i class="fas fa-file-excel"></i> Excel
-      </button>
-      <button type="button" class="btn btn-sm btn-default">
-        <i class="fas fa-file-word"></i> Word
-      </button>
-      <button type="button" class="btn btn-sm btn-default">
-        <i class="fas fa-file-pdf"></i> PDF
-      </button>
-    </div>
   </ng-template>
 
   <ng-template pTemplate="emptymessage">
