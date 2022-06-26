@@ -9,9 +9,11 @@ import { APPLIC_TYPES, ApplicVo } from '../models';
 import { ApplicClient }           from '../services';
 import {
   APPLIC_LIST_QUERY,
-  APPLIC_MAIN_TAB_CLOSE_ACTIVE, APPLIC_MAIN_TAB_MODIFY,
+  APPLIC_MAIN_TAB_CLOSE_ACTIVE,
+  APPLIC_MAIN_TAB_MODIFY,
   APPLIC_MAIN_TAB_NEW_MODIFY,
   APPLIC_MAIN_TAB_NEW_CLOSE,
+  APPLIC_FORM_DENY_CLOSE, APPLIC_FORM_SAVE_CLOSE,
 }                                 from '../event.types';
 
 @Component({
@@ -48,6 +50,13 @@ export class ApplicEditComponent implements OnInit {
       needRelease: [false],
       remark     : [''],
     });
+    eventService.subscribe(event => {
+      if (event.type === APPLIC_FORM_SAVE_CLOSE) {
+        this.onSubmit(true);
+      } else if (event.type === APPLIC_FORM_DENY_CLOSE) {
+        this.closeTab();
+      }
+    })
   }
 
   resetModify(): void {
@@ -99,6 +108,18 @@ export class ApplicEditComponent implements OnInit {
     }
   }
 
+  closeTab(): void {
+    if (this.entry.isNew) {
+      this.eventService.emit({
+        type: APPLIC_MAIN_TAB_NEW_CLOSE,
+      });
+    } else {
+      this.eventService.emit({
+        type: APPLIC_MAIN_TAB_CLOSE_ACTIVE,
+      })
+    }
+  }
+
   private postUpdate(closed: boolean) {
 
     if (!this.entry.modified) {
@@ -112,16 +133,14 @@ export class ApplicEditComponent implements OnInit {
     }
 
     this.submitting = true;
-    this.client.update(this.entry.businessKey!, this.form1.value)?.subscribe((result) => {
+    this.client.update(this.form1.value)?.subscribe((result) => {
       this.submitting = false;
       if (result.success) {
         this.rawData = result.data;
         this.resetModify();
         this.tip.success('应用保存成功。', '成功');
         if (closed) {
-          this.eventService.emit({
-            type: APPLIC_MAIN_TAB_CLOSE_ACTIVE,
-          })
+          this.closeTab();
         } else {
           this.eventService.emit({
             type   : APPLIC_MAIN_TAB_MODIFY,
@@ -148,9 +167,7 @@ export class ApplicEditComponent implements OnInit {
       if (result.success) {
         this.tip.success('应用创建成功。', '成功');
         if (closed) {
-          this.eventService.emit({
-            type: APPLIC_MAIN_TAB_NEW_CLOSE,
-          });
+          this.closeTab();
         } else {
           this.form1.patchValue({
             appId: result.data.appId,

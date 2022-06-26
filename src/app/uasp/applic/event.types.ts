@@ -12,3 +12,7 @@ export const APPLIC_LIST_QUERY = 'APPLIC_LIST_QUERY';
 export const APPLIC_MAIN_TAB_CREATE = 'APPLIC_MAIN_TAB_CREATE';
 /** 打开一个选项卡，用于显示现有表单 */
 export const APPLIC_MAIN_TAB_VIEW = 'APPLIC_MAIN_TAB_VIEW';
+/** 通知保存表单操作 */
+export const APPLIC_FORM_SAVE_CLOSE = 'APPLIC_FORM_SAVE_CLOSE';
+/** 通知保存表单操作 */
+export const APPLIC_FORM_DENY_CLOSE = 'APPLIC_FORM_DENY_CLOSE';

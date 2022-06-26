@@ -11,16 +11,15 @@ import { ApplicClient, ApplicService } from './services';
 import { ApplicManageComponent }       from './applic-manage.component';
 import { ApplicEditComponent }         from './views/applic-edit.component';
 import { ApplicListComponent }         from './views/applic-list.component';
-import { ApplicNewComponent }          from './views/applic-new.component';
 import { TenantListComponent }         from './views/tenant-list.component';
 import { CompanyListComponent }        from './views/company-list.component';
+import { UaspChooseModule }            from '../choose/choose.module';
 
 @NgModule({
   declarations: [
     ApplicManageComponent,
     ApplicEditComponent,
     ApplicListComponent,
-    ApplicNewComponent,
     TenantListComponent,
     CompanyListComponent,
   ],
@@ -30,6 +29,7 @@ import { CompanyListComponent }        from './views/company-list.component';
     ReactiveFormsModule,
     RouterModule.forChild(ROUTES),
     TableModule,
+    UaspChooseModule,
     KuInfoBarModule,
   ],
   providers   : [

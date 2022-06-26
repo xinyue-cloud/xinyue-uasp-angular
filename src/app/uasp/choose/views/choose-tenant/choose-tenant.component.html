@@ -1,1 +1,81 @@
-<p>choose-tenant works!</p>
+<div class="modal-header align-items-center p-1">
+  <h5 class="font-weight-bold modal-title">{{title}}</h5>
+  <button type="button" class="close m-0 p-1" (click)="onCancel()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div [ngClass]="multiple?'col-6 border-right':'col-12'">
+      <h6 class="font-weight-bold" *ngIf="multiple">候选项（{{candidate.rawData.length}}）</h6>
+      <input type="text" class="form-control form-control-sm mb-1" [(ngModel)]="candidate.searchText"
+             placeholder="搜索：租户名称/编号" (ngModelChange)="updateFilter()"/>
+      <div style="height: 350px;overflow: auto">
+        <table class="table table-bordered table-sm table-striped">
+          <thead>
+          <tr>
+            <th style="width: 40px;"></th>
+            <th>租户名称</th>
+            <th style="width: 45px;"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let row of candidate.dataSource; let idx = index">
+            <td class="text-center">{{idx + 1}}</td>
+            <td [title]="row.code??''">{{row.name}}</td>
+            <td class="text-center">
+              <a href="javascript:" *ngIf="!hasSelected(row)" (click)="addSelected(row)">
+                {{multiple ? '添加' : '确认'}}
+              </a>
+            </td>
+          </tr>
+          </tbody>
+          <tfoot *ngIf="!candidate.dataSource || candidate.dataSource.length==0">
+          <tr>
+            <td colspan="3" class="text-center">没有候选数据。</td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <div class="col-6 border-1" *ngIf="multiple">
+      <h6 class="font-weight-bold">已选项（{{selected.rawData.length}}）</h6>
+      <input type="text" class="form-control form-control-sm mb-1" [(ngModel)]="selected.searchText"
+             placeholder="搜索：租户名称/编号" (ngModelChange)="updateFilter()"/>
+      <div style="height: 350px;overflow: auto">
+        <table class="table table-bordered table-sm table-striped">
+          <thead>
+          <tr>
+            <th style="width: 40px;"></th>
+            <th style="width: 45px;"></th>
+            <th>租户名称</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+          <tr *ngFor="let row of selected.dataSource; let idx = index">
+            <td class="text-center">{{idx + 1}}</td>
+            <td class="text-center">
+              <a href="javascript:" class="text-red" (click)="delSelected(row)">移除</a>
+            </td>
+            <td [title]="row.code??''">{{row.name}}</td>
+          </tr>
+          </tbody>
+          <tfoot *ngIf="!selected.dataSource || selected.dataSource.length==0">
+          <tr>
+            <td colspan="3" class="text-center">没有候选数据。</td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer p-2">
+  <button type="button" class="btn btn-sm btn-primary" (click)="onConfirm()" *ngIf="multiple">
+    确认选择
+  </button>
+  <button type="submit" class="btn btn-sm btn-default" (click)="onCancel()">
+    取消
+  </button>
+</div>

@@ -15,6 +15,20 @@ export class SwalAlertService extends KuAlertService {
 
   public override error = (message: string, title?: string) => this.displayAlert('error', message, title);
 
+  public override custom = (options: any, message: string, title?: string) =>
+    Swal.fire({
+      title,
+      text             : message,
+      icon             : 'question',
+      showCancelButton : true,
+      showConfirmButton: true,
+      showDenyButton   : true,
+      confirmButtonText: '确认',
+      denyButtonText   : '拒绝',
+      cancelButtonText : '取消',
+      ...options,
+    });
+
   public override confirm = (message: string, title?: string) =>
     Swal.fire({
       title,

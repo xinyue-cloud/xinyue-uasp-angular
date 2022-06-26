@@ -127,7 +127,7 @@ export class ApplicMockApi {
     this.mockApiService
       .onPost(URL_APPLIC_UPDATE)
       .onReply((request: HttpRequest<ApplicBody>) => {
-        let _id = request.params.get('id');
+        let _id = request.body!.appId;
         let _rows = this.applic_data.filter(x => x.appId === _id);
         if (_rows.length > 0) {
           let _body = request.body!;

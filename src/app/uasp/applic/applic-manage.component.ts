@@ -1,13 +1,18 @@
-import { Component, OnInit }            from '@angular/core';
-import { KuBreadcrumbService, MainTab } from '@xinyue/uasp';
-import { KuEventService }               from '@xinyue/core';
+import { Component, OnInit }              from '@angular/core';
+import { KuBreadcrumbService, MainTab }   from '@xinyue/uasp';
+import { KuAlertService, KuEventService } from '@xinyue/core';
 
 import {
-  APPLIC_MAIN_TAB_CREATE, APPLIC_MAIN_TAB_VIEW,
+  APPLIC_FORM_DENY_CLOSE,
+  APPLIC_FORM_SAVE_CLOSE,
   APPLIC_MAIN_TAB_CLOSE_ACTIVE,
+  APPLIC_MAIN_TAB_CREATE,
+  APPLIC_MAIN_TAB_MODIFY,
+  APPLIC_MAIN_TAB_NEW_CLOSE,
   APPLIC_MAIN_TAB_NEW_MODIFY,
-  APPLIC_MAIN_TAB_NEW_CLOSE, APPLIC_MAIN_TAB_MODIFY,
-} from './event.types';
+  APPLIC_MAIN_TAB_VIEW,
+}                           from './event.types';
+import { SweetAlertResult } from 'sweetalert2';
 
 @Component({
   selector   : 'uasp-applic-manage',
@@ -25,6 +30,7 @@ export class ApplicManageComponent implements OnInit {
   constructor(
     private breadcrumb: KuBreadcrumbService,
     private eventService: KuEventService,
+    private alertService: KuAlertService,
   ) {
     console.info('ApplicManageComponent -> constructor');
     breadcrumb.setItems({
@@ -35,7 +41,7 @@ export class ApplicManageComponent implements OnInit {
     });
     eventService.subscribe(args => {
       if (args.type === APPLIC_MAIN_TAB_CLOSE_ACTIVE) {
-        this.onMainTabClose(this.mainTabIndex);
+        this.onMainTabClose(args.payload);
       } else if (args.type === APPLIC_MAIN_TAB_MODIFY) {
         this.onMainTabModify(args.payload);
       } else if (args.type === APPLIC_MAIN_TAB_NEW_MODIFY) {
@@ -53,11 +59,43 @@ export class ApplicManageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onMainTabClick(index: number): void {
-    this.mainTabIndex = index;
+  onMainTabClickHome(): void {
+    this.mainTabIndex = 0;
   }
 
-  onMainTabClose(index: number): void {
+  onMainTabClickTitle(tab: MainTab): void {
+    this.mainTabIndex = this.mainTabs.indexOf(tab) + 1;
+  }
+
+  onMainTabClickClose(tab: MainTab): void {
+
+    if (tab.modified) {
+      this.alertService.custom({
+        confirmButtonText: '保存',
+        denyButtonText   : '不保存',
+        cancelButtonText : '取消',
+      }, '该记录数据已经修改，是否需要保存？', '选择关闭方式')
+        .then((result: SweetAlertResult) => {
+          console.info('onMainTabClose -> Confirm -> result: ', result);
+          if (result.isConfirmed) {
+            this.eventService.emit({
+              type   : APPLIC_FORM_SAVE_CLOSE,
+              payload: tab,
+            });
+          } else if (result.isDenied) {
+            this.eventService.emit({
+              type   : APPLIC_FORM_DENY_CLOSE,
+              payload: tab,
+            });
+          }
+        });
+    } else {
+      this.onMainTabClose(tab);
+    }
+  }
+
+  onMainTabClose(tab: MainTab): void {
+    let index = this.mainTabs.indexOf(tab) + 1;
     this.mainTabs.splice(index - 1, 1);
     this.mainTabIndex = 0;
   }
@@ -65,7 +103,7 @@ export class ApplicManageComponent implements OnInit {
   onMainTabCloseNew(): void {
     let rows = this.mainTabs.filter(x => x.isNew);
     if (rows.length > 0) {
-      this.onMainTabClose(this.mainTabs.indexOf(rows[0]) + 1);
+      this.onMainTabClose(rows[0]);
     }
   }
 
@@ -85,7 +123,7 @@ export class ApplicManageComponent implements OnInit {
     }
   }
 
-  onDetailTabClick(index: number) {
+  onDetailTabClickItem(index: number) {
     this.detailTabIndex = index;
   }
 
