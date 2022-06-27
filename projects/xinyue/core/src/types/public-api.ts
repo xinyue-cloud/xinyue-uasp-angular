@@ -5,3 +5,4 @@ export { SelectItem }              from './select-item';
 export { TreeNode }                from './tree-node';
 export { PageClause }              from './page-clause';
 export { KuConfig }                from './config';
+export { KeyValue }                from './key-value';

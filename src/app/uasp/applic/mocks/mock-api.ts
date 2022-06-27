@@ -2,7 +2,7 @@ import { Injectable }  from '@angular/core';
 import { HttpRequest } from '@angular/common/http'
 
 import { HttpResult, KuMockApiService } from '@xinyue/core';
-import { DATA_STATUS, DataStatus }      from '@xinyue/uasp'
+import { DATA_STATUS, DataStatus }      from '@xinyue/uasp';
 
 import {
   URL_APPLIC_CREATE,
@@ -22,6 +22,8 @@ import {
   ApplicTenantBody, ApplicTenantQuery, ApplicTenantVo,
 }                             from '../models';
 import { APPLIC_TENANT_DATA } from './tenant.data'
+
+import { TENANT_DATA } from '../../tenant';
 
 @Injectable({
   providedIn: 'root',
@@ -225,7 +227,7 @@ export class ApplicMockApi {
           status     : DataStatus.Valid,
           statusName : DATA_STATUS.filter((x: any) => x.id === _body.status)[0].text,
           tenantId   : _body.tenantId,
-          tenantName : _body.tenantId,
+          tenantName : TENANT_DATA.filter(x => x.tenantId === _body.tenantId)[0].name,
         };
         this.tenant_data.push(_model);
         return {

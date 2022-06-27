@@ -44,6 +44,10 @@ export class KuAuthService {
     });
   }
 
+  setUser(user: KuLoginUser): void {
+    this._user = user;
+  }
+
   /** 获取当前登录用户信息 */
   get user(): KuLoginUser {
     return this._user;

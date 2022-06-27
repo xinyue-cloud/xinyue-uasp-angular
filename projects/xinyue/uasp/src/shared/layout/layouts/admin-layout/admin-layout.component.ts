@@ -17,6 +17,7 @@ import { KuMenuItem, KuContentTemplate }    from '@xinyue/ui';
 
 import { KuCopyright, KuBrand }              from '../../parts';
 import { KuSidebarService, KuLayoutService } from '../../services';
+import { KuAuthService }                     from '../../../services';
 
 const CLASS_LAYOUT = [
   'sidebar-mini',
@@ -66,6 +67,7 @@ export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit,
     public layout: KuLayoutService,
   ) {
     this.body = document.body;
+
     activatedRoute.data.subscribe(data => {
       this.navigation = data['dataset'].navigation;
     });
