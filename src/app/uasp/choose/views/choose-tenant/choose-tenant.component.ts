@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient }        from '@angular/common/http';
 import { BsModalRef }        from 'ngx-bootstrap/modal';
 
-import { TenantOption }                              from './tenant-option';
-import { TenantItem }                                from './tenant-item';
 import { HttpResult, KuConfigService, KuTipService } from '@xinyue/core';
+import { CoTenantOption }                            from './tenant-option';
+import { CoTenant }                                  from './tenant-item';
+import { cloneDeep }                                 from 'lodash-es';
 
 @Component({
   selector   : 'uasp-choose-tenant',
@@ -12,26 +13,27 @@ import { HttpResult, KuConfigService, KuTipService } from '@xinyue/core';
 })
 export class ChooseTenantComponent implements OnInit {
 
-  options!: TenantOption;
+  options!: CoTenantOption;
 
   candidate: {
-    rawData: TenantItem[];
-    dataSource: TenantItem[];
-    searchText?: string
-  } = {
-    rawData   : [],
-    dataSource: [],
-  };
-  selected: {
-    rawData: TenantItem[];
-    dataSource: TenantItem[];
+    rawData: CoTenant[];
+    dataSource: CoTenant[];
     searchText?: string
   } = {
     rawData   : [],
     dataSource: [],
   };
 
-  onClose!: (result: any) => void;
+  selected: {
+    rawData: CoTenant[];
+    dataSource: CoTenant[];
+    searchText?: string
+  } = {
+    rawData   : [],
+    dataSource: [],
+  };
+
+  onClose!: (result: CoTenant | CoTenant[]) => void;
 
   constructor(
     private bsModalRef: BsModalRef,
@@ -43,28 +45,21 @@ export class ChooseTenantComponent implements OnInit {
 
   ngOnInit(): void {
     if (!!this.options.candidate) {
-      this.candidate.rawData = this.options.candidate;
+      this.candidate.rawData = cloneDeep(this.options.candidate);
     } else {
       this.reloadData();
     }
     if (!!this.options.selected) {
-      this.selected.rawData = this.options.selected;
+      this.selected.rawData = cloneDeep(this.options.selected);
     }
     this.updateFilter();
-  }
-
-  get title(): string {
-    return this.options.title ?? '选择租户';
-  }
-
-  get multiple(): boolean {
-    return this.options.multiple ?? false;
   }
 
   updateFilter(): void {
     this.candidate.dataSource = this.candidate.rawData.filter(x => {
       let st = this.candidate.searchText;
-      return (!st || ((x.name.indexOf(st) >= 0) || (!!x.code && x.code.indexOf(st) >= 0))) && (!this.multiple || !this.hasSelected(x));
+      return (!st || ((x.name.indexOf(st) >= 0) || (!!x.code && x.code.indexOf(st) >= 0)))
+        && (!this.options.multiple || !this.hasSelected(x));
     });
     this.selected.dataSource = this.selected.rawData.filter(x => {
       let st = this.selected.searchText;
@@ -77,11 +72,13 @@ export class ChooseTenantComponent implements OnInit {
       console.error('choose tenant: option need [url,method] args.');
     } else {
       const _url = this.config.apiUrl() + this.options.url;
-      this.http.request(this.options.method, _url, {
+      const _method = this.options.method;
+      this.http.request(_method, _url, {
         body: {
+          ...this.options.candidate,
           searchText: this.candidate.searchText,
         },
-      }).subscribe((httpResult: HttpResult<TenantItem[]>) => {
+      }).subscribe((httpResult: HttpResult<CoTenant[]>) => {
         if (httpResult.success) {
           this.candidate.rawData = httpResult.data;
         } else {
@@ -91,12 +88,12 @@ export class ChooseTenantComponent implements OnInit {
     }
   }
 
-  hasSelected(row: TenantItem): boolean {
+  hasSelected(row: CoTenant): boolean {
     return this.selected.rawData.filter(x => x.tenantId === row.tenantId).length > 0;
   }
 
-  addSelected(row: TenantItem) {
-    if (!this.multiple) {
+  addSelected(row: CoTenant) {
+    if (!this.options.multiple) {
       this.onClose(row);
     } else {
       this.selected.rawData.push(row);
@@ -104,7 +101,7 @@ export class ChooseTenantComponent implements OnInit {
     }
   }
 
-  delSelected(row: TenantItem) {
+  delSelected(row: CoTenant) {
     this.selected.rawData.splice(this.selected.rawData.indexOf(row), 1);
     this.updateFilter();
   }

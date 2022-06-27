@@ -6,7 +6,7 @@ export interface ApplicTenantVo {
   tenantId: string;
   tenantName: string;
   createTime: Date;
-  expireTime: Date;
+  expireTime?: Date;
   creatorId: string;
   creatorName: string;
   status: DataStatus;

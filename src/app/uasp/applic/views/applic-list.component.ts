@@ -74,6 +74,7 @@ export class ApplicListComponent implements OnInit {
       payload: {
         title      : row.name,
         businessKey: row.appId,
+        active     : 0,
       },
     });
   }

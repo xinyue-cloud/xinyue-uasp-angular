@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import {
-  Body, Param, POST, Query,
+  Body, GET, POST, Query,
   HttpResult, KuHttpService, PageClause, PageList,
 }                 from '@xinyue/core';
 import { IdBody } from '@xinyue/uasp';
@@ -18,7 +18,7 @@ export const URL_APPLIC_CREATE = '/applic/create';
 export const URL_APPLIC_UPDATE = '/applic/update';
 export const URL_APPLIC_DELETE = '/applic/delete';
 
-export const URL_APPLIC_TENANT_CHOOSE = '/applic/tenant/page';
+export const URL_APPLIC_TENANT_CHOOSE = '/applic/tenant/choose';
 export const URL_APPLIC_TENANT_PAGE = '/applic/tenant/page';
 export const URL_APPLIC_TENANT_CREATE = '/applic/tenant/create';
 export const URL_APPLIC_TENANT_DELETE = '/applic/tenant/delete';
@@ -87,6 +87,5 @@ export class ApplicClient extends KuHttpService {
   ): Observable<HttpResult<ApplicTenantVo>> | null {
     return null;
   }
-
 
 }

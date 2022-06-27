@@ -24,9 +24,6 @@ export class ApplicManageComponent implements OnInit {
   mainTabIndex = 0;
   mainTabs: MainTab[] = [];
 
-  // detail
-  detailTabIndex = 0;
-
   constructor(
     private breadcrumb: KuBreadcrumbService,
     private eventService: KuEventService,
@@ -123,16 +120,12 @@ export class ApplicManageComponent implements OnInit {
     }
   }
 
-  onDetailTabClickItem(index: number) {
-    this.detailTabIndex = index;
-  }
-
   onCreate(): void {
     let rows = this.mainTabs.filter(x => x.isNew);
     if (rows.length > 0) {
       this.mainTabIndex = this.mainTabs.indexOf(rows[0]) + 1;
     } else {
-      let row = { title: '[创建新应用]', isNew: true };
+      let row = { title: '[创建新应用]', isNew: true, active: 0 };
       this.mainTabs.push(row);
       this.mainTabIndex = this.mainTabs.indexOf(row) + 1;
     }

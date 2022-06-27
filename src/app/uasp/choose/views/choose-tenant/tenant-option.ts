@@ -1,10 +1,11 @@
-import { TenantItem } from './tenant-item';
+import { CoTenant } from './tenant-item';
 
-export class TenantOption {
+export interface CoTenantOption {
   title?: string;
   url?: string;
   method?: string;
   multiple?: boolean;
-  candidate?: TenantItem[];
-  selected?: TenantItem[];
+  condition?: any;
+  candidate?: CoTenant[];
+  selected?: CoTenant[];
 }

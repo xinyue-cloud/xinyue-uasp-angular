@@ -1,13 +1,13 @@
 <div class="modal-header align-items-center p-1">
-  <h5 class="font-weight-bold modal-title">{{title}}</h5>
+  <h5 class="font-weight-bold modal-title">{{options.title}}</h5>
   <button type="button" class="close m-0 p-1" (click)="onCancel()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
   <div class="row">
-    <div [ngClass]="multiple?'col-6 border-right':'col-12'">
-      <h6 class="font-weight-bold" *ngIf="multiple">候选项（{{candidate.rawData.length}}）</h6>
+    <div [ngClass]="options.multiple?'col-6 border-right':'col-12'">
+      <h6 class="font-weight-bold" *ngIf="options.multiple">候选项（{{candidate.rawData.length}}）</h6>
       <input type="text" class="form-control form-control-sm mb-1" [(ngModel)]="candidate.searchText"
              placeholder="搜索：租户名称/编号" (ngModelChange)="updateFilter()"/>
       <div style="height: 350px;overflow: auto">
@@ -25,7 +25,7 @@
             <td [title]="row.code??''">{{row.name}}</td>
             <td class="text-center">
               <a href="javascript:" *ngIf="!hasSelected(row)" (click)="addSelected(row)">
-                {{multiple ? '添加' : '确认'}}
+                {{options.multiple ? '添加' : '确认'}}
               </a>
             </td>
           </tr>
@@ -38,7 +38,7 @@
         </table>
       </div>
     </div>
-    <div class="col-6 border-1" *ngIf="multiple">
+    <div class="col-6 border-1" *ngIf="options.multiple">
       <h6 class="font-weight-bold">已选项（{{selected.rawData.length}}）</h6>
       <input type="text" class="form-control form-control-sm mb-1" [(ngModel)]="selected.searchText"
              placeholder="搜索：租户名称/编号" (ngModelChange)="updateFilter()"/>
@@ -63,7 +63,7 @@
           </tbody>
           <tfoot *ngIf="!selected.dataSource || selected.dataSource.length==0">
           <tr>
-            <td colspan="3" class="text-center">没有候选数据。</td>
+            <td colspan="3" class="text-center">没有已选数据。</td>
           </tr>
           </tfoot>
         </table>
@@ -72,7 +72,7 @@
   </div>
 </div>
 <div class="modal-footer p-2">
-  <button type="button" class="btn btn-sm btn-primary" (click)="onConfirm()" *ngIf="multiple">
+  <button type="button" class="btn btn-sm btn-primary" (click)="onConfirm()" *ngIf="options.multiple">
     确认选择
   </button>
   <button type="submit" class="btn btn-sm btn-default" (click)="onCancel()">

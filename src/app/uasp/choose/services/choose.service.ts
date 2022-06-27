@@ -1,9 +1,10 @@
-import { Injectable }     from '@angular/core';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { Injectable }          from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { BsModalService }      from 'ngx-bootstrap/modal';
 
 import { ChooseTenantComponent } from '../views/choose-tenant/choose-tenant.component';
-import { TenantOption }          from '../views/choose-tenant/tenant-option';
-import { Observable, Subject }   from 'rxjs';
+import { CoTenantOption }        from '../views/choose-tenant/tenant-option';
+import { CoTenant }              from '../views/choose-tenant/tenant-item';
 
 @Injectable()
 export class ChooseService {
@@ -13,17 +14,23 @@ export class ChooseService {
   ) {
   }
 
-  tenant(options: TenantOption): Observable<any> {
+  tenant(options: CoTenantOption): Observable<any> {
 
     const ref = this.modal.show(ChooseTenantComponent, {
       class       : options.multiple ? 'modal-lg' : 'modal-md',
       animated    : false,
       initialState: {
-        options,
+        options: {
+          title   : '选择租户',
+          url     : '/tenant/choose',
+          method  : 'POST',
+          multiple: true,
+          ...options,
+        },
       },
     });
     let subject = new Subject();
-    ref.content!.onClose = ((result) => {
+    ref.content!.onClose = ((result: CoTenant | CoTenant[]) => {
       ref.hide();
       subject.next(result);
     });
