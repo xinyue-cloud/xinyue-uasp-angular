@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  apiUrl    : 'http://localhost:8810/api',
   tipOptions: {
     maxOpened              : 3,
     autoDismiss            : true,

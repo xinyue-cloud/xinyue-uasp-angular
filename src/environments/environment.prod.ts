@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  apiUrl    : '',
   tipOptions: {
     maxOpened              : 3,
     autoDismiss            : true,

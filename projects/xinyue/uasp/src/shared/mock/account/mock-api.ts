@@ -3,9 +3,9 @@ import { assign, cloneDeep } from 'lodash-es';
 
 import { HttpResult, KuMockApiService } from '@xinyue/core';
 
-import { MENUS_DATA }                             from './menu-data';
-import { URL_ACCOUNT_MENUS, URL_ACCOUNT_PROFILE } from '../../clients';
-import { USER_INFO }                              from './user-data';
+import { MENUS_DATA }                           from './menu-data';
+import { URL_ACCOUNT_GET, URL_ACCOUNT_PROFILE } from '../../clients';
+import { USER_INFO }                            from './user-data';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +41,7 @@ export class AccountMockApi {
   registerAccountMenus(): void {
 
     this.mockApiService
-      .onGet(URL_ACCOUNT_MENUS)
+      .onGet(URL_ACCOUNT_GET)
       .onReply((request) => {
         return {
           status: 200,

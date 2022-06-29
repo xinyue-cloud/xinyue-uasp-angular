@@ -2,11 +2,13 @@ import { Injectable }      from '@angular/core';
 import { KuConfigService } from '@xinyue/core';
 import { KuAppConfig }     from '@xinyue/uasp';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable()
 export class AppConfigService extends KuConfigService {
 
-  private readonly $config: KuAppConfig = {
-    apiUrl   : 'http://localhost:8086/api',
+  private $config: KuAppConfig = {
+    apiUrl   : '',
     routes   : {
       login: '/passport/login',
       home : '/uasp/blank',
@@ -25,6 +27,11 @@ export class AppConfigService extends KuConfigService {
       version : '1.0.0',
     },
   };
+
+  constructor() {
+    super();
+    this.$config.apiUrl = environment.apiUrl;
+  }
 
   /** 获取 API 根路径地址 */
   override apiUrl(): string {

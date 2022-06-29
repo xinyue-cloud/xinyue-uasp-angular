@@ -5,13 +5,12 @@ import {
   GET, POST,
   KuHttpService,
   HttpResult,
-}                     from '@xinyue/core';
-import { KuMenuItem } from '@xinyue/ui';
+} from '@xinyue/core';
 
 import { KuLoginUser } from '../models';
 
+export const URL_ACCOUNT_GET = '/account/get';
 export const URL_ACCOUNT_PROFILE = '/account/profile';
-export const URL_ACCOUNT_MENUS = '/account/menus';
 export const URL_ACCOUNT_CHANGE_PWD = '/account/change-pwd';
 
 /** 当前已经登录账号相关的 WebApi 客户端访问器。 */
@@ -20,6 +19,11 @@ export const URL_ACCOUNT_CHANGE_PWD = '/account/change-pwd';
 })
 export class KuAccountClient extends KuHttpService {
 
+  @GET(URL_ACCOUNT_GET)
+  getInfo(): Observable<HttpResult<KuLoginUser>> | any {
+    return null;
+  }
+
   @GET(URL_ACCOUNT_PROFILE)
   getProfile(): Observable<HttpResult<KuLoginUser>> | any {
     return null;
@@ -27,11 +31,6 @@ export class KuAccountClient extends KuHttpService {
 
   @POST(URL_ACCOUNT_PROFILE)
   updateProfile(): Observable<HttpResult<KuLoginUser>> | any {
-    return null;
-  }
-
-  @GET(URL_ACCOUNT_MENUS)
-  getMenus(): Observable<HttpResult<KuMenuItem[]>> | any {
     return null;
   }
 

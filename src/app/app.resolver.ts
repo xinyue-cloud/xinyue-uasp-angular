@@ -23,16 +23,13 @@ export class InitialDataResolver implements Resolve<InitialData> {
 
     // @ts-ignore
     return forkJoin([
-      this.accountClient.getMenus(),
-      this.accountClient.getProfile(),
+      this.accountClient.getInfo(),
     ]).pipe(
       // @ts-ignore
-      map(([navResult, uiResult]) => ({
+      map(([loginUser]) => ({
         navigation: {
           // @ts-ignore
-          sidebar: navResult.data.sidebar,
-          // @ts-ignore
-          header: navResult.data.header,
+          sidebar: loginUser.data.sidebar,
         },
         // @ts-ignore
         user: uiResult.data,

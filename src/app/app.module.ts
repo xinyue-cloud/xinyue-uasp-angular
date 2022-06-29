@@ -47,7 +47,7 @@ import { mockApiServices }  from './mock';
     ToastrModule.forRoot(environment.tipOptions),
     KuHttpModule,
     KuMockApiModule.forRoot(mockApiServices, {
-      closed: false,
+      closed: true,
     }),
     KuPipesModule,
     UaspSharedModule,

@@ -1,6 +1,4 @@
-import { KuLoginUser } from '../../models';
-
-export const USER_INFO: KuLoginUser = {
+export const USER_INFO: any = {
   userId     : '1',
   avatar     : 'assets/img/user6-128x128.jpg',
   displayName: '系统管理员',

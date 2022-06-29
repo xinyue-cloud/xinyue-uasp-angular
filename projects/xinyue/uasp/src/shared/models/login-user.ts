@@ -1,12 +1,15 @@
+import { KuMenuItem } from '@xinyue/ui';
+
 export interface KuLoginUser {
-  userId?: string;
-  avatar?: string;
-  displayName?: string;
-  about?: string;
-  title?: string;
-  mobiles?: {
-    country?: string;
-    number?: string;
-    label?: string;
-  }[];
+  userId: string;
+  avatar: string;
+  displayName: string;
+  mobile: string;
+  userType: string;
+  tenantId?: string;
+  companyId?: string;
+  departId?: string;
+  departName?: string;
+  mainMenus: KuMenuItem[];
+  permissions: any;
 }
