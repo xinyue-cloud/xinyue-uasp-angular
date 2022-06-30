@@ -37,8 +37,8 @@ export class ApplicListComponent implements OnInit {
     this.option.onReloadData = () => {
       this.onReload();
     };
-    eventService.subscribe(args => {
-      if (args.type === APPLIC_LIST_QUERY) {
+    eventService.subscribe(event => {
+      if (event.type === APPLIC_LIST_QUERY) {
         this.onReload();
       }
     });

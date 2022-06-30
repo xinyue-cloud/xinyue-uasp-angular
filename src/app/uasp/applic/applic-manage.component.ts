@@ -35,19 +35,19 @@ export class ApplicManageComponent implements OnInit {
         { label: '应用目录', routerLink: ['uasp/applic'] },
       ],
     });
-    eventService.subscribe(args => {
-      if (args.type === APPLIC_MAIN_TAB_CLOSE_ACTIVE) {
-        this.onMainTabClose(args.payload);
-      } else if (args.type === APPLIC_MAIN_TAB_MODIFY) {
-        this.onMainTabModify(args.payload);
-      } else if (args.type === APPLIC_MAIN_TAB_NEW_MODIFY) {
-        this.onMainTabNewModify(args.payload);
-      } else if (args.type === APPLIC_MAIN_TAB_NEW_CLOSE) {
+    eventService.subscribe(event => {
+      if (event.type === APPLIC_MAIN_TAB_CLOSE_ACTIVE) {
+        this.onMainTabClose(event.payload);
+      } else if (event.type === APPLIC_MAIN_TAB_MODIFY) {
+        this.onMainTabModify(event.payload);
+      } else if (event.type === APPLIC_MAIN_TAB_NEW_MODIFY) {
+        this.onMainTabNewModify(event.payload);
+      } else if (event.type === APPLIC_MAIN_TAB_NEW_CLOSE) {
         this.onMainTabCloseNew();
-      } else if (args.type === APPLIC_MAIN_TAB_CREATE) {
+      } else if (event.type === APPLIC_MAIN_TAB_CREATE) {
         this.onCreate();
-      } else if (args.type === APPLIC_MAIN_TAB_VIEW) {
-        this.onView(args.payload);
+      } else if (event.type === APPLIC_MAIN_TAB_VIEW) {
+        this.onView(event.payload);
       }
     });
   }

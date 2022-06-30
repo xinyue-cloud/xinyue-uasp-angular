@@ -51,7 +51,6 @@ export class ApplicEditComponent implements OnInit {
       remark     : [''],
     });
     eventService.subscribe(event => {
-      console.info('event', event);
       if (event.type === APPLIC_FORM_SAVE_CLOSE) {
         this.onSubmit(true);
       } else if (event.type === APPLIC_FORM_DENY_CLOSE) {
