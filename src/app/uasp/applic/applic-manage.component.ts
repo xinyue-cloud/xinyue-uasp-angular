@@ -29,7 +29,6 @@ export class ApplicManageComponent implements OnInit {
     private eventService: KuEventService,
     private alertService: KuAlertService,
   ) {
-    console.info('ApplicManageComponent -> constructor');
     breadcrumb.setItems({
       title: '应用目录',
       items: [

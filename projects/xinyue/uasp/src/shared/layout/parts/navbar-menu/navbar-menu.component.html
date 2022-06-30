@@ -1,8 +1,5 @@
-<li class="nav-item d-none d-sm-inline-block" [class.dropdown]="item.items">
-  <a href="javascript:" class="nav-link" (click)="menuClick(item, $event)" [class.dropdown-toggle]="item.items">
-    <i *ngIf="item.icon" class="mr-1" [ngClass]="item.icon"></i> {{item.label}}
+<li class="nav-item d-none d-sm-inline-block" [ngClass]="{'bg-primary': item.active}">
+  <a href="javascript:" class="nav-link px-1" (click)="menuClick(item, $event)">
+    <i *ngIf="item.iconClass" class="mr-1" [ngClass]="item.iconClass"></i> {{item.label}}
   </a>
-  <ng-container *ngIf="item.items">
-    <ul class="dropdown-menu border-0 shadow" [class.show]="show" kNavbarSubMenu [menus]="item.items"></ul>
-  </ng-container>
 </li>

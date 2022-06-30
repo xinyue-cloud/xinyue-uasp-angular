@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<aside class="elevation-4 main-sidebar sidebar-light-primary"
+<aside class="elevation-4 main-sidebar sidebar-dark-primary"
        [ngClass]="focusin ? 'sidebar-focused' :'sidebar-collapse'"
        [class.sidebarNoExpand]="layout.sidebarNoExpand">
 
@@ -26,7 +26,7 @@
           [class.nav-legacy]="!!layout.navLegacy"
           [class.nav-child-indent]="!!layout.navChildIndent"
           [class.nav-collapse-hide-child]="!!layout.navHideOnCollapse">
-        <ng-container *ngFor="let menu of menus; let idx = index;">
+        <ng-container *ngFor="let menu of sidebarMenus; let idx = index;">
           <li class="nav-header" *ngIf="menu.header">{{menu.header}}</li>
           <li kNavbarItem *ngIf="!menu.header" class="nav-item"
               [ngClass]="{'has-treeview': menu.items,'menu-open': menu.isOpen}" [item]="menu"></li>

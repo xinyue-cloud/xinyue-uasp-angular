@@ -1,4 +1,5 @@
 export { KuLoginForm }               from './login-form';
+export { KuProfile }                 from './profile';
 export { KuLoginUser }               from './login-user';
 export { KuMessage }                 from './message.types';
 export { KuNotification }            from './notification.types';

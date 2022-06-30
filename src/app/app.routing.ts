@@ -1,8 +1,6 @@
 import { NgModule }                                from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-import { InitialDataResolver } from './app.resolver';
-
 import {
   KuAuthGuard,
   KuAdminLayoutComponent,
@@ -14,13 +12,18 @@ import {
   KuLockscreenComponent,
   KuNotFoundComponent,
   KuUserProfileComponent,
+  KuInitAuthResolver,
 } from '@xinyue/uasp';
 
-import { BlankComponent }   from './views/blank/blank.component';
-import { UaspApplicModule } from './uasp/applic';
+import { BlankComponent } from './views/blank/blank.component';
+
+import { UaspApplicModule }  from './uasp/applic';
+import { UaspFuncModule }    from './uasp/func';
+import { UaspTaskModule }    from './uasp/task';
+import { UaspProfileModule } from './uasp/profile';
 
 const appRoutes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'blank' },
+  { path: '', pathMatch: 'full', redirectTo: '/uasp/tasks' },
   {
     path     : 'passport',
     component: KuPassportLayoutComponent,
@@ -35,12 +38,15 @@ const appRoutes: Routes = [
     component  : KuAdminLayoutComponent,
     canActivate: [KuAuthGuard],
     resolve    : {
-      dataset: InitialDataResolver,
+      data: KuInitAuthResolver,
     },
     children   : [
       {
         path: 'uasp', children: [
           { path: 'applic', loadChildren: () => UaspApplicModule },
+          { path: 'module', loadChildren: () => UaspFuncModule },
+          { path: 'tasks', loadChildren: () => UaspTaskModule },
+          { path: 'profile', loadChildren: () => UaspProfileModule },
         ],
       },
       { path: 'blank', component: BlankComponent },

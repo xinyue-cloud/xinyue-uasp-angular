@@ -1,14 +1,14 @@
-import { DOCUMENT }                                 from '@angular/common';
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router }   from '@angular/router';
+import { DOCUMENT }                                                            from '@angular/common';
+import { AfterViewInit, Component, Inject, OnInit }                            from '@angular/core';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router, RouterState } from '@angular/router';
 
 import { defineLocale }  from 'ngx-bootstrap/chronos';
 import { zhCnLocale }    from 'ngx-bootstrap/locale';
 import { setTheme }      from 'ngx-bootstrap/utils';
 import { PrimeNGConfig } from 'primeng/api';
 
-import { KuConfigService }               from '@xinyue/core';
-import { KU_HOLD_TRANSITION, PrimengZh } from '@xinyue/uasp';
+import { KuConfigService }                              from '@xinyue/core';
+import { KU_HOLD_TRANSITION, KuAuthService, PrimengZh } from '@xinyue/uasp';
 
 @Component({
   selector   : 'uasp-root',
@@ -18,15 +18,17 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private primeNGConfig: PrimeNGConfig,
     private appConfig: KuConfigService,
+    private authService: KuAuthService,
     //private translateService: TranslateService,
   ) {
-
     // @ts-ignore
     window.paceOptions = { ajax: false };
     this.router.events.subscribe((event) => {
+      console.info('router.events->event', event);
       if (event instanceof NavigationStart) {
         // @ts-ignore
         Pace.start();

@@ -11,7 +11,7 @@ export class AppConfigService extends KuConfigService {
     apiUrl   : '',
     routes   : {
       login: '/passport/login',
-      home : '/uasp/blank',
+      home : '/uasp/tasks',
     },
     brand    : {
       logoClass : '',

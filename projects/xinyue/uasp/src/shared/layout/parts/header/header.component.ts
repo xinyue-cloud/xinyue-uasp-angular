@@ -2,6 +2,7 @@ import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList,
 
 import { KuContentTemplate }                 from '@xinyue/ui';
 import { KuLayoutService, KuSidebarService } from '../../services';
+import { KuAuthService }                     from '../../../services';
 
 @Component({
   selector   : 'ku-layout-header',
@@ -20,6 +21,7 @@ export class KuHeaderComponent implements OnInit, AfterContentInit {
   constructor(
     public sidebar: KuSidebarService,
     public layout: KuLayoutService,
+    public account: KuAuthService,
   ) {
   }
 

@@ -1,4 +1,4 @@
-import { DOCUMENT }       from '@angular/common';
+import { DOCUMENT }                            from '@angular/common';
 import {
   AfterContentInit,
   AfterViewInit,
@@ -9,8 +9,8 @@ import {
   OnDestroy,
   OnInit,
   QueryList, TemplateRef,
-}                         from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+}                                              from '@angular/core';
+import { ActivatedRoute, Router, RouterState } from '@angular/router';
 
 import { KuConfigService, KuLoggerService } from '@xinyue/core';
 import { KuMenuItem, KuContentTemplate }    from '@xinyue/ui';
@@ -18,6 +18,9 @@ import { KuMenuItem, KuContentTemplate }    from '@xinyue/ui';
 import { KuCopyright, KuBrand }              from '../../parts';
 import { KuSidebarService, KuLayoutService } from '../../services';
 import { KuAuthService }                     from '../../../services';
+import { KuLoginUser }                       from '../../../models';
+import { stringify }                         from '@angular/compiler/src/util';
+import { KuMenuService }                     from '../../../services/menu.service';
 
 const CLASS_LAYOUT = [
   'sidebar-mini',
@@ -33,10 +36,6 @@ const CLASS_LAYOUT = [
 })
 export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit, AfterContentInit {
 
-  navigation!: {
-    sidebar: any;
-    header: KuMenuItem[];
-  };
   copyright: KuCopyright = {
     year    : '2021',
     homeUrl : 'https://www.xinyue.cloud',
@@ -58,19 +57,28 @@ export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit,
   breadcrumbTemplate!: TemplateRef<any>;
   headerTemplate!: TemplateRef<any>;
 
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private activeRouter: ActivatedRoute,
     private logger: KuLoggerService,
     private sidebar: KuSidebarService,
     private config: KuConfigService,
+    private authService: KuAuthService,
+    private menuService: KuMenuService,
     public layout: KuLayoutService,
   ) {
+
     this.body = document.body;
 
-    activatedRoute.data.subscribe(data => {
-      this.navigation = data['dataset'].navigation;
-    });
+    // 设备用户信息权限数据。
+    const loginUser: KuLoginUser = activeRouter.snapshot.data['data'];
+    authService.setLoginUser(loginUser);
+
+    // 设置主菜单，并标记当前路由为活动菜单项.
+    const routeUrl: string = router.routerState.snapshot.url;
+    menuService.setMainMenus(loginUser.mainMenus, routeUrl);
 
     let copyright = config.get('copyright');
     if (!!copyright) {
@@ -81,6 +89,10 @@ export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit,
     if (!!brand) {
       this.brand = brand;
     }
+  }
+
+  get mainMenus(): KuMenuItem[] {
+    return this.menuService.mainMenus;
   }
 
   @HostListener('window:resize', ['$event'])
@@ -104,7 +116,6 @@ export class KuAdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit,
 
   ngAfterContentInit(): void {
     this.templates.forEach((item: KuContentTemplate) => {
-      console.info('KuAdminLayoutComponent -> ngAfterContentInit -> item: ', item);
       switch (item.getType()) {
         case 'breadcrumb':
           this.breadcrumbTemplate = item.template;

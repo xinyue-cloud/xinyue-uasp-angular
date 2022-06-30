@@ -7,7 +7,7 @@ import {
   HttpResult,
 } from '@xinyue/core';
 
-import { KuLoginUser } from '../models';
+import { KuLoginUser, KuProfile } from '../models';
 
 export const URL_ACCOUNT_GET = '/account/get';
 export const URL_ACCOUNT_PROFILE = '/account/profile';
@@ -24,13 +24,8 @@ export class KuAccountClient extends KuHttpService {
     return null;
   }
 
-  @GET(URL_ACCOUNT_PROFILE)
-  getProfile(): Observable<HttpResult<KuLoginUser>> | any {
-    return null;
-  }
-
   @POST(URL_ACCOUNT_PROFILE)
-  updateProfile(): Observable<HttpResult<KuLoginUser>> | any {
+  updateProfile(): Observable<HttpResult<KuProfile>> | any {
     return null;
   }
 

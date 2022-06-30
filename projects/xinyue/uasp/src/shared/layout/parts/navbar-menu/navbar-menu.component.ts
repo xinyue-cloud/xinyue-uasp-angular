@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { Router }                                          from '@angular/router';
 import { KuMenuItem }                                      from '@xinyue/ui';
+import { KuMenuService }                                   from '../../../services';
 
 @Component({
   selector   : 'ku-navbar-menu',
@@ -9,44 +10,14 @@ import { KuMenuItem }                                      from '@xinyue/ui';
 export class KuNavbarMenuComponent implements OnInit {
 
   @Input() item!: KuMenuItem;
-
-  @Input() set show(value: boolean) {
-    if (this._show !== value) {
-      this._show = value;
-      if (value) {
-        this.onShow();
-      } else {
-        this.onHide();
-      }
-    }
-  }
-
-  get show(): boolean {
-    return this._show;
-  }
-
-  _show!: boolean;
   _listenFn!: () => void;
 
   constructor(
     private el: ElementRef,
     private renderer: Renderer2,
     private router: Router,
+    private menuService: KuMenuService,
   ) {
-  }
-
-  onShow(): void {
-    this._listenFn = this.renderer.listen('document', 'click', (event: any) => {
-      if (!this.el.nativeElement.contains(event.target)) {
-        if (this.show) {
-          this.show = false;
-        }
-      }
-    });
-  }
-
-  onHide(): void {
-    this._listenFn();
   }
 
   ngOnInit(): void {
@@ -59,9 +30,14 @@ export class KuNavbarMenuComponent implements OnInit {
       return;
     }
 
+    if (!!item.items) {
+      this.menuService.setActiveMainMenu(item);
+      event.preventDefault();
+      return;
+    }
+
     if (item.routerLink) {
-      this.router.navigate(item.routerLink).then(r => {
-      });
+      this.router.navigate(item.routerLink).then();
     }
 
     if (!item.url) {
@@ -74,8 +50,6 @@ export class KuNavbarMenuComponent implements OnInit {
         item,
       });
     }
-
-    this.show = !this.show;
   }
 }
 

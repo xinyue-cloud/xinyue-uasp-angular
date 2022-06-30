@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 import {
+  HttpResult,
   KuConfigService,
   KuLoggerService,
   KuTokenStorage,
@@ -9,15 +10,17 @@ import {
   TOKEN_STORAGE_NAME,
 }                           from '@xinyue/core';
 
-import { KuLoginUser }      from '../models';
-import { KuPassportClient } from '../clients';
+import { KuLoginUser, KuProfile } from '../models';
+import { KuPassportClient }       from '../clients';
 
 @Injectable({
   providedIn: 'root',
 })
 export class KuAuthService {
 
-  private _user!: KuLoginUser;
+  private _profile!: KuProfile;
+  private _permissions: { [key: string]: string[] } = {};
+  private _roles: string[] = [];
   private _helper = new JwtHelperService();
 
   constructor(
@@ -39,18 +42,37 @@ export class KuAuthService {
   }
 
   refresh(): void {
-    this.passportClient.refreshToken().subscribe((data: string) => {
-      this.token = data;
+    this.passportClient.refreshToken().subscribe((result: HttpResult<string>) => {
+      if (result.success) {
+        this.token = result.data;
+      }
     });
   }
 
-  setUser(user: KuLoginUser): void {
-    this._user = user;
+  setLoginUser(loginUser: KuLoginUser | any): void {
+    this._profile = loginUser.profile;
+    this._permissions = loginUser.permissions;
+    this._roles = loginUser.roles;
   }
 
   /** 获取当前登录用户信息 */
-  get user(): KuLoginUser {
-    return this._user;
+  get profile(): KuProfile {
+    return this._profile;
+  }
+
+  hasPermission(module: string, action?: string): boolean {
+    let result = false;
+    if (this._permissions.hasOwnProperty(module)) {
+      result = true;
+      if (typeof action === 'string') {
+        result = this._permissions[module].includes(action);
+      }
+    }
+    return result;
+  }
+
+  hasRole(role: string): boolean {
+    return this._roles.includes(role);
   }
 
   /** 获取本地 JwtToken 字符串 */

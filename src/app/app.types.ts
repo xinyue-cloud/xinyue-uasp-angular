@@ -1,12 +1,9 @@
-import { KuMenuItem }                            from '@xinyue/ui';
-import { KuLoginUser, KuMessage, KuNotification } from '@xinyue/uasp';
+import { KuMenuItem }                           from '@xinyue/ui';
+import { KuProfile, KuMessage, KuNotification } from '@xinyue/uasp';
 
 export interface InitialData {
   messages: KuMessage[];
-  navigation: {
-    sidebar: KuMenuItem[];
-    header: KuMenuItem[];
-  };
+  mainMenu: KuMenuItem[];
   notifications: KuNotification[];
-  user: KuLoginUser;
+  profile: KuProfile;
 }

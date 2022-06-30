@@ -3,21 +3,24 @@ import { Injectable }                                           from '@angular/c
 
 import { Observable } from 'rxjs';
 
-import { HEADER_AUTHORIZATION, TOKEN_STORAGE_NAME } from '../../utils';
+import { HEADER_AUTHORIZATION, TOKEN_PREFIX, TOKEN_STORAGE_NAME } from '../../utils';
+import { KuTokenStorage }                                         from '../../services';
 
 @Injectable()
 export class KuTokenInterceptor implements HttpInterceptor {
 
-  constructor() {
+  constructor(
+    private storage: KuTokenStorage,
+  ) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     if (!request.headers.has(HEADER_AUTHORIZATION)) {
-      const authToken = localStorage.getItem(TOKEN_STORAGE_NAME);
+      const authToken = this.storage.getItem(TOKEN_STORAGE_NAME);
       if (authToken) {
         const authRequest = request.clone({
-          headers: request.headers.set(HEADER_AUTHORIZATION, authToken),
+          headers: request.headers.set(HEADER_AUTHORIZATION, TOKEN_PREFIX + authToken),
         });
         return next.handle(authRequest);
       }

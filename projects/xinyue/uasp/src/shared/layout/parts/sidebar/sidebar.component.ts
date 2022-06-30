@@ -1,10 +1,16 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
-import { ActivatedRoute, Router }                                                              from '@angular/router';
+import {
+  Component, Input,
+  AfterContentInit, ContentChildren,
+  OnInit, QueryList,
+  TemplateRef,
+}                                 from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { KuContentTemplate, KuMenuItem } from '@xinyue/ui';
 
 import { KuBrand }         from './brand.types';
 import { KuLayoutService } from '../../services';
+import { KuMenuService }   from '../../../services';
 
 @Component({
   selector   : 'ku-layout-sidebar',
@@ -12,26 +18,17 @@ import { KuLayoutService } from '../../services';
 })
 export class KuSidebarComponent implements OnInit, AfterContentInit {
 
-  @Input() set menus(value: KuMenuItem[]) {
-    value.forEach(item => {
-      this.makeItemParent(item, item.items);
-    });
-    this._menus = value;
-  }
-
-  get menus(): KuMenuItem[] {
-    return this._menus;
+  get sidebarMenus(): KuMenuItem[] {
+    return this.menuService.sidebarMenus;
   }
 
   @Input() brand!: KuBrand;
-
   @Input() navFlat!: boolean;
   @Input() navCompact!: boolean;
   @Input() navLegacy!: boolean;
   @Input() navChildIndent!: boolean;
   @Input() navHideOnCollapse!: boolean;
 
-  _menus!: KuMenuItem[];
   currentMenu!: KuMenuItem;
   focusin!: boolean;
 
@@ -39,8 +36,9 @@ export class KuSidebarComponent implements OnInit, AfterContentInit {
   brandTemplate!: TemplateRef<any>;
 
   constructor(
-    public layout: KuLayoutService,
     private route: ActivatedRoute,
+    public layout: KuLayoutService,
+    public menuService: KuMenuService,
   ) {
     route.url.subscribe(url => {
       console.info('KtSidebarComponent -> this.route -> url', url);
@@ -61,55 +59,18 @@ export class KuSidebarComponent implements OnInit, AfterContentInit {
     });
   }
 
-  private makeItemParent(parent: KuMenuItem, items?: KuMenuItem[]): void {
-    if (items != null && items.length > 0) {
-      items.forEach(item => {
-        item.parent = parent;
-        this.makeItemParent(item, item.items);
-      });
-    }
-  }
-
   public clickMenu(item: KuMenuItem): void {
 
     if (item.items != null && item.items.length > 0) {
       item.isOpen = !item.isOpen;
     } else if (this.currentMenu !== item) {
-      this.cleanOtherActive();
-      this.makeSetActive(item);
+      this.menuService.cleanActiveMenu();
+      this.menuService.makeSetActive(item);
     }
     this.currentMenu = item;
   }
 
-  private makeSetActive(item: KuMenuItem): void {
-    if (item) {
-      // 设置当前选中项
-      item.active = true;
-      if (item.parent) {
-        this.makeSetActive(item.parent);
-      }
-    }
-  }
-
-  private cleanOtherActive(): void {
-    this.cleanMenuActive(this.menus);
-  }
-
-  private cleanMenuActive(items: KuMenuItem[]): void {
-    if (items != null && items.length > 0) {
-      items.forEach(item => {
-        if (item.active) {
-          item.active = false;
-          if (item.items != null && item.items.length > 0) {
-            this.cleanMenuActive(item.items);
-          }
-        }
-      });
-    }
-  }
-
 }
-
 
 @Component({
   selector   : '[kNavbarItem]',

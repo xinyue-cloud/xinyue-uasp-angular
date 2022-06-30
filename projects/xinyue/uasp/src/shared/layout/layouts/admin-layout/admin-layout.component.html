@@ -2,14 +2,14 @@
 
   <ku-layout-header>
     <ng-template kTemplate="left">
-      <ng-container *ngFor="let item of navigation.header">
+      <ng-container *ngFor="let item of mainMenus">
         <ku-navbar-menu [item]="item"></ku-navbar-menu>
       </ng-container>
     </ng-template>
     <ng-template [ngTemplateOutlet]="headerTemplate"></ng-template>
   </ku-layout-header>
 
-  <ku-layout-sidebar [brand]="brand" [menus]="navigation.sidebar"></ku-layout-sidebar>
+  <ku-layout-sidebar [brand]="brand"></ku-layout-sidebar>
 
   <div class="content-wrapper" [ngClass]="layout.contentWrapperClass">
 

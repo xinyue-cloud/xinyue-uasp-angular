@@ -21,14 +21,15 @@ import { UaspSharedModule } from '@xinyue/uasp';
 
 import { ToastrModule } from 'ngx-toastr';
 
-import { environment }      from '../environments/environment.prod';
+import { mockApiServices }  from './mock';
 import { AppComponent }     from './app.component';
 import { AppRoutingModule } from './app.routing';
-import { BlankComponent }   from './views/blank/blank.component';
+import { environment }      from '../environments/environment.prod';
 import { AppConfigService } from './shared/services/app-config.service';
 import { ToastrTipService } from './shared/services/toastr-tip.service';
 import { SwalAlertService } from './shared/services/swal-alert.service';
-import { mockApiServices }  from './mock';
+
+import { BlankComponent } from './views/blank/blank.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,7 @@ import { mockApiServices }  from './mock';
   ],
   providers   : [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: KU_TOKEN_STORAGE, useValue: localStorage },
+    { provide: KU_TOKEN_STORAGE, useValue: sessionStorage },
     { provide: KU_LOGGER_LEVEL, useValue: KuLevel.DEBUG },
     { provide: KuLoggerService, useClass: KuConsoleLoggerService },
     { provide: KuTipService, useClass: ToastrTipService },

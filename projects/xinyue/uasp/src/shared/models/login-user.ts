@@ -1,15 +1,9 @@
 import { KuMenuItem } from '@xinyue/ui';
+import { KuProfile }  from './profile';
 
 export interface KuLoginUser {
-  userId: string;
-  avatar: string;
-  displayName: string;
-  mobile: string;
-  userType: string;
-  tenantId?: string;
-  companyId?: string;
-  departId?: string;
-  departName?: string;
+  profile: KuProfile,
   mainMenus: KuMenuItem[];
-  permissions: any;
+  roles: string[];
+  permissions: { [key: string]: string[] };
 }
