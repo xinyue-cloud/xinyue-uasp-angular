@@ -1,4 +1,4 @@
-import { ApplicTypes } from './applic-types.enum'
+import { ApplicTypes } from './applic-typests'
 import { DataStatus }  from '@xinyue/uasp'
 
 export interface ApplicVo {

@@ -65,7 +65,6 @@ export const paramBuilder = (paramName: string) => {
 
 const responseHandler = (target: KuHttpService, observable: Observable<any>, adapterFn?: (response: any) => any): Observable<any> => {
 
-
   return observable.pipe(
     map((response: any) => {
       if (adapterFn) {
@@ -98,6 +97,7 @@ const createBody = (pBody: Array<any>, descriptor: any, args: Array<any>): strin
 };
 
 const createPath = (url: string, pPath: Array<any>, args: Array<any>): string => {
+
   let resUrl: string = url;
   if (pPath) {
     for (const k in pPath) {

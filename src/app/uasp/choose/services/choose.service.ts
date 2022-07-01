@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { BsModalService }      from 'ngx-bootstrap/modal';
 
 import { ChooseTenantComponent } from '../views/choose-tenant/choose-tenant.component';
-import { CoTenantOption }        from '../views/choose-tenant/tenant-option';
+import { CoOption }              from '../models/tenant-option';
 import { CoTenant }              from '../views/choose-tenant/tenant-item';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class ChooseService {
   ) {
   }
 
-  tenant(options: CoTenantOption): Observable<any> {
+  tenant(options: CoOption<CoTenant>): Observable<any> {
 
     const ref = this.modal.show(ChooseTenantComponent, {
       class       : options.multiple ? 'modal-lg' : 'modal-md',

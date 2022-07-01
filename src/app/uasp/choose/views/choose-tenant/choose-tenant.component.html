@@ -9,7 +9,7 @@
     <div [ngClass]="options.multiple?'col-6 border-right':'col-12'">
       <h6 class="font-weight-bold" *ngIf="options.multiple">候选项（{{candidate.rawData.length}}）</h6>
       <input type="text" class="form-control form-control-sm mb-1" [(ngModel)]="candidate.searchText"
-             placeholder="搜索：租户名称/编号" (ngModelChange)="updateFilter()"/>
+             placeholder="搜索：租户名称/编号" (ngModelChange)="filterData()"/>
       <div style="height: 350px;overflow: auto">
         <table class="table table-bordered table-sm table-striped">
           <thead>
@@ -41,7 +41,7 @@
     <div class="col-6 border-1" *ngIf="options.multiple">
       <h6 class="font-weight-bold">已选项（{{selected.rawData.length}}）</h6>
       <input type="text" class="form-control form-control-sm mb-1" [(ngModel)]="selected.searchText"
-             placeholder="搜索：租户名称/编号" (ngModelChange)="updateFilter()"/>
+             placeholder="搜索：租户名称/编号" (ngModelChange)="filterData()"/>
       <div style="height: 350px;overflow: auto">
         <table class="table table-bordered table-sm table-striped">
           <thead>

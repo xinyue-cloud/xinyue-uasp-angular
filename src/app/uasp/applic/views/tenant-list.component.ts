@@ -69,7 +69,6 @@ export class TenantListComponent implements OnInit {
         { tenantId: '005', name: '租户名称5' },
       ],
     }).subscribe((selected: any) => {
-      console.info('chooseService -> selected: ', selected);
       this.applicClient.createTenant({
         appId   : this.entry.businessKey!,
         tenantId: selected.tenantId,
@@ -82,9 +81,7 @@ export class TenantListComponent implements OnInit {
     this.alertService
       .confirm('确认要移除此租户吗？', '确认')
       .then((result: SweetAlertResult) => {
-        console.info('Confirm -> result: ', result);
         if (result.isConfirmed) {
-
         }
       });
   }

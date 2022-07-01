@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient }        from '@angular/common/http';
-import { BsModalRef }        from 'ngx-bootstrap/modal';
-
-import { HttpResult, KuConfigService, KuTipService } from '@xinyue/core';
-import { CoTenantOption }                            from './tenant-option';
-import { CoTenant }                                  from './tenant-item';
+import { Component, OnInit }                         from '@angular/core';
+import { HttpClient }                                from '@angular/common/http';
 import { cloneDeep }                                 from 'lodash-es';
+import { BsModalRef }                                from 'ngx-bootstrap/modal';
+import { HttpResult, KuConfigService, KuTipService } from '@xinyue/core';
+
+import { CoOption } from '../../models/tenant-option';
+import { CoTenant } from './tenant-item';
 
 @Component({
   selector   : 'uasp-choose-tenant',
@@ -13,7 +13,7 @@ import { cloneDeep }                                 from 'lodash-es';
 })
 export class ChooseTenantComponent implements OnInit {
 
-  options!: CoTenantOption;
+  options!: CoOption<CoTenant>;
 
   candidate: {
     rawData: CoTenant[];
@@ -52,15 +52,23 @@ export class ChooseTenantComponent implements OnInit {
     if (!!this.options.selected) {
       this.selected.rawData = cloneDeep(this.options.selected);
     }
-    this.updateFilter();
+    this.filterData();
   }
 
-  updateFilter(): void {
+  filterData(): void {
+    this.filterCandidate();
+    this.filterSelected();
+  }
+
+  filterCandidate(): void {
     this.candidate.dataSource = this.candidate.rawData.filter(x => {
       let st = this.candidate.searchText;
       return (!st || ((x.name.indexOf(st) >= 0) || (!!x.code && x.code.indexOf(st) >= 0)))
         && (!this.options.multiple || !this.hasSelected(x));
     });
+  }
+
+  filterSelected(): void {
     this.selected.dataSource = this.selected.rawData.filter(x => {
       let st = this.selected.searchText;
       return (!st || ((x.name.indexOf(st) >= 0) || (!!x.code && x.code.indexOf(st) >= 0)));
@@ -71,21 +79,29 @@ export class ChooseTenantComponent implements OnInit {
     if (!this.options.url || !this.options.method) {
       console.error('choose tenant: option need [url,method] args.');
     } else {
-      const _url = this.config.apiUrl() + this.options.url;
-      const _method = this.options.method;
-      this.http.request(_method, _url, {
-        body: {
-          ...this.options.candidate,
-          searchText: this.candidate.searchText,
-        },
-      }).subscribe((httpResult: HttpResult<CoTenant[]>) => {
-        if (httpResult.success) {
-          this.candidate.rawData = httpResult.data;
-        } else {
-          this.tip.error(httpResult.message ?? '未能获取数据。');
-        }
+      this.requestData((data: CoTenant[]) => {
+        this.candidate.rawData = data;
       });
     }
+  }
+
+  private requestData<T>(callback: (data: T[]) => void): void {
+
+    const _url = this.config.apiUrl() + this.options.url;
+    const _method = this.options.method!;
+    this.http.request(_method, _url, {
+      params: {},
+      body  : {
+        ...this.options.candidate,
+        searchText: this.candidate.searchText,
+      },
+    }).subscribe((httpResult: HttpResult<T[]>) => {
+      if (httpResult.success) {
+        callback(httpResult.data);
+      } else {
+        this.tip.error(httpResult.message ?? '未能获取数据。');
+      }
+    });
   }
 
   hasSelected(row: CoTenant): boolean {
@@ -97,13 +113,13 @@ export class ChooseTenantComponent implements OnInit {
       this.onClose(row);
     } else {
       this.selected.rawData.push(row);
-      this.updateFilter();
+      this.filterData();
     }
   }
 
   delSelected(row: CoTenant) {
     this.selected.rawData.splice(this.selected.rawData.indexOf(row), 1);
-    this.updateFilter();
+    this.filterData();
   }
 
   onConfirm() {
