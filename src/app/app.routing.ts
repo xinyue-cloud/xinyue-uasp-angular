@@ -53,9 +53,9 @@ const appRoutes: Routes = [
       { path: 'not-found', component: KuNotFoundComponent },
       { path: 'error-page', component: KuErrorPageComponent },
       { path: 'profile', component: KuUserProfileComponent },
+      { path: 'lock-screen', component: KuLockscreenComponent },
     ],
   },
-  { path: 'lock-screen', canActivate: [KuAuthGuard], component: KuLockscreenComponent },
 ];
 
 @NgModule({
