@@ -5,4 +5,5 @@ export interface MainTab {
   businessKey?: string;
   modified?: boolean;
   active?: number;
+  data?: any
 }

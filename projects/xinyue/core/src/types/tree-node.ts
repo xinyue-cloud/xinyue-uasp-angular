@@ -1,10 +1,10 @@
-export interface TreeNode {
+export interface KuTreeNode {
   id: string;
   text: string;
   type?: string;
   checked?: boolean;
-  children?: TreeNode[];
+  children?: KuTreeNode[];
   data?: any;
-  iconClass?: any;
+  icon?: any;
   styleClass?: any;
 }

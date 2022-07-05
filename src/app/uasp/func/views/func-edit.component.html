@@ -1,0 +1,232 @@
+<div ku-info-bar>
+  基本资料
+</div>
+<h4 *ngIf="loading" class="text-blue">
+  <i class="fas fa-spinner fa-spin"></i> 正在请求数据……
+</h4>
+<ng-container *ngIf="!loading">
+  <form [formGroup]="form1">
+
+    <!-- 类型: 分隔 -->
+    <table class="table table-bordered table-sm editor mb-1" *ngIf="form1.value.type === 'D'">
+      <tr>
+        <th style="width: 135px;"><span>*</span><label>分隔名称：</label></th>
+        <td>
+          <input type="text" formControlName="name" class="form-control form-control-sm"/>
+        </td>
+      </tr>
+      <tr>
+        <th><label>显示图标：</label></th>
+        <td>
+          <input type="text" formControlName="icon" class="form-control form-control-sm"/>
+        </td>
+      </tr>
+      <tr>
+        <th><span>*</span><label>排序码：</label></th>
+        <td>
+          <input type="number" formControlName="sort" class="form-control form-control-sm"/>
+        </td>
+      </tr>
+      <tr>
+        <th><span>*</span><label>启用状态：</label></th>
+        <td>
+          <select class="form-control form-control-sm" formControlName="status">
+            <option value="">--启用状态--</option>
+            <option value="V">启用</option>
+            <option value="I">禁用</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+
+    <!-- 类型: 分类 -->
+    <table class="table table-bordered table-sm editor mb-1" *ngIf="form1.value.type === 'C'">
+      <tr>
+        <th style="width: 135px;"><label>上级分类：</label></th>
+        <td>
+          <input type="text" formControlName="parentName" readonly class="form-control form-control-sm"/>
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 135px;"><span>*</span><label>分类名称：</label></th>
+        <td>
+          <input type="text" formControlName="name" class="form-control form-control-sm"/>
+        </td>
+      </tr>
+      <tr>
+        <th><label>显示图标：</label></th>
+        <td>
+          <input type="text" formControlName="icon" class="form-control form-control-sm"/>
+        </td>
+      </tr>
+      <tr>
+        <th><span>*</span><label>排序码：</label></th>
+        <td>
+          <input type="number" formControlName="sort" class="form-control form-control-sm"/>
+        </td>
+      </tr>
+      <tr>
+        <th><span>*</span><label>启用状态：</label></th>
+        <td>
+          <select class="form-control form-control-sm" formControlName="status">
+            <option value="">--启用状态--</option>
+            <option value="V">启用</option>
+            <option value="I">禁用</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th><label>功能描述：</label></th>
+        <td>
+          <textarea rows="3" formControlName="remark" class="form-control"></textarea>
+        </td>
+      </tr>
+    </table>
+
+    <!-- 类型: 模块 -->
+    <ng-container *ngIf="form1.value.type === 'M'">
+      <table class="table table-bordered table-sm editor mb-1">
+        <tr>
+          <th style="width: 135px;"><label>上级分类：</label></th>
+          <td>
+            <input type="text" formControlName="parentName" readonly class="form-control form-control-sm"/>
+          </td>
+        </tr>
+        <tr>
+          <th style="width: 135px;"><span>*</span><label>模块编号：</label></th>
+          <td>
+            <input type="text" formControlName="code" class="form-control form-control-sm"/>
+          </td>
+        </tr>
+        <tr>
+          <th style="width: 135px;"><span>*</span><label>模块名称：</label></th>
+          <td>
+            <input type="text" formControlName="name" class="form-control form-control-sm"/>
+          </td>
+        </tr>
+        <tr>
+          <th><label>显示图标：</label></th>
+          <td>
+            <input type="text" formControlName="icon" class="form-control form-control-sm"/>
+          </td>
+        </tr>
+        <tr>
+          <th style="width: 135px;"><label>模块路径：</label></th>
+          <td>
+            <input type="text" formControlName="url" class="form-control form-control-sm"/>
+          </td>
+        </tr>
+        <tr>
+          <th><span>*</span><label>适用类型：</label></th>
+          <td>
+            <select class="form-control form-control-sm" formControlName="usage">
+              <option value="">--适用类型--</option>
+              <option *ngFor="let item of usageTypes" [value]="item.id">{{item.text}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th><span>*</span><label>排序码：</label></th>
+          <td>
+            <input type="number" formControlName="sort" class="form-control form-control-sm"/>
+          </td>
+        </tr>
+        <tr>
+          <th><span>*</span><label>启用状态：</label></th>
+          <td>
+            <select class="form-control form-control-sm" formControlName="status">
+              <option value="">--启用状态--</option>
+              <option *ngFor="let item of statusItems" [value]="item.id">{{item.text}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th><label>功能描述：</label></th>
+          <td>
+            <textarea rows="2" formControlName="remark" class="form-control"></textarea>
+          </td>
+        </tr>
+      </table>
+
+      <div ku-info-bar>
+        操作权限
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+
+          <!-- 已选权限项列表 -->
+          <table class="table table-bordered table-sm mb-1">
+            <thead>
+            <tr>
+              <th>权限名称</th>
+              <th>权限代码</th>
+              <th class="text-center" style="width: 50px">
+                <button type="button" class="btn btn-xs btn-primary" (click)="addCustomAction()">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container formArrayName="actions">
+              <tr *ngFor="let item of actions.controls; index as i">
+                <ng-container [formGroupName]="i">
+                  <td>
+                    <input type="text" formControlName="name" class="form-control form-control-sm"/>
+                  </td>
+                  <td>
+                    <input type="text" formControlName="code" class="form-control form-control-sm"/>
+                  </td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-xs btn-danger" (click)="removeAction(i)">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </td>
+                </ng-container>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+
+        </div>
+        <div class="col-6">
+
+          <!-- 候选权限项列表 -->
+          <table class="table table-bordered table-sm mb-1">
+            <tr>
+              <th class="text-center" style="width: 50px">
+              </th>
+              <th>候选权限项</th>
+            </tr>
+            <tr *ngFor="let item of candidate">
+              <td class="text-center">
+                <button type="button" class="btn btn-xs btn-primary" (click)="addAction(item)">
+                  <i class="fa fa-arrow-left"></i>
+                </button>
+              </td>
+              <td>
+                <span>{{item.name}}（{{item.code}}）</span>
+              </td>
+            </tr>
+          </table>
+
+        </div>
+      </div>
+
+    </ng-container>
+
+    <div>
+      <button type="submit" class="btn btn-sm btn-primary" [disabled]="submitting" (click)="onSubmit(false)">
+        {{!!submitting ? "正在提交..." : "保存"}}
+      </button>
+      <button type="submit" class="btn btn-sm btn-default ml-1" [disabled]="submitting" (click)="onSubmit(true)">
+        {{!!submitting ? "正在提交..." : "保存并关闭"}}
+      </button>
+      <button type="button" class="btn btn-sm btn-default ml-1" (click)="onRest()" [disabled]="submitting">
+        重置
+      </button>
+    </div>
+  </form>
+
+</ng-container>

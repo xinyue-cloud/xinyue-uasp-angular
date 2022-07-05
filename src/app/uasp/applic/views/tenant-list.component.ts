@@ -1,10 +1,11 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { DataStatus, MainTab, TableOption }            from '@xinyue/uasp';
-import { KuAlertService, KuEventService, SelectItem }  from '@xinyue/core';
+import { ChangeDetectorRef, Component, Input, OnInit }  from '@angular/core';
+import { DataStatus, MainTab }                          from '@xinyue/uasp';
+import { KuAlertService, KuEventService, KuSelectItem } from '@xinyue/core';
 
+import { SweetAlertResult }            from 'sweetalert2'
 import { ApplicClient, ApplicService } from '../services';
 import { ApplicTenantVo }              from '../models'
-import { SweetAlertResult }            from 'sweetalert2'
+import { TableOption }                 from '../../../shared/types';
 import { ChooseService }               from '../../choose/services/choose.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class TenantListComponent implements OnInit {
   @Input() entry!: MainTab;
 
   // query
-  statusItems: SelectItem[] = [
+  statusItems: KuSelectItem[] = [
     { id: 'V', text: '正常使用' },
     { id: 'I', text: '已经过期' },
   ]
@@ -46,12 +47,9 @@ export class TenantListComponent implements OnInit {
 
   onReload(): void {
     this.applicClient.queryTenantPage({
-      page   : this.option.page,
-      limit  : this.option.limit,
-      orderby: this.option.orderby,
+      ...this.option.params,
     }, {
-      searchText: this.query.searchText,
-      status    : this.query.statusValue,
+      ...this.query,
     })?.subscribe(httpResult => {
       this.option.dataSource = httpResult.data.rows;
       this.option.totalRecords = httpResult.data.totals;

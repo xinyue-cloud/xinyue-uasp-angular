@@ -1,1 +1,48 @@
-<p>func-manage works!</p>
+<div class="row">
+  <div class="col-3 pr-0">
+    <uasp-func-tree></uasp-func-tree>
+  </div>
+  <div class="col-9">
+    <div class="card card-gray card-outline card-tabs mb-2">
+
+      <div class="card-header p-0 pt-1 border-bottom-0">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="javascript:"
+               [ngClass]="{'active': mainTabIndex === 0}"
+               (click)="onMainTabClickHome()">
+              <i class="fas fa-list"></i> 应用列表
+            </a>
+          </li>
+          <li class="nav-item" *ngFor="let tab of mainTabs; let i = index;">
+            <a class="align-items-center d-flex nav-link" href="javascript:"
+               [ngClass]="{'active': mainTabIndex === i+1}"
+               (click)="onMainTabClickTitle(tab)" title="{{tab.title}}">
+              <span *ngIf="!!tab.modified" class="font-weight-bold text-black-50 mr-1">*</span>
+              <span [ngClass]="{
+                    'ku-main-tab-title': mainTabs.length>=5,
+                    'text-green font-weight-bold': tab.isNew
+                    }" [title]="tab.title">{{tab.title}}</span>
+              <i class="fas fa-times ml-1" (click)="onMainTabClickClose(tab)"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card-body p-1">
+        <div class="tab-content">
+          <div class="tab-pane fade" [ngClass]="{'active show': mainTabIndex === 0}">
+            <!-- 列表视图 -->
+            <uasp-func-list></uasp-func-list>
+          </div>
+          <div class="tab-pane fade" [ngClass]="{'show active': mainTabIndex === i+1}"
+               *ngFor="let tab of mainTabs; let i = index;">
+            <uasp-func-edit [entry]="tab"></uasp-func-edit>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

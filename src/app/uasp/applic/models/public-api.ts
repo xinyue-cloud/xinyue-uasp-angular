@@ -1,4 +1,4 @@
-export { ApplicTypes, APPLIC_TYPES } from './applic-typests';
+export { ApplicTypes, APPLIC_TYPES } from './applic-types';
 export { ApplicTenantQuery }         from './applic-tenant.query';
 export { ApplicTenantVo }            from './applic-tenant.vo';
 export { ApplicTenantBody }          from './applic-tenant.body';

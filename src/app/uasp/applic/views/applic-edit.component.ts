@@ -2,7 +2,7 @@ import { Component, Input, OnInit }           from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { cloneDeep }                          from 'lodash-es';
 
-import { KuTipService, SelectItem, KuEventService } from '@xinyue/core';
+import { KuTipService, KuSelectItem, KuEventService } from '@xinyue/core';
 import { MainTab }                                  from '@xinyue/uasp';
 
 import { APPLIC_TYPES, ApplicVo } from '../models';
@@ -29,7 +29,7 @@ export class ApplicEditComponent implements OnInit {
   loading = false;
   submitting = false;
 
-  applicTypes: SelectItem[];
+  applicTypes: KuSelectItem[];
 
   constructor(
     private formBuilder: FormBuilder,

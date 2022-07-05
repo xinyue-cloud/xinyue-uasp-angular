@@ -5,14 +5,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { KuInfoBarModule } from '@xinyue/uasp';
 import { TableModule }     from 'primeng/table';
+import { TreeModule }      from 'primeng/tree';
 
-import { FuncManageComponent } from './func-manage.component';
-import { UaspChooseModule }    from '../choose/choose.module';
-import { ROUTES }              from './func.routing';
+import { FuncClient, FuncService } from './services';
+import { ROUTES }                  from './func.routing';
+import { FuncManageComponent }     from './func-manage.component';
+import { UaspChooseModule }        from '../choose/choose.module';
+import { FuncTreeComponent }       from './views/func-tree.component';
+import { FuncListComponent }       from './views/func-list.component';
+import { FuncEditComponent } from './views/func-edit.component';
 
 @NgModule({
   declarations: [
     FuncManageComponent,
+    FuncTreeComponent,
+    FuncListComponent,
+    FuncEditComponent,
   ],
   imports     : [
     CommonModule,
@@ -22,6 +30,11 @@ import { ROUTES }              from './func.routing';
     TableModule,
     UaspChooseModule,
     KuInfoBarModule,
+    TreeModule,
+  ],
+  providers   : [
+    FuncClient,
+    FuncService,
   ],
 })
 export class UaspFuncModule {

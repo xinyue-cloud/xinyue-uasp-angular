@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SelectItem }                              from '@xinyue/core';
+import { KuSelectItem }                              from '@xinyue/core';
 import { KuButtonThemes }                          from './button.types';
 
 export const CHECKBOX_GROUP_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -30,7 +30,7 @@ export const CHECKBOX_GROUP_CONTROL_VALUE_ACCESSOR: Provider = {
 })
 export class KuButtonCheckboxGroupComponent implements OnInit, ControlValueAccessor {
 
-  @Input() items!: SelectItem[];
+  @Input() items!: KuSelectItem[];
   @Input() theme!: KuButtonThemes;
   @Input() flat!: boolean;
   @Input() bgClass!: string;
@@ -49,7 +49,7 @@ export class KuButtonCheckboxGroupComponent implements OnInit, ControlValueAcces
   ngOnInit(): void {
   }
 
-  buttonClass(item: SelectItem): string {
+  buttonClass(item: KuSelectItem): string {
     let styleClass = '';
     if (this.theme) {
       styleClass += ' btn-' + this.theme;

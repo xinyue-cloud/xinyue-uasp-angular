@@ -1,4 +1,4 @@
-import { SelectItem } from '@xinyue/core';
+import { KuSelectItem } from '@xinyue/core';
 
 export enum UsageTypes {
   Admin = 'A',
@@ -6,7 +6,7 @@ export enum UsageTypes {
   Common = 'C',
 }
 
-export const USAGE_TYPES: SelectItem[] = [
+export const USAGE_TYPES: KuSelectItem[] = [
   { id: 'A', text: '管理' },
   { id: 'B', text: '业务' },
   { id: 'C', text: '通用' },

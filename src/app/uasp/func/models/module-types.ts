@@ -1,4 +1,4 @@
-import { SelectItem } from '@xinyue/core';
+import { KuSelectItem } from '@xinyue/core';
 
 export enum ModuleTypes {
   Category = 'C',
@@ -6,7 +6,7 @@ export enum ModuleTypes {
   Module = 'M',
 }
 
-export const MODULE_TYPES: SelectItem[] = [
+export const MODULE_TYPES: KuSelectItem[] = [
   { id: 'C', text: '分类' },
   { id: 'D', text: '分隔符' },
   { id: 'M', text: '模块' },

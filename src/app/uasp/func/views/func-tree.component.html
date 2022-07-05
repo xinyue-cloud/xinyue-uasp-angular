@@ -1,0 +1,25 @@
+<div class="card card-gray card-outline card-tabs mb-2">
+
+  <div class="card-header p-0 pt-1 border-bottom-0">
+    <ul class="nav nav-tabs justify-content-between">
+      <li class="nav-item">
+        <a class="nav-link font-weight-bold active" href="javascript:">
+          <i class="fas fa-list"></i> 功能模块
+        </a>
+      </li>
+      <select class="form-control form-control-sm w-50 mr-2" [(ngModel)]="appId" (change)="onReload()">
+        <option *ngFor="let item of applicData" [value]="item.id">{{item.text}}</option>
+      </select>
+    </ul>
+  </div>
+
+  <div class="card-body p-0">
+    <div class="tab-content">
+      <div class="tab-pane fade active show p-1">
+        <p-tree [value]="treeData" [filter]="true" styleClass="border-0" selectionMode="single"
+                [(selection)]="selectedNode" (onNodeSelect)="nodeSelect()">
+        </p-tree>
+      </div>
+    </div>
+  </div>
+</div>

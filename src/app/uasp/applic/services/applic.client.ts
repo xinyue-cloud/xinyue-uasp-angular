@@ -53,14 +53,14 @@ export class ApplicClient extends KuHttpService {
   @POST(URL_APPLIC_UPDATE)
   update(
     @Body body: ApplicBody,
-  ): Observable<HttpResult<ApplicVo>> | null {
+  ): Observable<HttpResult<any>> | null {
     return null;
   }
 
   @POST(URL_APPLIC_DELETE)
   deleteById(
     @Body body: IdBody,
-  ): Observable<HttpResult<ApplicVo>> | null {
+  ): Observable<HttpResult<any>> | null {
     return null;
   }
 
@@ -77,14 +77,14 @@ export class ApplicClient extends KuHttpService {
   @POST(URL_APPLIC_TENANT_CREATE)
   createTenant(
     @Body body: ApplicTenantBody,
-  ): Observable<HttpResult<ApplicTenantVo>> | null {
+  ): Observable<HttpResult<any>> | null {
     return null;
   }
 
   @POST(URL_APPLIC_TENANT_DELETE)
   deleteTenantById(
     @Body body: IdBody,
-  ): Observable<HttpResult<ApplicTenantVo>> | null {
+  ): Observable<HttpResult<any>> | null {
     return null;
   }
 

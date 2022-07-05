@@ -28,7 +28,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     // @ts-ignore
     window.paceOptions = { ajax: false };
     this.router.events.subscribe((event) => {
-      console.info('router.events->event', event);
       if (event instanceof NavigationStart) {
         // @ts-ignore
         Pace.start();

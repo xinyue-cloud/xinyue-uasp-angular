@@ -3,9 +3,8 @@ import { HttpClient }                                from '@angular/common/http'
 import { cloneDeep }                                 from 'lodash-es';
 import { BsModalRef }                                from 'ngx-bootstrap/modal';
 import { HttpResult, KuConfigService, KuTipService } from '@xinyue/core';
-
-import { CoOption } from '../../models/tenant-option';
-import { CoTenant } from './tenant-item';
+import { CoOption }                                  from '../../models/tenant-option';
+import { CoTenant }                                  from './tenant-item';
 
 @Component({
   selector   : 'uasp-choose-tenant',

@@ -1,4 +1,4 @@
-import { ApplicTypes } from './applic-typests'
+import { ApplicTypes } from './applic-types'
 import { DataStatus }  from '@xinyue/uasp'
 
 export interface ApplicBody {

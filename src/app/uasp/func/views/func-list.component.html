@@ -1,18 +1,22 @@
 <!-- 常用查询 -->
 <div class="mb-1 form-inline">
-  <select class="form-control form-control-sm mr-1" [(ngModel)]="query.statusValue" (change)="onReload()">
-    <option value="">--状态--</option>
-    <option *ngFor="let item of statusItems" [value]="item.id">{{item.text}}</option>
-  </select>
   <input type="text" class="form-control form-control-sm mr-1" placeholder="搜索：编号/名称"
          [(ngModel)]="query.searchText" (change)="onReload()"/>
   <button type="button" class="btn btn-sm btn-default" (click)="onReload()">
     <i class="fas fa-search"></i> 查询
   </button>
-  <button type="button" class="btn btn-sm btn-default ml-1" (click)="onCreate()">
-    <i class="fas fa-plus"></i> 新增
+  <button type="button" class="btn btn-sm btn-default ml-1" (click)="onCreate('C')">
+    <i class="fas fa-plus"></i> 新增分类
+  </button>
+  <button type="button" class="btn btn-sm btn-default ml-1" (click)="onCreate('M')">
+    <i class="fas fa-plus"></i> 新增模块
+  </button>
+  <button type="button" class="btn btn-sm btn-default ml-1" (click)="onCreate('D')"
+          *ngIf="selectedNode.parent?.key==='ROOT'">
+    <i class="fas fa-plus"></i> 新增分隔
   </button>
   <div class="ml-auto">
+    <h5 class="mb-0 mr-1 text-blue">{{selectedNode.label}}</h5>
   </div>
 </div>
 
@@ -26,19 +30,19 @@
   <ng-template pTemplate="header">
     <tr>
       <th class="text-center" style="width: 35px;">#</th>
-      <th class="text-center" style="width: 120px;">操作</th>
-      <th pSortableColumn="code"> 代码
-        <p-sortIcon field="code"></p-sortIcon>
-      </th>
-      <th pSortableColumn="name"> 名称
+      <th class="text-center" style="width: 60px;">操作</th>
+      <th pSortableColumn="name" style="width: 120px;"> 名称
         <p-sortIcon field="name"></p-sortIcon>
       </th>
-      <th class="text-center" style="width: 100px;">等级</th>
-      <th class="text-center" style="width: 100px;">类型</th>
-      <th>入口</th>
-      <th class="text-center" style="width: 100px;">排序码</th>
-      <th class="text-center" style="width: 100px;">状态</th>
-      <th>备注</th>
+      <th pSortableColumn="code" style="width: 120px;"> 编号
+        <p-sortIcon field="code"></p-sortIcon>
+      </th>
+      <th class="text-center" style="width: 50px;">图标</th>
+      <th class="text-center">访问路径</th>
+      <th>权限项</th>
+      <th class="text-center" style="width: 60px;">排序码</th>
+      <th class="text-center" style="width: 60px;">类型</th>
+      <th class="text-center" style="width: 60px;">状态</th>
     </tr>
   </ng-template>
 
@@ -50,19 +54,25 @@
           <button type="button" class="btn btn-xs btn-default" (click)="onView(row)"> 详情</button>
         </div>
       </td>
-      <td [title]="row.code">{{row.code}}</td>
       <td [title]="row.name">{{row.name}}</td>
-      <td class="text-center" [title]="row.level">{{row.level}} 级</td>
-      <td class="text-center" [title]="row.typeName">{{row.typeName}}</td>
+      <td [title]="row.code">{{row.code}}</td>
+      <td class="text-center">
+        <i [ngClass]="row.icon"></i>
+      </td>
       <td [title]="row.url">{{row.url}}</td>
+      <td>
+        <ng-container *ngIf="!!row.actions">
+          <span *ngFor="let item of row.actions;let last=last;">{{item.name}}{{!last?',':''}}</span>
+        </ng-container>
+      </td>
       <td class="text-center" [title]="row.sort">{{row.sort}}</td>
+      <td class="text-center">{{row.usageName}}</td>
       <td class="text-center" [title]="row.statusName">
         <span class="badge" [ngClass]="{
           'bg-dark': row.status === 'I',
           'bg-success': row.status === 'V'
         }">{{row.statusName}}</span>
       </td>
-      <td [title]="row.remark">{{row.remark}}</td>
     </tr>
   </ng-template>
 

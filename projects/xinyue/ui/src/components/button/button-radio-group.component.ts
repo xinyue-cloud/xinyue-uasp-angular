@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, forwardRef, Input, OnInit, Provider } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR }                           from '@angular/forms';
 
-import { SelectItem }     from '@xinyue/core';
+import { KuSelectItem }     from '@xinyue/core';
 import { KuButtonThemes } from './button.types';
 
 export const RADIO_GROUP_CONTROL_VALUE_ACCESSOR: Provider = {
@@ -21,7 +21,7 @@ export const RADIO_GROUP_CONTROL_VALUE_ACCESSOR: Provider = {
 })
 export class KuButtonRadioGroupComponent implements OnInit, ControlValueAccessor {
 
-  @Input() items!: SelectItem[];
+  @Input() items!: KuSelectItem[];
   @Input() theme!: KuButtonThemes;
   @Input() flat = false;
   @Input() bgClass!: string;
@@ -49,7 +49,7 @@ export class KuButtonRadioGroupComponent implements OnInit, ControlValueAccessor
   ngOnInit(): void {
   }
 
-  buttonClass(item: SelectItem): string {
+  buttonClass(item: KuSelectItem): string {
     let styleClass = '';
     if (this.theme) {
       styleClass += ' btn-' + this.theme;
@@ -79,7 +79,7 @@ export class KuButtonRadioGroupComponent implements OnInit, ControlValueAccessor
     this.value = value;
   }
 
-  labelClick(item: SelectItem, $event: MouseEvent): void {
+  labelClick(item: KuSelectItem, $event: MouseEvent): void {
     if (!this.isDisabled) {
       this.value = item.id;
       this.onChange(this.value);

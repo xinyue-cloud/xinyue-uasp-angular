@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { Subscription }             from 'rxjs';
 
 export interface KuEventArgs {
   type: string,
@@ -15,8 +16,8 @@ export class KuEventService {
   constructor() {
   }
 
-  public subscribe(next?: (value: KuEventArgs) => void): void {
-    this.subject.subscribe(next);
+  public subscribe(next?: (value: KuEventArgs) => void): Subscription {
+    return this.subject.subscribe(next);
   }
 
   public emit(value: KuEventArgs): void {

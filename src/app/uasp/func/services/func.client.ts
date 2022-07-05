@@ -3,7 +3,7 @@ import { Observable }  from 'rxjs';
 import {
   GET, POST, Body, Param,
   HttpResult, KuHttpService,
-  SelectItem, TreeNode, Query, PageClause,
+  KuSelectItem, KuTreeNode, Query, PageClause, CodeName,
 }                      from '@xinyue/core';
 import { IdBody }      from '@xinyue/uasp';
 import { DefineVo }    from '../models/define-vo';
@@ -12,6 +12,7 @@ import { DefineQuery } from '../models/define-query'
 import { DefineBody }  from '../models/define-body';
 
 export const URL_CHOOSE_APPLIC = '/module/choose/applic'
+export const URL_MODULE_CANDIDATE_ACTIONS = '/module/candidate/actions'
 export const URL_MODULE_TREE = '/module/tree'
 export const URL_MODULE_PAGE = '/module/page'
 export const URL_MODULE_GET = '/module/get'
@@ -24,15 +25,20 @@ export class FuncClient extends KuHttpService {
 
   // choose
 
-  @GET(URL_CHOOSE_APPLIC)
-  chooseApplic(): Observable<HttpResult<SelectItem[]>> | null {
+  @POST(URL_CHOOSE_APPLIC)
+  chooseApplic(): Observable<HttpResult<KuSelectItem[]>> | null {
+    return null;
+  }
+
+  @POST(URL_MODULE_CANDIDATE_ACTIONS)
+  candidateActions(): Observable<HttpResult<CodeName[]>> | null {
     return null;
   }
 
   @POST(URL_MODULE_TREE)
   chooseTree(
     @Body query: TreeQuery,
-  ): Observable<HttpResult<TreeNode[]>> | null {
+  ): Observable<HttpResult<KuTreeNode[]>> | null {
     return null;
   }
 
@@ -58,5 +64,18 @@ export class FuncClient extends KuHttpService {
     return null;
   }
 
+  @POST(URL_MODULE_UPDATE)
+  update(
+    @Body body: DefineBody,
+  ): Observable<HttpResult<any>> | null {
+    return null;
+  }
+
+  @POST(URL_MODULE_DELETE)
+  delete(
+    @Body body: IdBody,
+  ): Observable<HttpResult<any>> | null {
+    return null;
+  }
 
 }

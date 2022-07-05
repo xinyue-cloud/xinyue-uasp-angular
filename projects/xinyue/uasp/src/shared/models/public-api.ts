@@ -11,5 +11,4 @@ export { KuRestPwdForm }             from './rest-pwd-form';
 
 export { DataStatus, DATA_STATUS }     from './data-status';
 export { UsableStatus, USABLE_STATUS } from './usable-status';
-export { TableOption }                 from './table-option';
 export { IdBody }                      from './id-body'

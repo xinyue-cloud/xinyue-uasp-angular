@@ -1,7 +1,7 @@
 <a class="nav-link d-flex align-items-center {{item.styleClass}}" (click)="!!itemClick($event);" *ngIf="!item.routerLink || item.items"
    [attr.href]="item.url?item.url:'#'" [attr.target]="item.target" [ngClass]="{'active': item.active}"
    (focusin)="onFocusin()" (focusout)="onFocusout()">
-  <i class="nav-icon {{item.iconClass ?? 'fas fa-circle'}}"></i>
+  <i class="nav-icon {{item.icon ?? 'fas fa-circle'}}"></i>
   <p>
     {{item.label}}
     <i class="right fas fa-angle-left" *ngIf="item.items"></i>
@@ -13,7 +13,7 @@
    *ngIf="item.routerLink && !item.items" [routerLink]="item.routerLink"
    [attr.target]="item.target" [ngClass]="{'active': item.active}"
    (focusin)="onFocusin()" (focusout)="onFocusout()">
-  <i class="nav-icon {{item.iconClass ?? 'far fa-circle'}}"></i>
+  <i class="nav-icon {{item.icon ?? 'fas fa-arrow-right'}}"></i>
   <p>
     {{item.label}}
     <i class="right fas fa-angle-left" *ngIf="item.items"></i>

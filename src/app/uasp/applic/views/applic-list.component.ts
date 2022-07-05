@@ -1,15 +1,16 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { KuEventService, SelectItem }                                 from '@xinyue/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { KuEventService, KuSelectItem }         from '@xinyue/core';
+import { cloneDeep }                            from 'lodash-es';
+import { DATA_STATUS }                          from '@xinyue/uasp';
 
-import { DATA_STATUS, TableOption }    from '@xinyue/uasp';
 import { ApplicClient, ApplicService } from '../services';
-import { cloneDeep }                   from 'lodash-es';
 import { ApplicVo }                    from '../models';
 import {
   APPLIC_MAIN_TAB_CREATE,
   APPLIC_LIST_QUERY,
   APPLIC_MAIN_TAB_VIEW,
 }                                      from '../event.types';
+import { TableOption }                 from '../../../shared/types';
 
 @Component({
   selector   : 'uasp-applic-list',
@@ -18,7 +19,7 @@ import {
 export class ApplicListComponent implements OnInit {
 
   // query
-  statusItems: SelectItem[];
+  statusItems: KuSelectItem[];
   query = {
     searchText : '',
     statusValue: '',
@@ -50,12 +51,9 @@ export class ApplicListComponent implements OnInit {
   onReload(): void {
 
     this.applicClient.queryPage({
-      page   : this.option.page,
-      limit  : this.option.limit,
-      orderby: this.option.orderby,
+      ...this.option.params,
     }, {
-      searchText: this.query.searchText,
-      status    : this.query.statusValue,
+      ...this.query,
     })?.subscribe(httpResult => {
       this.option.dataSource = httpResult.data.rows;
       this.option.totalRecords = httpResult.data.totals;
