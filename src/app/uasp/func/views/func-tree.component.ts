@@ -1,10 +1,29 @@
 import { Component, OnInit }                                      from '@angular/core';
 import { KuEventService, KuSelectItem, KuTipService, KuTreeNode } from '@xinyue/core';
 
-import { TreeNode }                                                                             from 'primeng/api';
-import { FuncClient }                                                                           from '../services';
-import { FUNC_LIST_QUERY, FUNC_MAIN_TAB_SHOW_HOME, FUNC_SAVE_COMPLETED, FUNC_TREE_SELECT_NODE } from '../event.types';
-import { findTreeNode, treeConvert }                                                            from '../../../shared';
+import { TreeNode }                  from 'primeng/api';
+import { FuncClient }                from '../services';
+import {
+  FUNC_MAIN_TAB_SHOW_HOME,
+  FUNC_SAVE_COMPLETED,
+  FUNC_TREE_SELECT_NODE,
+}                                    from '../event.types';
+import { findTreeNode, treeConvert } from '../../../shared';
+
+function treeIcon(source: KuTreeNode, target: TreeNode): void {
+  if (source.id === 'ROOT') {
+    target.icon = "fas fa-home";
+  } else if (source.type === 'C') {
+    if (!!source.icon) {
+      target.icon = source.icon;
+    } else {
+      target.collapsedIcon = "fas fa-folder";
+      target.expandedIcon = "fas fa-folder-open";
+    }
+  } else if (source.type === 'D') {
+    target.icon = "fas fa-minus";
+  }
+}
 
 @Component({
   selector   : 'uasp-func-tree',
@@ -46,15 +65,16 @@ export class FuncTreeComponent implements OnInit {
     })?.subscribe(result => {
       if (result.success) {
         this.treeData = treeConvert(result.data, (node: KuTreeNode) => {
-          return {
-            key       : node.id,
-            label     : node.text,
-            icon      : node.icon,
-            type      : node.type,
-            data      : node.data,
-            leaf      : node.type !== 'C',
-            expanded  : !!node.children,
+          let target = {
+            key     : node.id,
+            label   : node.text,
+            type    : node.type,
+            leaf    : !node.children,
+            expanded: !!node.children,
+            data    : node.data,
           };
+          treeIcon(node, target);
+          return target;
         });
         if (!!this.selectedNode) {
           this.selectedNode = findTreeNode(this.selectedNode.key!, this.treeData);

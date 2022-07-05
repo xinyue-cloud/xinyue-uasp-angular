@@ -124,7 +124,7 @@ export class FuncManageComponent implements OnInit {
       this.tipService.warning('只允许同时新增一个记录。')
     } else {
       let row = {
-        title : '[创建新应用]',
+        title : '[未命名项]',
         isNew : true,
         active: 0,
         data  : {
