@@ -1,10 +1,9 @@
 import { Component, OnInit }   from '@angular/core';
 import { KuBreadcrumbService } from '@xinyue/uasp';
 
-import { ApplicManager }         from './services';
-import { ManageState, TabState } from './types';
-import { SweetAlertResult }      from 'sweetalert2';
-import { KuAlertService }        from '@xinyue/core';
+import { ApplicManager }                     from './services';
+import { ApplicManageState, ApplicTabState } from './types';
+import { KuAlertService }                    from '@xinyue/core';
 
 @Component({
   selector   : 'uasp-applic-manage',
@@ -12,7 +11,7 @@ import { KuAlertService }        from '@xinyue/core';
 })
 export class ApplicManageComponent implements OnInit {
 
-  state!: ManageState;
+  state!: ApplicManageState;
 
   constructor(
     private breadcrumb: KuBreadcrumbService,
@@ -35,32 +34,14 @@ export class ApplicManageComponent implements OnInit {
     this.manager.showHomeTab();
   }
 
-  showTab(tab: TabState) {
+  showTab(tab: ApplicTabState) {
     if (!this.manager.tryShowTab(tab.businessKey!)) {
       this.manager.appendTab(tab);
     }
   }
 
-  tryCloseTab(tab: TabState) {
-    if (tab.modified) {
-      this.alert.custom({
-          confirmButtonText: '保存',
-          denyButtonText   : '不保存',
-          cancelButtonText : '取消',
-        }, '该记录数据已经修改，是否需要保存？', '选择关闭方式',
-      ).then((result: SweetAlertResult) => {
-        if (result.isConfirmed) {
-          this.manager.formSubmit.emit({
-            tab  : tab,
-            close: true,
-          });
-        } else if (result.isDenied) {
-          this.manager.directCloseTab(tab);
-        }
-      });
-    } else {
-      this.manager.directCloseTab(tab);
-    }
+  tryCloseTab(tab: ApplicTabState) {
+    this.manager.tryCloseTab(tab);
   }
 
 }

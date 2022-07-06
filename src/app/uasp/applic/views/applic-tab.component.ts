@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TabState }                 from '../types';
+import { ApplicTabState }           from '../types';
 
 @Component({
   selector   : 'uasp-applic-tab',
@@ -7,7 +7,7 @@ import { TabState }                 from '../types';
 })
 export class ApplicTabComponent implements OnInit {
 
-  @Input() state!: TabState;
+  @Input() state!: ApplicTabState;
 
   constructor() {
   }

@@ -5,29 +5,28 @@ import { KuAlertService, KuSelectItem, KuTipService } from '@xinyue/core';
 import { DATA_STATUS, DataStatus }                    from '@xinyue/uasp';
 import { cloneDeep }                                  from 'lodash-es';
 
-import { ApplicVo }     from '../models';
-import { ApplicClient } from './applic.client';
+import { ApplicVo }         from '../models';
+import { ApplicClient }     from './applic.client';
 import {
   APPLIC_TYPES,
-  TabState,
+  ApplicTabState,
   ApplicTypes,
-  ManageState,
-  ListState,
-}                       from '../types';
-
-export interface FormSubmitArg {
-  tab: TabState,
-  close: boolean
-}
+  ApplicManageState,
+  ApplicListState,
+}                           from '../types';
+import { SweetAlertResult } from 'sweetalert2';
 
 @Injectable()
 export class ApplicManager {
 
-  manage: ManageState = new ManageState();
-  list: ListState = new ListState();
+  manage: ApplicManageState = new ApplicManageState();
+  list: ApplicListState = new ApplicListState();
 
   applicTypes: KuSelectItem[];
-  formSubmit: EventEmitter<FormSubmitArg> = new EventEmitter();
+  onSubmit: EventEmitter<{
+    tab: ApplicTabState,
+    close: boolean
+  }> = new EventEmitter();
 
   constructor(
     private alert: KuAlertService,
@@ -36,19 +35,15 @@ export class ApplicManager {
     private tip: KuTipService,
   ) {
     this.applicTypes = cloneDeep(APPLIC_TYPES);
-    this.initList();
-    this.list.option.onReload = () => {
-      this.onReload();
-    };
   }
 
   // -------------------------------- Manager View --------------------------------
 
-  showHomeTab() {
+  showHomeTab(): void {
     this.manage.tabIndex = 0;
   }
 
-  appendTab(tab: TabState): void {
+  appendTab(tab: ApplicTabState): void {
     this.manage.tabs.push(tab);
     this.manage.tabIndex = this.manage.tabs.indexOf(tab) + 1;
   }
@@ -62,29 +57,40 @@ export class ApplicManager {
     return false;
   }
 
-  directCloseTab(tab: TabState): void {
+  tryCloseTab(tab: ApplicTabState) {
+    if (tab.modified) {
+      this.alert.custom({
+          confirmButtonText: '保存',
+          denyButtonText   : '不保存',
+          cancelButtonText : '取消',
+        }, '该记录数据已经修改，是否需要保存？', '选择关闭方式',
+      ).then((result: SweetAlertResult) => {
+        if (result.isConfirmed) {
+          this.onSubmit.emit({
+            tab  : tab,
+            close: true,
+          });
+        } else if (result.isDenied) {
+          this.directCloseTab(tab);
+        }
+      });
+    } else {
+      this.directCloseTab(tab);
+    }
+  }
+
+  directCloseTab(tab: ApplicTabState): void {
     this.manage.tabs.splice(this.manage.tabs.indexOf(tab), 1);
     this.showHomeTab();
   }
 
   // -------------------------------- List View --------------------------------
 
-  initList(): void {
-    this.list.statusItems = cloneDeep(DATA_STATUS);
-  }
-
   onReload(): void {
-    this.client.queryPage({
-      ...this.list.option.params,
-    }, {
-      ...this.list.query,
-    })?.subscribe(httpResult => {
-      this.list.option.dataSource = httpResult.data.rows;
-      this.list.option.totalRecords = httpResult.data.totals;
-    });
+    this.list.option.onReload();
   }
 
-  create() {
+  create(): void {
     let list = this.manage.tabs.filter(x => x.isNew);
     if (list.length > 0) {
       this.manage.tabIndex = this.manage.tabs.indexOf(list[0]) + 1;
@@ -96,18 +102,18 @@ export class ApplicManager {
         needRelease: true,
         status     : DataStatus.Valid,
       };
-      let _tab = TabState.newTab(this.makeFormGroup(vo), vo);
+      let _tab = ApplicTabState.newTab(this.makeFormGroup(vo), vo);
       this.appendTab(_tab);
     }
   }
 
-  view(row: ApplicVo) {
+  view(row: ApplicVo): void {
     if (!this.tryShowTab(row.appId!)) {
       this.client.getById({
         id: row.appId!,
       })?.subscribe(result => {
         if (result.success) {
-          let _tab = TabState.editTab(
+          let _tab = ApplicTabState.editTab(
             this.makeFormGroup(result.data),
             result.data,
           );
@@ -119,8 +125,7 @@ export class ApplicManager {
     }
   }
 
-  makeFormGroup(row: any):
-    FormGroup {
+  makeFormGroup(row: any): FormGroup {
     return this.fb.group({
       appId      : [row.appId],
       code       : [row.code, [Validators.required]],

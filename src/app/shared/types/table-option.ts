@@ -19,12 +19,12 @@ export class TableOption<T> {
     this.params.limit = value;
   }
 
-  onReload!: (event: any) => void;
+  onReload!: () => void;
 
   onLazyLoad(event: any): void {
     this.params.limit = event.rows;
     this.params.page = event.first / event.rows;
     this.params.orderby = tableOrderBy(event);
-    this.onReload(event);
+    this.onReload();
   }
 }

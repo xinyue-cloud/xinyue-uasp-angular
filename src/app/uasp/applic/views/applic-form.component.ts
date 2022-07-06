@@ -1,9 +1,9 @@
-import { Component, Input, OnInit }                   from '@angular/core';
-import { KuTipService }                               from '@xinyue/core';
-import { ApplicClient, ApplicManager, FormSubmitArg } from '../services';
+import { Component, Input, OnInit } from '@angular/core';
+import { KuTipService }             from '@xinyue/core';
+import { cloneDeep }                from 'lodash-es';
 
-import { FormState } from '../types';
-import { cloneDeep } from 'lodash-es';
+import { ApplicClient, ApplicManager }     from '../services';
+import { ApplicFormState, ApplicTabState } from '../types';
 
 @Component({
   selector   : 'uasp-applic-form',
@@ -11,7 +11,7 @@ import { cloneDeep } from 'lodash-es';
 })
 export class ApplicFormComponent implements OnInit {
 
-  @Input() state!: FormState;
+  @Input() state!: ApplicFormState;
 
   submitting = false;
 
@@ -20,7 +20,10 @@ export class ApplicFormComponent implements OnInit {
     private client: ApplicClient,
     private tip: KuTipService,
   ) {
-    manager.formSubmit.subscribe((args: FormSubmitArg) => {
+    manager.onSubmit.subscribe((args: {
+      tab: ApplicTabState,
+      close: boolean
+    }) => {
       if (args.tab === this.state.tab) {
         this.submit(args.close);
       }

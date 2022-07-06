@@ -1,6 +1,9 @@
-import { Component, OnInit, Output }   from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DATA_STATUS }       from '@xinyue/uasp';
+import { cloneDeep }         from 'lodash-es';
+
 import { ApplicClient, ApplicManager } from '../services';
-import { ListState }                   from '../types';
+import { ApplicListState }             from '../types';
 
 @Component({
   selector   : 'uasp-applic-list',
@@ -8,7 +11,7 @@ import { ListState }                   from '../types';
 })
 export class ApplicListComponent implements OnInit {
 
-  state!: ListState;
+  state!: ApplicListState;
 
   constructor(
     private client: ApplicClient,
@@ -18,6 +21,7 @@ export class ApplicListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.state.statusItems = cloneDeep(DATA_STATUS);
     this.state.option.onReload = () => {
       this.onReload();
     };

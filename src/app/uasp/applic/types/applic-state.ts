@@ -6,12 +6,12 @@ import { TableOption }              from '../../../shared';
 import { KuSelectItem }             from '@xinyue/core';
 import { cloneDeep }                from 'lodash-es';
 
-export class ManageState {
+export class ApplicManageState {
   tabIndex: number = 0;
-  tabs: TabState[] = [];
+  tabs: ApplicTabState[] = [];
 }
 
-export class ListState {
+export class ApplicListState {
   query: {
     searchText: string,
     status: DataStatus,
@@ -23,24 +23,24 @@ export class ListState {
   option: TableOption<ApplicVo> = new TableOption();
 }
 
-export class TabState {
+export class ApplicTabState {
 
-  static newTab(group: FormGroup, raw: ApplicVo): TabState {
-    let t = new TabState();
+  static newTab(group: FormGroup, raw: ApplicVo): ApplicTabState {
+    let t = new ApplicTabState();
     t.title = '[未命名项]';
     t.isNew = true;
-    t.form = FormState.builder(t, group, raw);
-    t.tenant = TenantState.builder(t);
+    t.form = ApplicFormState.builder(t, group, raw);
+    t.tenant = ApplicTenantState.builder(t);
     return t;
   }
 
-  static editTab(group: FormGroup, raw: ApplicVo): TabState {
-    let t = new TabState();
+  static editTab(group: FormGroup, raw: ApplicVo): ApplicTabState {
+    let t = new ApplicTabState();
     t.title = raw.name!;
     t.businessKey = raw.appId;
     t.isNew = false;
-    t.form = FormState.builder(t, group, raw);
-    t.tenant = TenantState.builder(t);
+    t.form = ApplicFormState.builder(t, group, raw);
+    t.tenant = ApplicTenantState.builder(t);
     return t;
   }
 
@@ -49,14 +49,14 @@ export class TabState {
   businessKey?: string;
   modified: boolean = false;
   active: number = 0;
-  form!: FormState;
-  tenant!: TenantState;
+  form!: ApplicFormState;
+  tenant!: ApplicTenantState;
 }
 
-export class FormState {
+export class ApplicFormState {
 
-  static builder(tab: TabState, group: FormGroup, raw: ApplicVo): FormState {
-    let s = new FormState();
+  static builder(tab: ApplicTabState, group: FormGroup, raw: ApplicVo): ApplicFormState {
+    let s = new ApplicFormState();
     s.tab = tab;
     s.formGroup = group;
     s.rawValue = raw;
@@ -71,19 +71,19 @@ export class FormState {
     return this.tab.modified!;
   }
 
-  tab!: TabState;
+  tab!: ApplicTabState;
   formGroup!: FormGroup;
   rawValue!: ApplicVo;
 }
 
-export class TenantState {
-  static builder(tab: TabState): TenantState {
-    let t = new TenantState();
+export class ApplicTenantState {
+  static builder(tab: ApplicTabState): ApplicTenantState {
+    let t = new ApplicTenantState();
     t.tab = tab;
     return t;
   }
 
-  tab!: TabState;
+  tab!: ApplicTabState;
   query: {
     searchText: string,
     status: DataStatus,

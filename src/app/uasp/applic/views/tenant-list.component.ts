@@ -6,8 +6,8 @@ import { SweetAlertResult }      from 'sweetalert2'
 import { ApplicClient }          from '../services';
 import { ApplicTenantVo }        from '../models'
 import { TableOption }           from '../../../shared';
-import { ChooseService }         from '../../choose/services/choose.service';
-import { TabState, TenantState } from '../types';
+import { ChooseService }                     from '../../choose/services/choose.service';
+import { ApplicTabState, ApplicTenantState } from '../types';
 
 @Component({
   selector   : 'uasp-tenant-list',
@@ -15,7 +15,7 @@ import { TabState, TenantState } from '../types';
 })
 export class TenantListComponent implements OnInit {
 
-  @Input() state!: TenantState;
+  @Input() state!: ApplicTenantState;
 
   // query
   statusItems: KuSelectItem[] = [
