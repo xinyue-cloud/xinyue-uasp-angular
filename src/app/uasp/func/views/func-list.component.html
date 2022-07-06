@@ -5,16 +5,18 @@
   <button type="button" class="btn btn-sm btn-default" (click)="onReload()">
     <i class="fas fa-search"></i> 查询
   </button>
-  <button type="button" class="btn btn-sm btn-default ml-1" (click)="onCreate('C')">
-    <i class="fas fa-plus"></i> 新增分类
-  </button>
-  <button type="button" class="btn btn-sm btn-default ml-1" (click)="onCreate('M')">
-    <i class="fas fa-plus"></i> 新增模块
-  </button>
-  <button type="button" class="btn btn-sm btn-default ml-1" (click)="onCreate('D')"
-          *ngIf="selectedNode.parent?.key==='ROOT'">
-    <i class="fas fa-plus"></i> 新增分隔
-  </button>
+  <ng-container *ngIf="selectedNode.type !== 'D'">
+    <button type="button" class="btn btn-sm btn-default ml-1" (click)="onCreate('C')">
+      <i class="fas fa-plus"></i> 新增分类
+    </button>
+    <button type="button" class="btn btn-sm btn-default ml-1" (click)="onCreate('M')">
+      <i class="fas fa-plus"></i> 新增模块
+    </button>
+    <button type="button" class="btn btn-sm btn-default ml-1" (click)="onCreate('D')"
+            *ngIf="selectedNode.parent?.key==='ROOT'">
+      <i class="fas fa-plus"></i> 新增分隔
+    </button>
+  </ng-container>
   <div class="ml-auto">
     <h5 class="mb-0 mr-1 text-blue">{{selectedNode.label}}</h5>
   </div>
@@ -57,12 +59,14 @@
       <td [title]="row.name">{{row.name}}</td>
       <td [title]="row.code">{{row.code}}</td>
       <td class="text-center">
-        <i [ngClass]="row.icon"></i>
+        <ng-container *ngIf="row.type !== 'D'">
+          <i [ngClass]="!!row.icon ? row.icon : 'text-black-50 fas fa-arrow-right'"></i>
+        </ng-container>
       </td>
       <td [title]="row.url">{{row.url}}</td>
       <td>
         <ng-container *ngIf="!!row.actions">
-          <span *ngFor="let item of row.actions;let last=last;">{{item.name}}{{!last?',':''}}</span>
+          <span *ngFor="let item of row.actions;let last=last;">{{item.name}}{{!last ? ',' : ''}}</span>
         </ng-container>
       </td>
       <td class="text-center" [title]="row.sort">{{row.sort}}</td>
