@@ -20,6 +20,7 @@ export class ToastrTipService extends KuTipService {
   }
 
   public override error = (message: string, title?: string, options?: any): any => {
+    console.error(message);
     return this.toastr.error(message, title, options);
   }
 

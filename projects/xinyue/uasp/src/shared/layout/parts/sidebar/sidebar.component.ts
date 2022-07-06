@@ -40,9 +40,9 @@ export class KuSidebarComponent implements OnInit, AfterContentInit {
     public layout: KuLayoutService,
     public menuService: KuMenuService,
   ) {
-    route.url.subscribe(url => {
-      console.info('KtSidebarComponent -> this.route -> url', url);
-    });
+    //route.url.subscribe(url => {
+   //   console.info('KtSidebarComponent -> this.route -> url', url);
+   // });
   }
 
   ngOnInit(): void {

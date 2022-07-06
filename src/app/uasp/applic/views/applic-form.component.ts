@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { KuTipService }             from '@xinyue/core';
-import { cloneDeep }                from 'lodash-es';
+import { Component, Input, OnInit }   from '@angular/core';
+import { KuSelectItem, KuTipService } from '@xinyue/core';
+import { cloneDeep }                  from 'lodash-es';
 
-import { ApplicClient, ApplicManager }     from '../services';
-import { ApplicFormState, ApplicTabState } from '../types';
+import { ApplicClient, ApplicManager } from '../services';
+import { FormState, TabState }         from '../types';
 
 @Component({
   selector   : 'uasp-applic-form',
@@ -11,38 +11,39 @@ import { ApplicFormState, ApplicTabState } from '../types';
 })
 export class ApplicFormComponent implements OnInit {
 
-  @Input() state!: ApplicFormState;
+  @Input() state!: FormState;
 
   submitting = false;
+  applicTypes!: KuSelectItem[];
 
   constructor(
     public manager: ApplicManager,
     private client: ApplicClient,
     private tip: KuTipService,
   ) {
-    manager.onSubmit.subscribe((args: {
-      tab: ApplicTabState,
+    this.applicTypes = manager.applicTypes;
+  }
+
+  resetModify(): void {
+    this.state.tab.modified = false;
+  }
+
+  ngOnInit(): void {
+    this.manager.onSubmit.subscribe((args: {
+      tab: TabState,
       close: boolean
     }) => {
       if (args.tab === this.state.tab) {
         this.submit(args.close);
       }
-    })
-  }
-
-  resetModify(): void {
-    this.state.modified = false;
-    this.ngOnInit();
-  }
-
-  ngOnInit(): void {
-    this.state.formGroup.valueChanges.subscribe(next => {
-      this.state.modified = true;
+    });
+    this.state.group.valueChanges.subscribe(next => {
+      this.state.tab.modified = true;
     });
   }
 
   restFormGroup() {
-    this.state.formGroup.reset(this.state.rawValue);
+    this.state.group.reset(this.state.rawValue);
     this.resetModify();
   }
 
@@ -51,7 +52,7 @@ export class ApplicFormComponent implements OnInit {
     if (this.submitting) {
       return;
     }
-    if (!this.state.formGroup.valid) {
+    if (!this.state.group.valid) {
       this.tip.error('请检查表单内的数据。', '信息填写不完整');
       return;
     }
@@ -68,7 +69,7 @@ export class ApplicFormComponent implements OnInit {
 
   private postUpdate(closed: boolean) {
 
-    if (!this.state.modified) {
+    if (!this.state.tab.modified) {
       if (closed) {
         this.closeTab();
       } else {
@@ -78,17 +79,16 @@ export class ApplicFormComponent implements OnInit {
     }
 
     this.submitting = true;
-    this.client.update(this.state.formGroup.value)?.subscribe((result) => {
+    this.client.update(this.state.group.value)?.subscribe((result) => {
       this.submitting = false;
       if (result.success) {
-        this.state.rawValue = cloneDeep(this.state.formGroup.value);
+        this.state.rawValue = cloneDeep(this.state.group.value);
         this.tip.success('应用保存成功。', '成功');
         if (closed) {
           this.closeTab();
         } else {
-          this.state.modified = true;
+          this.resetModify();
         }
-        this.resetModify();
         this.manager.onReload();
       } else {
         this.tip.error(result.message ?? '保存失败。');
@@ -99,14 +99,14 @@ export class ApplicFormComponent implements OnInit {
   private postCreate(closed: boolean) {
 
     this.submitting = true;
-    this.client.create(this.state.formGroup.value)?.subscribe((result) => {
+    this.client.create(this.state.group.value)?.subscribe((result) => {
       this.submitting = false;
       if (result.success) {
         this.tip.success('应用创建成功。', '成功');
         if (closed) {
           this.closeTab();
         } else {
-          this.state.formGroup.patchValue({
+          this.state.group.patchValue({
             appId: result.data.appId,
           });
           this.state.rawValue = result.data;

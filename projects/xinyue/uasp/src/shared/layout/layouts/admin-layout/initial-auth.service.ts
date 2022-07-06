@@ -1,7 +1,7 @@
 import { Injectable }                                           from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { map, Observable }                                      from 'rxjs';
-import { HttpResult }                                           from '@xinyue/core';
+import { HttpResult, KuTipService }                             from '@xinyue/core';
 
 import { KuLoginUser }     from '../../../models';
 import { KuAccountClient } from '../../../clients';
@@ -12,17 +12,18 @@ import { KuAccountClient } from '../../../clients';
 export class KuInitAuthResolver implements Resolve<KuLoginUser> {
 
   constructor(
-    private accountClient: KuAccountClient,
+    private client: KuAccountClient,
+    private tip: KuTipService,
   ) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<KuLoginUser> {
-    return this.accountClient.getInfo().pipe(
+    return this.client.getInfo().pipe(
       map((result: HttpResult<KuLoginUser>) => {
         if (result.success) {
           return result.data;
         } else {
-          console.error(result.message ?? 'get loginUser.');
+          this.tip.error(result.message ?? 'error get loginUser.')
         }
       }),
     );

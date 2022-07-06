@@ -4,7 +4,7 @@ import { FormsModule }  from '@angular/forms';
 import { ModalModule }  from 'ngx-bootstrap/modal';
 
 import { ChooseTenantComponent } from './views/choose-tenant/choose-tenant.component';
-import { ChooseService }         from './services/choose.service'
+import { ChooseService }         from './services'
 
 @NgModule({
   declarations: [

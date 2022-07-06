@@ -9,22 +9,22 @@ import { ApplicVo }         from '../models';
 import { ApplicClient }     from './applic.client';
 import {
   APPLIC_TYPES,
-  ApplicTabState,
+  TabState,
   ApplicTypes,
-  ApplicManageState,
-  ApplicListState,
+  ManageState,
+  ListState,
 }                           from '../types';
 import { SweetAlertResult } from 'sweetalert2';
 
 @Injectable()
 export class ApplicManager {
 
-  manage: ApplicManageState = new ApplicManageState();
-  list: ApplicListState = new ApplicListState();
+  manage: ManageState = new ManageState();
+  list: ListState = new ListState();
 
   applicTypes: KuSelectItem[];
   onSubmit: EventEmitter<{
-    tab: ApplicTabState,
+    tab: TabState,
     close: boolean
   }> = new EventEmitter();
 
@@ -43,7 +43,7 @@ export class ApplicManager {
     this.manage.tabIndex = 0;
   }
 
-  appendTab(tab: ApplicTabState): void {
+  appendTab(tab: TabState): void {
     this.manage.tabs.push(tab);
     this.manage.tabIndex = this.manage.tabs.indexOf(tab) + 1;
   }
@@ -57,7 +57,7 @@ export class ApplicManager {
     return false;
   }
 
-  tryCloseTab(tab: ApplicTabState) {
+  tryCloseTab(tab: TabState) {
     if (tab.modified) {
       this.alert.custom({
           confirmButtonText: '保存',
@@ -79,7 +79,7 @@ export class ApplicManager {
     }
   }
 
-  directCloseTab(tab: ApplicTabState): void {
+  directCloseTab(tab: TabState): void {
     this.manage.tabs.splice(this.manage.tabs.indexOf(tab), 1);
     this.showHomeTab();
   }
@@ -102,7 +102,7 @@ export class ApplicManager {
         needRelease: true,
         status     : DataStatus.Valid,
       };
-      let _tab = ApplicTabState.newTab(this.makeFormGroup(vo), vo);
+      let _tab = TabState.newTab(this.makeFormGroup(vo), vo);
       this.appendTab(_tab);
     }
   }
@@ -113,7 +113,7 @@ export class ApplicManager {
         id: row.appId!,
       })?.subscribe(result => {
         if (result.success) {
-          let _tab = ApplicTabState.editTab(
+          let _tab = TabState.editTab(
             this.makeFormGroup(result.data),
             result.data,
           );

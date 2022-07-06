@@ -3,7 +3,7 @@ import { DATA_STATUS }       from '@xinyue/uasp';
 import { cloneDeep }         from 'lodash-es';
 
 import { ApplicClient, ApplicManager } from '../services';
-import { ApplicListState }             from '../types';
+import { ListState }                   from '../types';
 
 @Component({
   selector   : 'uasp-applic-list',
@@ -11,7 +11,7 @@ import { ApplicListState }             from '../types';
 })
 export class ApplicListComponent implements OnInit {
 
-  state!: ApplicListState;
+  state!: ListState;
 
   constructor(
     private client: ApplicClient,

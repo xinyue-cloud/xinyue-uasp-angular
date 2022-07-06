@@ -1,13 +1,12 @@
 import { Component, Input, OnInit }     from '@angular/core';
 import { DataStatus }                   from '@xinyue/uasp';
 import { KuAlertService, KuSelectItem } from '@xinyue/core';
+import { SweetAlertResult }             from 'sweetalert2'
 
-import { SweetAlertResult }      from 'sweetalert2'
-import { ApplicClient }          from '../services';
-import { ApplicTenantVo }        from '../models'
-import { TableOption }           from '../../../shared';
-import { ChooseService }                     from '../../choose/services/choose.service';
-import { ApplicTabState, ApplicTenantState } from '../types';
+import { ApplicTenantVo } from '../models'
+import { ApplicClient }   from '../services';
+import { TenantState }    from '../types';
+import { ChooseService }  from '../../choose';
 
 @Component({
   selector   : 'uasp-tenant-list',
@@ -15,24 +14,13 @@ import { ApplicTabState, ApplicTenantState } from '../types';
 })
 export class TenantListComponent implements OnInit {
 
-  @Input() state!: ApplicTenantState;
+  @Input() state!: TenantState;
 
   // query
   statusItems: KuSelectItem[] = [
     { id: 'V', text: '正常使用' },
     { id: 'I', text: '已经过期' },
   ]
-
-  get query(): {
-    searchText: string,
-    status: DataStatus,
-  } {
-    return this.state.query;
-  }
-
-  get option(): TableOption<ApplicTenantVo> {
-    return this.state.option!;
-  }
 
   constructor(
     private client: ApplicClient,
@@ -42,19 +30,19 @@ export class TenantListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.option.onReload = () => {
+    this.state.option.onReload = () => {
       this.onReload();
     };
   }
 
   onReload(): void {
     this.client.queryTenantPage({
-      ...this.option.params,
+      ...this.state.option.params,
     }, {
-      ...this.query,
+      ...this.state.query,
     })?.subscribe(httpResult => {
-      this.option.dataSource = httpResult.data.rows;
-      this.option.totalRecords = httpResult.data.totals;
+      this.state.option.dataSource = httpResult.data.rows;
+      this.state.option.totalRecords = httpResult.data.totals;
     });
   }
 

@@ -1,9 +1,9 @@
 import { Component, OnInit }   from '@angular/core';
 import { KuBreadcrumbService } from '@xinyue/uasp';
 
-import { ApplicManager }                     from './services';
-import { ApplicManageState, ApplicTabState } from './types';
-import { KuAlertService }                    from '@xinyue/core';
+import { ApplicManager }         from './services';
+import { ManageState, TabState } from './types';
+import { KuAlertService }        from '@xinyue/core';
 
 @Component({
   selector   : 'uasp-applic-manage',
@@ -11,7 +11,7 @@ import { KuAlertService }                    from '@xinyue/core';
 })
 export class ApplicManageComponent implements OnInit {
 
-  state!: ApplicManageState;
+  state!: ManageState;
 
   constructor(
     private breadcrumb: KuBreadcrumbService,
@@ -34,13 +34,13 @@ export class ApplicManageComponent implements OnInit {
     this.manager.showHomeTab();
   }
 
-  showTab(tab: ApplicTabState) {
+  showTab(tab: TabState) {
     if (!this.manager.tryShowTab(tab.businessKey!)) {
       this.manager.appendTab(tab);
     }
   }
 
-  tryCloseTab(tab: ApplicTabState) {
+  tryCloseTab(tab: TabState) {
     this.manager.tryCloseTab(tab);
   }
 
