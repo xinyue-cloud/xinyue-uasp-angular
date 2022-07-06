@@ -1,6 +1,6 @@
 <!-- 常用查询 -->
 <div class="mb-1 form-inline">
-  <select class="form-control form-control-sm mr-1" [(ngModel)]="query.statusValue" (change)="onReload()">
+  <select class="form-control form-control-sm mr-1" [(ngModel)]="query.status" (change)="onReload()">
     <option value="">--是否过期--</option>
     <option *ngFor="let item of statusItems" [value]="item.id">{{item.text}}</option>
   </select>

@@ -10,20 +10,20 @@
           <li class="nav-item">
             <a class="nav-link font-weight-bold" href="javascript:"
                [ngClass]="{'active': mainTabIndex === 0}"
-               (click)="onMainTabClickHome()">
+               (click)="onManageTabClickHome()">
               <i class="fas fa-list"></i> 应用列表
             </a>
           </li>
           <li class="nav-item" *ngFor="let tab of mainTabs; let i = index;">
             <a class="align-items-center d-flex nav-link" href="javascript:"
                [ngClass]="{'active': mainTabIndex === i+1}"
-               (click)="onMainTabClickTitle(tab)" title="{{tab.title}}">
+               (click)="onManageTabClickTitle(tab)" title="{{tab.title}}">
               <span *ngIf="!!tab.modified" class="font-weight-bold text-black-50 mr-1">*</span>
               <span [ngClass]="{
                     'ku-main-tab-title': mainTabs.length>=5,
                     'text-green font-weight-bold': tab.isNew
                     }" [title]="tab.title">{{tab.title}}</span>
-              <i class="fas fa-times ml-1" (click)="onMainTabClickClose(tab)"></i>
+              <i class="fas fa-times ml-1" (click)="onManageTabClickClose(tab)"></i>
             </a>
           </li>
         </ul>

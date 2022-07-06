@@ -1,9 +1,6 @@
-<form [formGroup]="form1">
+<form [formGroup]="state.formGroup">
 
-  <h4 *ngIf="loading" class="text-blue">
-    <i class="fas fa-spinner fa-spin"></i> 正在请求数据……
-  </h4>
-  <table class="table table-bordered table-sm editor mb-1" *ngIf="!loading">
+  <table class="table table-bordered table-sm editor mb-1">
     <tr>
       <th style="width: 135px;"><span>*</span><label>系统代码：</label></th>
       <td>
@@ -31,7 +28,7 @@
       <td>
         <select formControlName="type" class="form-control form-control-sm">
           <option value="">--系统类型-</option>
-          <option *ngFor="let item of applicTypes" [value]="item.id">{{item.text}}</option>
+          <option *ngFor="let item of manager.applicTypes" [value]="item.id">{{item.text}}</option>
         </select>
       </td>
     </tr>
@@ -74,13 +71,13 @@
     </tr>
   </table>
   <div>
-    <button type="submit" class="btn btn-sm btn-primary" [disabled]="submitting" (click)="onSubmit(false)">
+    <button type="submit" class="btn btn-sm btn-primary" [disabled]="submitting" (click)="submit(false)">
       {{!!submitting ? "正在提交..." : "保存"}}
     </button>
-    <button type="submit" class="btn btn-sm btn-default ml-1" [disabled]="submitting" (click)="onSubmit(true)">
+    <button type="submit" class="btn btn-sm btn-default ml-1" [disabled]="submitting" (click)="submit(true)">
       {{!!submitting ? "正在提交..." : "保存并关闭"}}
     </button>
-    <button type="button" class="btn btn-sm btn-default ml-1" (click)="onRest()" [disabled]="submitting">
+    <button type="button" class="btn btn-sm btn-default ml-1" (click)="restFormGroup()" [disabled]="submitting">
       重置
     </button>
   </div>

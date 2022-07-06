@@ -1,5 +1,5 @@
 import { Component, OnInit }                            from '@angular/core';
-import { KuBreadcrumbService, MainTab }                 from '@xinyue/uasp';
+import { KuBreadcrumbService }                          from '@xinyue/uasp';
 import { SweetAlertResult }                             from 'sweetalert2';
 import { KuAlertService, KuEventService, KuTipService } from '@xinyue/core';
 import {
@@ -8,6 +8,7 @@ import {
   FUNC_MAIN_TAB_MODIFY, FUNC_MAIN_TAB_NEW_CLOSE,
   FUNC_MAIN_TAB_NEW_MODIFY, FUNC_MAIN_TAB_SHOW_HOME, FUNC_MAIN_TAB_VIEW,
 }                                                       from './event.types';
+import { ManageTab }                                    from '../../shared';
 
 @Component({
   selector   : 'uasp-func-manage',
@@ -17,7 +18,7 @@ export class FuncManageComponent implements OnInit {
 
   // tabs
   mainTabIndex = 0;
-  mainTabs: MainTab[] = [];
+  mainTabs: ManageTab<any>[] = [];
 
   constructor(
     private breadcrumb: KuBreadcrumbService,
@@ -33,15 +34,15 @@ export class FuncManageComponent implements OnInit {
     });
     eventService.subscribe(event => {
       if (event.type === FUNC_MAIN_TAB_SHOW_HOME) {
-        this.onMainTabClickHome();
+        this.onManageTabClickHome();
       } else if (event.type === FUNC_MAIN_TAB_CLOSE_ACTIVE) {
-        this.onMainTabClose(event.payload);
+        this.onManageTabClose(event.payload);
       } else if (event.type === FUNC_MAIN_TAB_MODIFY) {
-        this.onMainTabModify(event.payload);
+        this.onManageTabModify(event.payload);
       } else if (event.type === FUNC_MAIN_TAB_NEW_MODIFY) {
-        this.onMainTabNewModify(event.payload);
+        this.onManageTabNewModify(event.payload);
       } else if (event.type === FUNC_MAIN_TAB_NEW_CLOSE) {
-        this.onMainTabCloseNew();
+        this.onManageTabCloseNew();
       } else if (event.type === FUNC_MAIN_TAB_CREATE) {
         this.onCreate(event.payload);
       } else if (event.type === FUNC_MAIN_TAB_VIEW) {
@@ -53,15 +54,15 @@ export class FuncManageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onMainTabClickHome(): void {
+  onManageTabClickHome(): void {
     this.mainTabIndex = 0;
   }
 
-  onMainTabClickTitle(tab: MainTab): void {
+  onManageTabClickTitle(tab: ManageTab<any>): void {
     this.mainTabIndex = this.mainTabs.indexOf(tab) + 1;
   }
 
-  onMainTabClickClose(tab: MainTab): void {
+  onManageTabClickClose(tab: ManageTab<any>): void {
 
     if (tab.modified) {
       this.alertService.custom({
@@ -70,7 +71,7 @@ export class FuncManageComponent implements OnInit {
         cancelButtonText : '取消',
       }, '该记录数据已经修改，是否需要保存？', '选择关闭方式')
         .then((result: SweetAlertResult) => {
-          console.info('onMainTabClose -> Confirm -> result: ', result);
+          console.info('onManageTabClose -> Confirm -> result: ', result);
           if (result.isConfirmed) {
             this.eventService.emit({
               type   : FUNC_FORM_SAVE_CLOSE,
@@ -84,24 +85,24 @@ export class FuncManageComponent implements OnInit {
           }
         });
     } else {
-      this.onMainTabClose(tab);
+      this.onManageTabClose(tab);
     }
   }
 
-  onMainTabClose(tab: MainTab): void {
+  onManageTabClose(tab: ManageTab<any>): void {
     let index = this.mainTabs.indexOf(tab) + 1;
     this.mainTabs.splice(index - 1, 1);
     this.mainTabIndex = 0;
   }
 
-  onMainTabCloseNew(): void {
+  onManageTabCloseNew(): void {
     let rows = this.mainTabs.filter(x => x.isNew);
     if (rows.length > 0) {
-      this.onMainTabClose(rows[0]);
+      this.onManageTabClose(rows[0]);
     }
   }
 
-  onMainTabNewModify(tab: MainTab): void {
+  onManageTabNewModify(tab: ManageTab<any>): void {
     let rows = this.mainTabs.filter(x => x.isNew);
     if (rows.length > 0) {
       rows[0].isNew = false;
@@ -110,7 +111,7 @@ export class FuncManageComponent implements OnInit {
     }
   }
 
-  onMainTabModify(tab: MainTab): void {
+  onManageTabModify(tab: ManageTab<any>): void {
     let rows = this.mainTabs.filter(x => x.businessKey === tab.businessKey);
     if (rows.length > 0) {
       rows[0].title = tab.title;
@@ -136,7 +137,7 @@ export class FuncManageComponent implements OnInit {
     }
   }
 
-  onView(tab: MainTab): void {
+  onView(tab: ManageTab<any>): void {
     let rows = this.mainTabs.filter(x => x.businessKey === tab.businessKey);
     if (rows.length > 0) {
       this.mainTabIndex = this.mainTabs.indexOf(rows[0]) + 1;

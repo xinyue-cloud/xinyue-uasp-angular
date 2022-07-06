@@ -3,20 +3,21 @@
   <div class="card-header p-0 pt-1 border-bottom-0">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link font-weight-bold" href="javascript:" [ngClass]="{'active': mainTabIndex === 0}"
-           (click)="onMainTabClickHome()">
+        <a class="nav-link font-weight-bold" href="javascript:" [ngClass]="{'active': state.tabIndex === 0}"
+           (click)="showHome()">
           <i class="fas fa-list"></i> 应用列表
         </a>
       </li>
-      <li class="nav-item" *ngFor="let tab of mainTabs; let i = index;">
-        <a class="align-items-center d-flex nav-link" href="javascript:" [ngClass]="{'active': mainTabIndex === i+1}"
-           (click)="onMainTabClickTitle(tab)" title="{{tab.title}}">
+      <li class="nav-item" *ngFor="let tab of state.tabs; let i = index;">
+        <a class="align-items-center d-flex nav-link" href="javascript:"
+           [ngClass]="{'active': state.tabIndex === i+1}"
+           (click)="showTab(tab)" title="{{tab.title}}">
           <span *ngIf="!!tab.modified" class="font-weight-bold text-black-50 mr-1">*</span>
           <span [ngClass]="{
-          'ku-main-tab-title': mainTabs.length>=5,
+          'ku-main-tab-title': state.tabs.length>=5,
           'text-green font-weight-bold': tab.isNew
           }" [title]="tab.title">{{tab.title}}</span>
-          <i class="fas fa-times ml-1" (click)="onMainTabClickClose(tab)"></i>
+          <i class="fas fa-times ml-1" (click)="tryCloseTab(tab)"></i>
         </a>
       </li>
     </ul>
@@ -24,57 +25,13 @@
 
   <div class="card-body p-0">
     <div class="tab-content">
-      <div class="tab-pane fade p-1" [ngClass]="{'active show': mainTabIndex === 0}">
+      <div class="tab-pane fade p-1" [ngClass]="{'active show': state.tabIndex === 0}">
         <!-- 列表视图 -->
         <uasp-applic-list></uasp-applic-list>
       </div>
-      <div class="tab-pane fade" [ngClass]="{'show active': mainTabIndex === i+1}"
-           *ngFor="let tab of mainTabs; let i = index;">
-
-        <div class="d-flex w-100">
-          <div class="ku-nav-header">
-            <div class="nav flex-column nav-tabs h-100 pl-1 pt-1">
-              <a class="nav-link" [ngClass]="{'active': tab.active === 0}" href="javascript:"
-                 (click)="tab.active = 0">
-                详情
-              </a>
-              <a class="nav-link" *ngIf="!tab.isNew" [ngClass]="{'active': tab.active === 1}" href="javascript:"
-                 (click)="tab.active = 1">
-                租用
-              </a>
-              <a class="nav-link" *ngIf="!tab.isNew" [ngClass]="{'active': tab.active === 2}" href="javascript:"
-                 (click)="tab.active = 2">
-                删除
-              </a>
-            </div>
-          </div>
-          <div class="w-100">
-            <div class="tab-content p-1">
-              <div class="tab-pane fade" [ngClass]="{'show active': tab.active === 0}">
-                <div ku-info-bar>
-                  基本资料
-                </div>
-                <uasp-applic-edit [entry]="tab"></uasp-applic-edit>
-              </div>
-              <div class="tab-pane fade" *ngIf="!tab.isNew" [ngClass]="{'show active': tab.active === 1}">
-                <div ku-info-bar>
-                  租户列表
-                </div>
-                <uasp-tenant-list [entry]="tab"></uasp-tenant-list>
-                <div ku-info-bar>
-                  往来公司
-                </div>
-                <uasp-company-list [entry]="tab"></uasp-company-list>
-              </div>
-              <div class="tab-pane fade" *ngIf="!tab.isNew" [ngClass]="{'show active': tab.active === 2}">
-                <div ku-info-bar>
-                  删除记录
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+      <div class="tab-pane fade" [ngClass]="{'show active': state.tabIndex === i+1}"
+           *ngFor="let tab of state.tabs; let i = index;">
+        <uasp-applic-tab [state]="tab"></uasp-applic-tab>
       </div>
     </div>
   </div>

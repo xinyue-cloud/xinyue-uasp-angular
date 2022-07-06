@@ -1,5 +1,6 @@
-import { ApplicTypes, ApplicVo } from '../models';
-import { DataStatus }            from '@xinyue/uasp';
+import { ApplicVo }    from '../models';
+import { DataStatus }  from '@xinyue/uasp';
+import { ApplicTypes } from '../types';
 
 export const APPLIC_DATA: ApplicVo[] = [{
   appId      : 'APP_0001',

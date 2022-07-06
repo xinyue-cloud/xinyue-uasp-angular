@@ -3984,7 +3984,7 @@ var formResetMixin = $.ui.formResetMixin = {
 	},
 
 	_bindFormResetHandler: function() {
-		this.form = this.element.form();
+		this.formGroup = this.element.form();
 		if ( !this.form.length ) {
 			return;
 		}

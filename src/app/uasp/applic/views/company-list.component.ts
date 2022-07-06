@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MainTab }                  from '@xinyue/uasp';
+import { ManageTab }                from '../../../shared';
 
 @Component({
   selector   : 'uasp-company-list',
@@ -7,7 +7,7 @@ import { MainTab }                  from '@xinyue/uasp';
 })
 export class CompanyListComponent implements OnInit {
 
-  @Input() entry!: MainTab;
+  @Input() entry!: ManageTab<any>;
 
   constructor() {
   }

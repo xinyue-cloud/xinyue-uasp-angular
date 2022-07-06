@@ -1,9 +1,10 @@
 import { Component, Input, OnInit }                             from '@angular/core';
-import { MainTab, USABLE_STATUS }                               from '@xinyue/uasp';
+import { USABLE_STATUS }                                        from '@xinyue/uasp';
 import { FormArray, FormBuilder, FormGroup, Validators }        from '@angular/forms';
 import { CodeName, KuEventService, KuSelectItem, KuTipService } from '@xinyue/core';
 import { cloneDeep }                                            from 'lodash-es';
-import { USAGE_TYPES }                                          from '../models/usage-types';
+
+import { USAGE_TYPES }             from '../models/usage-types';
 import {
   FUNC_FORM_DENY_CLOSE,
   FUNC_FORM_SAVE_CLOSE,
@@ -12,10 +13,11 @@ import {
   FUNC_MAIN_TAB_NEW_CLOSE,
   FUNC_MAIN_TAB_NEW_MODIFY,
   FUNC_SAVE_COMPLETED,
-}                                                               from '../event.types';
-import { FuncClient, FuncService }                              from '../services';
-import { DefineVo }                                             from '../models/define-vo';
-import { ModuleTypes }                                          from '../models/module-types';
+}                                  from '../event.types';
+import { FuncClient, FuncService } from '../services';
+import { DefineVo }                from '../models/define-vo';
+import { ModuleTypes }             from '../models/module-types';
+import { ManageTab }               from '../../../shared';
 
 @Component({
   selector   : 'uasp-func-edit',
@@ -23,7 +25,7 @@ import { ModuleTypes }                                          from '../models/
 })
 export class FuncEditComponent implements OnInit {
 
-  @Input() entry!: MainTab;
+  @Input() entry!: ManageTab<any>;
 
   form1!: FormGroup;
   rawData!: DefineVo;

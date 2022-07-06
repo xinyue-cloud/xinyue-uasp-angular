@@ -1,11 +1,11 @@
 <!-- 常用查询 -->
 <div class="mb-1 form-inline">
-  <select class="form-control form-control-sm mr-1" [(ngModel)]="query.statusValue" (change)="onReload()">
+  <select class="form-control form-control-sm mr-1" [(ngModel)]="state.query.status" (change)="onReload()">
     <option value="">--状态--</option>
-    <option *ngFor="let item of statusItems" [value]="item.id">{{item.text}}</option>
+    <option *ngFor="let item of state.statusItems" [value]="item.id">{{item.text}}</option>
   </select>
   <input type="text" class="form-control form-control-sm mr-1" placeholder="搜索：编号/名称"
-         [(ngModel)]="query.searchText" (change)="onReload()"/>
+         [(ngModel)]="state.query.searchText" (ngModelChange)="onReload()"/>
   <button type="button" class="btn btn-sm btn-default" (click)="onReload()">
     <i class="fas fa-search"></i> 查询
   </button>
@@ -17,9 +17,9 @@
 </div>
 
 <!-- 结果列表 -->
-<p-table [value]="option.dataSource" [lazy]="true" (onLazyLoad)="option.onLazyLoad($event)"
-         [loading]="option.loading" responsiveLayout="scroll"
-         [paginator]="true" [(rows)]="option.limit" [totalRecords]="option.totalRecords"
+<p-table [value]="state.option.dataSource" [lazy]="true" (onLazyLoad)="state.option.onLazyLoad($event)"
+         [loading]="state.option.loading" responsiveLayout="scroll"
+         [paginator]="true" [(rows)]="state.option.limit" [totalRecords]="state.option.totalRecords"
          [rowsPerPageOptions]="[10,15,20,25,50]"
          styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped fit-width">
 

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
 import {
-  Body, GET, POST, Query,
+  Body, POST, Query,
   HttpResult, KuHttpService, PageClause, PageList,
-}                 from '@xinyue/core';
-import { IdBody } from '@xinyue/uasp';
+}                     from '@xinyue/core';
+import { IdBody }     from '@xinyue/uasp';
 
 import {
   ApplicQuery, ApplicVo, ApplicBody,

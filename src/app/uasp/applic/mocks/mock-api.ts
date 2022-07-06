@@ -18,12 +18,13 @@ import { APPLIC_DATA }        from './applic.data';
 import { nanoid }             from 'nanoid';
 import { cloneDeep }          from 'lodash-es';
 import {
-  APPLIC_TYPES, ApplicBody, ApplicVo,
+  ApplicBody, ApplicVo,
   ApplicTenantBody, ApplicTenantQuery, ApplicTenantVo,
 }                             from '../models';
 import { APPLIC_TENANT_DATA } from './tenant.data'
 
-import { TENANT_DATA } from '../../tenant';
+import { TENANT_DATA }  from '../../tenant';
+import { APPLIC_TYPES } from '../types';
 
 @Injectable({
   providedIn: 'root',

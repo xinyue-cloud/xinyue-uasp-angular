@@ -1,2 +1,2 @@
 export * from './applic.client';
-export * from './applic.service';
+export * from './applic.manager';

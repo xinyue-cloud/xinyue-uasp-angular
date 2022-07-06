@@ -1,12 +1,13 @@
-import { ChangeDetectorRef, Component, Input, OnInit }  from '@angular/core';
-import { DataStatus, MainTab }                          from '@xinyue/uasp';
-import { KuAlertService, KuEventService, KuSelectItem } from '@xinyue/core';
+import { Component, Input, OnInit }     from '@angular/core';
+import { DataStatus }                   from '@xinyue/uasp';
+import { KuAlertService, KuSelectItem } from '@xinyue/core';
 
-import { SweetAlertResult }            from 'sweetalert2'
-import { ApplicClient, ApplicService } from '../services';
-import { ApplicTenantVo }              from '../models'
-import { TableOption }                 from '../../../shared/types';
-import { ChooseService }               from '../../choose/services/choose.service';
+import { SweetAlertResult }      from 'sweetalert2'
+import { ApplicClient }          from '../services';
+import { ApplicTenantVo }        from '../models'
+import { TableOption }           from '../../../shared';
+import { ChooseService }         from '../../choose/services/choose.service';
+import { TabState, TenantState } from '../types';
 
 @Component({
   selector   : 'uasp-tenant-list',
@@ -14,39 +15,40 @@ import { ChooseService }               from '../../choose/services/choose.servic
 })
 export class TenantListComponent implements OnInit {
 
-  @Input() entry!: MainTab;
+  @Input() state!: TenantState;
 
   // query
   statusItems: KuSelectItem[] = [
     { id: 'V', text: '正常使用' },
     { id: 'I', text: '已经过期' },
   ]
-  query = {
-    searchText : '',
-    statusValue: '',
+
+  get query(): {
+    searchText: string,
+    status: DataStatus,
+  } {
+    return this.state.query;
   }
 
-  // table
-  option = new TableOption<ApplicTenantVo>();
+  get option(): TableOption<ApplicTenantVo> {
+    return this.state.option!;
+  }
 
   constructor(
-    private cdf: ChangeDetectorRef,
-    private applicClient: ApplicClient,
-    private applicService: ApplicService,
-    private eventService: KuEventService,
-    private alertService: KuAlertService,
-    private chooseService: ChooseService,
+    private client: ApplicClient,
+    private alert: KuAlertService,
+    private choose: ChooseService,
   ) {
-    this.option.onReloadData = () => {
+  }
+
+  ngOnInit(): void {
+    this.option.onReload = () => {
       this.onReload();
     };
   }
 
-  ngOnInit(): void {
-  }
-
   onReload(): void {
-    this.applicClient.queryTenantPage({
+    this.client.queryTenantPage({
       ...this.option.params,
     }, {
       ...this.query,
@@ -57,7 +59,7 @@ export class TenantListComponent implements OnInit {
   }
 
   onCreate() {
-    this.chooseService.tenant({
+    this.choose.tenant({
       multiple : true,
       candidate: [
         { tenantId: '001', name: '租户名称1' },
@@ -67,8 +69,8 @@ export class TenantListComponent implements OnInit {
         { tenantId: '005', name: '租户名称5' },
       ],
     }).subscribe((selected: any) => {
-      this.applicClient.createTenant({
-        appId   : this.entry.businessKey!,
+      this.client.createTenant({
+        appId   : this.state.tab.businessKey!,
         tenantId: selected.tenantId,
         status  : DataStatus.Valid,
       });
@@ -76,10 +78,11 @@ export class TenantListComponent implements OnInit {
   }
 
   onRemove(row: ApplicTenantVo) {
-    this.alertService
+    this.alert
       .confirm('确认要移除此租户吗？', '确认')
       .then((result: SweetAlertResult) => {
         if (result.isConfirmed) {
+          console.info(result);
         }
       });
   }

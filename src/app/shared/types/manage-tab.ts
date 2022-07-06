@@ -1,9 +1,8 @@
-export interface MainTab {
+export interface ManageTab<T> {
   title: string;
   isNew?: boolean;
   type?: string;
   businessKey?: string;
   modified?: boolean;
-  active?: number;
-  data?: any
+  data: T;
 }

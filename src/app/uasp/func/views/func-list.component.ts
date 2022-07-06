@@ -51,7 +51,7 @@ export class FuncListComponent implements OnInit, OnDestroy {
         this.onReload();
       }
     });
-    this.option.onReloadData = () => {
+    this.option.onReload = () => {
       this.onReload();
     };
   }
